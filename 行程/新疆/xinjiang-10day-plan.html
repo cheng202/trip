@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新疆10天旅行计划 - 10月15日出发</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-secondary: #f7f7f5;
+    --text: #2c2c2a;
+    --text-secondary: #5f5e5a;
+    --text-tertiary: #888780;
+    --border: rgba(0,0,0,0.12);
+    --blue: #378ADD;
+    --blue-light: #E6F1FB;
+    --pink: #D4537E;
+    --pink-light: #FBEAF0;
+    --amber: #BA7517;
+    --amber-light: #FAEEDA;
+    --green: #3B6D11;
+    --green-light: #EAF3DE;
+    --red: #A32D2D;
+    --red-light: #FCEBEB;
+    --teal: #0F6E56;
+    --teal-light: #E1F5EE;
+    --purple: #534AB7;
+    --purple-light: #EEEDFE;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text);
+    background: var(--bg-secondary);
+    line-height: 1.6;
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 900px; margin: 0 auto; }
+  .page-header { text-align: center; margin-bottom: 2rem; }
+  .page-header h1 { font-size: 26px; font-weight: 500; margin-bottom: 6px; }
+  .page-header p { font-size: 14px; color: var(--text-secondary); }
+  .page-header .meta { display: inline-flex; gap: 12px; margin-top: 8px; font-size: 12px; color: var(--text-tertiary); flex-wrap: wrap; justify-content: center; }
+  .page-header .meta span { background: var(--bg); padding: 3px 10px; border-radius: 20px; border: 0.5px solid var(--border); }
+  .page-header .highlight { background: var(--green-light); color: var(--green); border-color: transparent; font-weight: 500; }
+
+  .toc { background: var(--bg); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 16px 24px; margin-bottom: 2rem; }
+  .toc h3 { font-size: 14px; font-weight: 500; margin-bottom: 10px; }
+  .toc ul { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 6px; }
+  .toc a { color: var(--blue); text-decoration: none; font-size: 13px; padding: 4px 0; display: block; transition: color .15s; }
+  .toc a:hover { color: var(--text); }
+
+  .section { background: var(--bg); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 24px 28px; margin-bottom: 1.5rem; }
+  .section h2 { font-size: 18px; font-weight: 500; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 0.5px solid var(--border); }
+  .section h3 { font-size: 15px; font-weight: 500; margin: 20px 0 10px; }
+
+  .metric-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+  .metric-card { background: var(--bg-secondary); border-radius: var(--radius-sm); padding: 14px; text-align: center; }
+  .metric-card .label { font-size: 11px; color: var(--text-tertiary); margin-bottom: 4px; }
+  .metric-card .value { font-size: 18px; font-weight: 500; }
+  .metric-card .sub { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 12px; }
+  thead th { background: var(--bg-secondary); font-weight: 500; text-align: left; padding: 10px 12px; border-bottom: 0.5px solid var(--border); font-size: 12px; color: var(--text-secondary); }
+  tbody td { padding: 10px 12px; border-bottom: 0.5px solid rgba(0,0,0,0.06); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  .badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 500; }
+  .badge-green { background: var(--green-light); color: var(--green); }
+  .badge-amber { background: var(--amber-light); color: var(--amber); }
+  .badge-red { background: var(--red-light); color: var(--red); }
+  .badge-blue { background: var(--blue-light); color: var(--blue); }
+  .badge-purple { background: var(--purple-light); color: var(--purple); }
+  .badge-teal { background: var(--teal-light); color: var(--teal); }
+
+  .day-card { background: var(--bg-secondary); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 20px 24px; margin-bottom: 16px; position: relative; }
+  .day-card .day-num { position: absolute; top: -1px; left: 20px; background: var(--blue); color: #fff; font-size: 12px; font-weight: 500; padding: 2px 12px; border-radius: 0 0 8px 8px; }
+  .day-card.north .day-num { background: var(--teal); }
+  .day-card.south .day-num { background: var(--amber); }
+  .day-card.transfer .day-num { background: var(--purple); }
+  .day-card .day-title { font-size: 16px; font-weight: 500; margin-bottom: 12px; padding-left: 90px; }
+  .day-card .day-date { font-size: 12px; color: var(--text-tertiary); font-weight: 400; margin-left: 8px; }
+  .day-card .day-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .day-card .info-item { font-size: 13px; }
+  .day-card .info-item .info-label { color: var(--text-tertiary); font-size: 11px; margin-bottom: 2px; }
+  .day-card .itinerary { grid-column: 1 / -1; font-size: 13px; color: var(--text-secondary); line-height: 1.8; }
+  .day-card .cost-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; padding-top: 10px; border-top: 0.5px dashed rgba(0,0,0,0.1); }
+  .day-card .cost-tag { font-size: 12px; color: var(--text-secondary); background: var(--bg); padding: 3px 10px; border-radius: 6px; border: 0.5px solid var(--border); }
+  .day-card .cost-tag strong { color: var(--red); }
+
+  .tip-box { background: var(--blue-light); border-radius: var(--radius-sm); padding: 14px 18px; margin-top: 12px; font-size: 13px; color: var(--text); border-left: 3px solid var(--blue); }
+  .tip-box strong { color: var(--blue); }
+
+  .budget-bar { display: flex; height: 28px; border-radius: 6px; overflow: hidden; margin: 12px 0; font-size: 11px; font-weight: 500; }
+  .budget-bar div { display: flex; align-items: center; justify-content: center; color: #fff; }
+
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px; }
+  .compare-card { border-radius: var(--radius-sm); padding: 18px; border: 0.5px solid var(--border); }
+  .compare-card h4 { font-size: 14px; font-weight: 500; margin-bottom: 8px; }
+  .compare-card .total { font-size: 22px; font-weight: 500; margin: 8px 0; }
+  .compare-card ul { font-size: 13px; color: var(--text-secondary); padding-left: 18px; line-height: 1.8; }
+  .compare-card.recommended { border: 2px solid var(--green); position: relative; }
+  .compare-card.recommended::after { content: '推荐'; position: absolute; top: -10px; right: 12px; background: var(--green); color: #fff; font-size: 11px; padding: 2px 10px; border-radius: 10px; font-weight: 500; }
+
+  @media (max-width: 600px) {
+    body { padding: 1rem 0.5rem; }
+    .section { padding: 16px; }
+    .metric-row { grid-template-columns: repeat(2, 1fr); }
+    .day-card .day-grid { grid-template-columns: 1fr; }
+    .day-card .day-title { padding-left: 0; margin-top: 24px; }
+    .compare-grid { grid-template-columns: 1fr; }
+  }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .section, .day-card { break-inside: avoid; border: 1px solid #ddd; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="page-header">
+    <h1>新疆 10 天旅行计划</h1>
+    <p>南北疆全覆盖 | 10月15日出发 | 胡杨金秋季</p>
+    <div class="meta">
+      <span>数据来源：携程问道</span>
+      <span>机票为10月15日实时价格</span>
+      <span class="highlight">去程机票仅 ¥540</span>
+    </div>
+  </div>
+
+  <div class="toc">
+    <h3>目录</h3>
+    <ul>
+      <li><a href="#overview">预算总览</a></li>
+      <li><a href="#compare">舒适 vs 省钱方案</a></li>
+      <li><a href="#north">北疆段（Day 1-6）</a></li>
+      <li><a href="#transfer">南北疆过渡（Day 7）</a></li>
+      <li><a href="#south">南疆段（Day 8-9）</a></li>
+      <li><a href="#return">返程（Day 10）</a></li>
+      <li><a href="#summary">费用汇总</a></li>
+      <li><a href="#money">省钱攻略</a></li>
+    </ul>
+  </div>
+
+  <!-- 预算总览 -->
+  <div class="section" id="overview">
+    <h2>预算总览（10月15日-24日，经济型）</h2>
+
+    <div class="metric-row">
+      <div class="metric-card">
+        <div class="label">总预算（舒适）</div>
+        <div class="value" style="color:var(--red)">~5,800</div>
+        <div class="sub">元/人 飞机往返</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">总预算（省钱）</div>
+        <div class="value" style="color:var(--green)">~3,500</div>
+        <div class="sub">元/人 火车返程</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">去程机票</div>
+        <div class="value" style="color:var(--green)">540元</div>
+        <div class="sub">10/15 实时价</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">返程机票</div>
+        <div class="value" style="color:var(--red)">2,750元</div>
+        <div class="sub">10/25 乌鲁木齐</div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>费用项</th><th>明细</th><th>舒适方案</th><th>省钱方案</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>去程机票</td><td>10/15 武汉 → 乌鲁木齐（中转，约9h）</td><td><strong>540</strong></td><td><strong>540</strong></td></tr>
+        <tr><td>返程</td><td>10/24-25 乌鲁木齐 → 武汉</td><td><strong>2,750</strong></td><td><strong>450</strong>（火车硬卧35h）</td></tr>
+        <tr><td>当地交通</td><td>拼车 + 区间车（全程）</td><td><strong>1,000</strong></td><td><strong>1,000</strong></td></tr>
+        <tr><td>住宿（9晚）</td><td>经济型酒店/民宿，均价 130 元/晚（10月淡季价）</td><td><strong>1,170</strong></td><td><strong>1,170</strong></td></tr>
+        <tr><td>门票</td><td>天池 + 可可托海 + 喀纳斯 + 五彩滩 + 魔鬼城 + 大峡谷 + 白沙湖</td><td><strong>710</strong></td><td><strong>710</strong></td></tr>
+        <tr><td>餐饮</td><td>日均 80 元 x 10 天</td><td><strong>800</strong></td><td><strong>800</strong></td></tr>
+        <tr style="font-weight:500;background:var(--bg-secondary)">
+          <td colspan="2">合计</td>
+          <td style="color:var(--red);font-size:15px"><strong>~6,970</strong></td>
+          <td style="color:var(--green);font-size:15px"><strong>~4,670</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:16px">
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:6px">费用构成占比（省钱方案）</div>
+      <div class="budget-bar">
+        <div style="width:21%;background:var(--blue)">去程 21%</div>
+        <div style="width:10%;background:#0C447C">返程 10%</div>
+        <div style="width:21%;background:var(--teal)">交通 21%</div>
+        <div style="width:25%;background:var(--amber)">住宿 25%</div>
+        <div style="width:15%;background:var(--purple)">门票 15%</div>
+        <div style="width:17%;background:var(--pink)">餐饮 17%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 舒适 vs 省钱 -->
+  <div class="section" id="compare">
+    <h2>返程方案对比</h2>
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:8px">10月25日（周日）返程机票高达 ¥2,750，是整个行程最大的开支。以下两种方案：</p>
+
+    <div class="compare-grid">
+      <div class="compare-card recommended">
+        <h4>省钱方案：火车返程</h4>
+        <div class="total" style="color:var(--green)">总 ~4,670 元</div>
+        <ul>
+          <li>Day 10 喀什 → 乌鲁木齐（飞机 ¥300，1.5h）</li>
+          <li>乌鲁木齐住一晚（¥130）</li>
+          <li>Day 11 乌鲁木齐 → 武昌（Z36 火车硬卧 ¥450，35h）</li>
+          <li>Day 12 抵达武汉</li>
+          <li><strong>总返程费用：¥880</strong>（省 ¥1,870）</li>
+          <li>多花 1 天在路上，但沿途风景壮美</li>
+        </ul>
+      </div>
+      <div class="compare-card">
+        <h4>舒适方案：飞机返程</h4>
+        <div class="total" style="color:var(--red)">总 ~6,970 元</div>
+        <ul>
+          <li>Day 10 喀什 → 乌鲁木齐（飞机 ¥300，1.5h）</li>
+          <li>乌鲁木齐 → 武汉（SC4866 经青岛中转 ¥2,750，约9h）</li>
+          <li><strong>总返程费用：¥3,050</strong></li>
+          <li>当天抵达武汉</li>
+          <li>时间紧张或预算充足时选择</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tip-box" style="margin-top:12px; border-left-color: var(--amber);">
+      <strong>其他选项：</strong>10月24日（周六）返程可能更便宜；或从喀什直飞武汉（¥3,300，经西安中转），但更贵。建议提前关注价格变动。
+    </div>
+  </div>
+
+  <!-- 路线图 -->
+  <div class="section">
+    <h2>路线概览（10月15日-24日）</h2>
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px">10月中下旬新疆胡杨金黄、秋色绝美，游客已大幅减少，性价比极高！</p>
+
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;margin:12px 0">
+      <span class="badge badge-blue">武汉 10/15</span>
+      <span style="color:var(--text-tertiary)">→</span>
+      <span class="badge badge-teal">乌鲁木齐</span>
+      <span style="color:var(--text-tertiary)">→</span>
+      <span class="badge badge-teal">天山天池</span>
+      <span style="color:var(--text-tertiary)">→</span>
+      <span class="badge badge-teal">可可托海</span>
+      <span style="color:var(--text-tertiary)">→</span>
+      <span class="badge badge-teal">布尔津</span>
+      <span style="color:var(--text-tertiary)">→</span>
+      <span class="badge badge-teal">喀纳斯</span>
+      <span style="color:var(--text-tertiary)">→</span>
+      <span class="badge badge-teal">乌尔禾</span>
+      <span style="color:var(--text-tertiary)">→</span>
+      <span class="badge badge-purple">独库公路</span>
+      <span style="color:var(--text-tertiary)">→</span>
+      <span class="badge badge-amber">库车</span>
+      <span style="color:var(--text-tertiary)">→</span>
+      <span class="badge badge-amber">喀什</span>
+      <span style="color:var(--text-tertiary)">→</span>
+      <span class="badge badge-blue">武汉 10/24-26</span>
+    </div>
+  </div>
+
+  <!-- 北疆段 -->
+  <div class="section" id="north">
+    <h2>北疆段（Day 1-6）</h2>
+
+    <div class="day-card north">
+      <div class="day-num">Day 1</div>
+      <div class="day-title">武汉 → 乌鲁木齐 <span class="day-date">10月15日 周四</span></div>
+      <div class="day-grid">
+        <div class="info-item">
+          <div class="info-label">交通</div>
+          SC4866 武汉 14:45 → 青岛 → 乌鲁木齐 23:40（中转，约9h）
+        </div>
+        <div class="info-item">
+          <div class="info-label">住宿</div>
+          乌鲁木齐市区经济型酒店，约 130 元/晚（10月淡季价）
+        </div>
+        <div class="itinerary">
+          <strong>行程：</strong>下午抵达后入住酒店休息；如精力充沛可逛附近夜市，尝烤串、手抓饭，人均 40 元
+        </div>
+      </div>
+      <div class="cost-row">
+        <span class="cost-tag">机票 <strong>540</strong></span>
+        <span class="cost-tag">住宿 <strong>130</strong></span>
+        <span class="cost-tag">餐饮 <strong>40</strong></span>
+        <span class="cost-tag">门票 <strong>0</strong></span>
+        <span class="cost-tag" style="border-color:var(--green);color:var(--green)">当日合计 <strong>710</strong></span>
+      </div>
+    </div>
+
+    <div class="day-card north">
+      <div class="day-num">Day 2</div>
+      <div class="day-title">乌鲁木齐 → 天山天池 → 阜康 <span class="day-date">10月16日</span></div>
+      <div class="day-grid">
+        <div class="info-item">
+          <div class="info-label">交通</div>
+          拼车往返约 80 元，单程约 2h
+        </div>
+        <div class="info-item">
+          <div class="info-label">住宿</div>
+          阜康市经济型酒店，约 130 元/晚
+        </div>
+        <div class="itinerary">
+          <strong>行程：</strong>全天游天山天池（门票+区间车 155 元），10月天池秋色金黄，雪山倒映；傍晚返阜康
+        </div>
+      </div>
+      <div class="cost-row">
+        <span class="cost-tag">拼车 <strong>80</strong></span>
+        <span class="cost-tag">住宿 <strong>130</strong></span>
+        <span class="cost-tag">餐饮 <strong>80</strong></span>
+        <span class="cost-tag">门票 <strong>155</strong></span>
+        <span class="cost-tag" style="border-color:var(--red);color:var(--red)">当日合计 <strong>445</strong></span>
+      </div>
+    </div>
+
+    <div class="day-card north">
+      <div class="day-num">Day 3</div>
+      <div class="day-title">阜康 → 可可托海 <span class="day-date">10月17日</span></div>
+      <div class="day-grid">
+        <div class="info-item">
+          <div class="info-label">交通</div>
+          拼车约 150 元，车程约 5h
+        </div>
+        <div class="info-item">
+          <div class="info-label">住宿</div>
+          可可托海镇民宿，约 130 元/晚
+        </div>
+        <div class="itinerary">
+          <strong>行程：</strong>下午游额尔齐斯大峡谷（门票 90 元），看神钟山、夫妻树；10月白桦林金黄一片，极其壮观
+        </div>
+      </div>
+      <div class="cost-row">
+        <span class="cost-tag">拼车 <strong>150</strong></span>
+        <span class="cost-tag">住宿 <strong>130</strong></span>
+        <span class="cost-tag">餐饮 <strong>80</strong></span>
+        <span class="cost-tag">门票 <strong>90</strong></span>
+        <span class="cost-tag" style="border-color:var(--red);color:var(--red)">当日合计 <strong>450</strong></span>
+      </div>
+    </div>
+
+    <div class="day-card north">
+      <div class="day-num">Day 4</div>
+      <div class="day-title">可可托海 → 布尔津 <span class="day-date">10月18日</span></div>
+      <div class="day-grid">
+        <div class="info-item">
+          <div class="info-label">交通</div>
+          拼车约 120 元，车程约 4h
+        </div>
+        <div class="info-item">
+          <div class="info-label">住宿</div>
+          布尔津县城酒店，约 130 元/晚
+        </div>
+        <div class="itinerary">
+          <strong>行程：</strong>傍晚五彩滩看日落（门票 45 元），10月额尔齐斯河两岸白桦金黄；夜市吃冷水鱼，人均 50 元
+        </div>
+      </div>
+      <div class="cost-row">
+        <span class="cost-tag">拼车 <strong>120</strong></span>
+        <span class="cost-tag">住宿 <strong>130</strong></span>
+        <span class="cost-tag">餐饮 <strong>50</strong></span>
+        <span class="cost-tag">门票 <strong>45</strong></span>
+        <span class="cost-tag" style="border-color:var(--red);color:var(--red)">当日合计 <strong>345</strong></span>
+      </div>
+    </div>
+
+    <div class="day-card north">
+      <div class="day-num">Day 5</div>
+      <div class="day-title">布尔津 → 喀纳斯 <span class="day-date">10月19日</span></div>
+      <div class="day-grid">
+        <div class="info-item">
+          <div class="info-label">交通</div>
+          拼车约 100 元，车程约 3h
+        </div>
+        <div class="info-item">
+          <div class="info-label">住宿</div>
+          贾登峪经济型酒店，约 150 元/晚（10月已回落）
+        </div>
+        <div class="itinerary">
+          <strong>行程：</strong>全天游喀纳斯（门票 160 元+区间车 70 元），逛三湾（神仙湾、月亮湾、卧龙湾）；10月喀纳斯层林尽染，是一年中最美的时候
+        </div>
+      </div>
+      <div class="cost-row">
+        <span class="cost-tag">拼车 <strong>100</strong></span>
+        <span class="cost-tag">住宿 <strong>150</strong></span>
+        <span class="cost-tag">餐饮 <strong>80</strong></span>
+        <span class="cost-tag">门票 <strong>230</strong></span>
+        <span class="cost-tag" style="border-color:var(--red);color:var(--red)">当日合计 <strong>560</strong></span>
+      </div>
+    </div>
+
+    <div class="day-card north">
+      <div class="day-num">Day 6</div>
+      <div class="day-title">喀纳斯 → 乌尔禾魔鬼城 → 奎屯 <span class="day-date">10月20日</span></div>
+      <div class="day-grid">
+        <div class="info-item">
+          <div class="info-label">交通</div>
+          拼车约 180 元，车程约 6h
+        </div>
+        <div class="info-item">
+          <div class="info-label">住宿</div>
+          奎屯市酒店，约 130 元/晚
+        </div>
+        <div class="itinerary">
+          <strong>行程：</strong>下午游乌尔禾魔鬼城（门票 60 元），看雅丹地貌；傍晚看日落；夜宿奎屯
+        </div>
+      </div>
+      <div class="cost-row">
+        <span class="cost-tag">拼车 <strong>180</strong></span>
+        <span class="cost-tag">住宿 <strong>130</strong></span>
+        <span class="cost-tag">餐饮 <strong>80</strong></span>
+        <span class="cost-tag">门票 <strong>60</strong></span>
+        <span class="cost-tag" style="border-color:var(--red);color:var(--red)">当日合计 <strong>450</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 南北疆过渡 -->
+  <div class="section" id="transfer">
+    <h2>南北疆过渡（Day 7）</h2>
+
+    <div class="day-card transfer">
+      <div class="day-num">Day 7</div>
+      <div class="day-title">奎屯 → 独库公路 → 库车 <span class="day-date">10月21日</span></div>
+      <div class="day-grid">
+        <div class="info-item">
+          <div class="info-label">交通</div>
+          拼车约 200 元，车程约 7h（独库公路北段+南段）
+        </div>
+        <div class="info-item">
+          <div class="info-label">住宿</div>
+          库车市酒店，约 130 元/晚
+        </div>
+        <div class="itinerary">
+          <strong>行程：</strong>穿越独库公路，一日四季；10月底独库可能已封路（通常10月中旬关闭），<strong>需提前确认路况</strong>。若封路可改走 G30 连霍高速（拼车约 150 元，8h）
+        </div>
+      </div>
+      <div class="cost-row">
+        <span class="cost-tag">拼车 <strong>200</strong></span>
+        <span class="cost-tag">住宿 <strong>130</strong></span>
+        <span class="cost-tag">餐饮 <strong>30</strong></span>
+        <span class="cost-tag">门票 <strong>0</strong></span>
+        <span class="cost-tag" style="border-color:var(--red);color:var(--red)">当日合计 <strong>360</strong></span>
+      </div>
+    </div>
+
+    <div class="tip-box" style="border-left-color: var(--red);">
+      <strong>重要提醒：</strong>独库公路通常在 10 月中下旬因降雪封闭。10月21日走独库有风险，建议出发前查询实时路况。备选方案：奎屯 → 乌鲁木齐 → 库车（火车，约12h，票价约 ¥150）。
+    </div>
+  </div>
+
+  <!-- 南疆段 -->
+  <div class="section" id="south">
+    <h2>南疆段（Day 8-9）</h2>
+
+    <div class="day-card south">
+      <div class="day-num">Day 8</div>
+      <div class="day-title">库车 → 喀什 <span class="day-date">10月22日</span></div>
+      <div class="day-grid">
+        <div class="info-item">
+          <div class="info-label">交通</div>
+          火车硬座约 50 元（4h）或拼车约 120 元
+        </div>
+        <div class="info-item">
+          <div class="info-label">住宿</div>
+          喀什老城民宿，约 130 元/晚
+        </div>
+        <div class="itinerary">
+          <strong>行程：</strong>上午游天山神秘大峡谷（门票 90 元）；下午赴喀什，逛老城、艾提尕尔清真寺（免费）；晚逛喀什夜市，10月南疆瓜果丰收季
+        </div>
+      </div>
+      <div class="cost-row">
+        <span class="cost-tag">火车/拼车 <strong>50-120</strong></span>
+        <span class="cost-tag">住宿 <strong>130</strong></span>
+        <span class="cost-tag">餐饮 <strong>80</strong></span>
+        <span class="cost-tag">门票 <strong>90</strong></span>
+        <span class="cost-tag" style="border-color:var(--red);color:var(--red)">当日合计 <strong>~380</strong></span>
+      </div>
+    </div>
+
+    <div class="day-card south">
+      <div class="day-num">Day 9</div>
+      <div class="day-title">喀什一日游 <span class="day-date">10月23日</span></div>
+      <div class="day-grid">
+        <div class="info-item">
+          <div class="info-label">交通</div>
+          市区公交+拼车，约 50 元
+        </div>
+        <div class="info-item">
+          <div class="info-label">住宿</div>
+          喀什老城民宿，约 130 元/晚
+        </div>
+        <div class="itinerary">
+          <strong>行程：</strong>上午香妃墓（免费）；下午白沙湖（拼车约 100 元，门票 40 元）；晚返喀什，百年老茶馆喝茶
+        </div>
+      </div>
+      <div class="cost-row">
+        <span class="cost-tag">交通 <strong>50</strong></span>
+        <span class="cost-tag">白沙湖拼车 <strong>100</strong></span>
+        <span class="cost-tag">住宿 <strong>130</strong></span>
+        <span class="cost-tag">餐饮 <strong>80</strong></span>
+        <span class="cost-tag">门票 <strong>40</strong></span>
+        <span class="cost-tag" style="border-color:var(--red);color:var(--red)">当日合计 <strong>400</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 返程 -->
+  <div class="section" id="return">
+    <h2>返程（Day 10+）</h2>
+
+    <div class="day-card" style="border-left:3px solid var(--green)">
+      <div class="day-num" style="background:var(--green)">Day 10</div>
+      <div class="day-title">喀什 → 乌鲁木齐 <span class="day-date">10月24日 周五</span></div>
+      <div class="day-grid">
+        <div class="info-item">
+          <div class="info-label">交通</div>
+          喀什 → 乌鲁木齐（飞机约 300 元，1.5h）
+        </div>
+        <div class="info-item">
+          <div class="info-label">住宿</div>
+          省钱方案：乌鲁木齐住一晚 ¥130<br>舒适方案：当晚飞武汉
+        </div>
+        <div class="itinerary">
+          <strong>行程：</strong>早起逛喀什老城早市；中午飞乌市；<br>
+          <strong>省钱方案：</strong>下午逛国际大巴扎（免费），傍晚红山公园看日落；晚宿乌市<br>
+          <strong>舒适方案：</strong>转机飞武汉（约 ¥2,750），当晚抵达
+        </div>
+      </div>
+      <div class="cost-row">
+        <span class="cost-tag">机票（喀什→乌市） <strong>300</strong></span>
+        <span class="cost-tag">住宿（省钱） <strong>130</strong></span>
+        <span class="cost-tag">机票（舒适，乌市→武汉） <strong>2,750</strong></span>
+        <span class="cost-tag">餐饮 <strong>50</strong></span>
+      </div>
+    </div>
+
+    <div class="day-card" style="border-left:3px solid var(--green)">
+      <div class="day-num" style="background:var(--green)">Day 11</div>
+      <div class="day-title">乌鲁木齐 → 武汉（省钱方案） <span class="day-date">10月25日 周六</span></div>
+      <div class="day-grid">
+        <div class="info-item">
+          <div class="info-label">交通</div>
+          Z36 乌鲁木齐 → 武昌（火车硬卧 ¥450，35h）
+        </div>
+        <div class="info-item">
+          <div class="info-label">住宿</div>
+          火车上过夜
+        </div>
+        <div class="itinerary">
+          <strong>行程：</strong>上午逛乌鲁木齐；19:01 乘 Z36 出发，车上过夜
+        </div>
+      </div>
+      <div class="cost-row">
+        <span class="cost-tag">火车硬卧 <strong>450</strong></span>
+        <span class="cost-tag">餐饮 <strong>30</strong></span>
+      </div>
+    </div>
+
+    <div class="day-card" style="border-left:3px solid var(--green)">
+      <div class="day-num" style="background:var(--green)">Day 12</div>
+      <div class="day-title">抵达武汉 <span class="day-date">10月26日 周日</span></div>
+      <div class="day-grid">
+        <div class="info-item">
+          <div class="info-label">交通</div>
+          次日 06:54 抵达武昌站
+        </div>
+        <div class="itinerary">
+          <strong>行程：</strong>清晨抵达武汉，旅途结束。10月26日周日，还有一天休息调整。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 每日费用汇总 -->
+  <div class="section" id="summary">
+    <h2>每日费用汇总</h2>
+
+    <h3>省钱方案（火车返程）总价 ~4,670 元/人</h3>
+    <table>
+      <thead>
+        <tr><th>天数</th><th>日期</th><th>行程</th><th>交通</th><th>住宿</th><th>餐饮</th><th>门票</th><th>合计</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Day 1</td><td>10/15</td><td>武汉 → 乌鲁木齐</td><td>540</td><td>130</td><td>40</td><td>0</td><td><strong>710</strong></td></tr>
+        <tr><td>Day 2</td><td>10/16</td><td>天山天池</td><td>80</td><td>130</td><td>80</td><td>155</td><td><strong>445</strong></td></tr>
+        <tr><td>Day 3</td><td>10/17</td><td>可可托海</td><td>150</td><td>130</td><td>80</td><td>90</td><td><strong>450</strong></td></tr>
+        <tr><td>Day 4</td><td>10/18</td><td>布尔津/五彩滩</td><td>120</td><td>130</td><td>50</td><td>45</td><td><strong>345</strong></td></tr>
+        <tr><td>Day 5</td><td>10/19</td><td>喀纳斯</td><td>100</td><td>150</td><td>80</td><td>230</td><td><strong>560</strong></td></tr>
+        <tr><td>Day 6</td><td>10/20</td><td>魔鬼城/奎屯</td><td>180</td><td>130</td><td>80</td><td>60</td><td><strong>450</strong></td></tr>
+        <tr><td>Day 7</td><td>10/21</td><td>独库公路 → 库车</td><td>200</td><td>130</td><td>30</td><td>0</td><td><strong>360</strong></td></tr>
+        <tr><td>Day 8</td><td>10/22</td><td>库车 → 喀什</td><td>85</td><td>130</td><td>80</td><td>90</td><td><strong>385</strong></td></tr>
+        <tr><td>Day 9</td><td>10/23</td><td>喀什一日游</td><td>150</td><td>130</td><td>80</td><td>40</td><td><strong>400</strong></td></tr>
+        <tr><td>Day 10</td><td>10/24</td><td>喀什 → 乌鲁木齐</td><td>300</td><td>130</td><td>50</td><td>0</td><td><strong>480</strong></td></tr>
+        <tr><td>Day 11</td><td>10/25</td><td>乌鲁木齐 → 武汉</td><td>450</td><td>0</td><td>30</td><td>0</td><td><strong>480</strong></td></tr>
+        <tr style="font-weight:500;background:var(--bg-secondary)">
+          <td colspan="3">合计（11天）</td><td>2,455</td><td>1,300</td><td>680</td><td>710</td><td style="color:var(--green);font-size:15px"><strong>~5,145</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:20px">舒适方案（飞机返程）总价 ~6,970 元/人</h3>
+    <table>
+      <thead>
+        <tr><th>项目</th><th>金额</th><th>说明</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>去程机票</td><td>540</td><td>10/15 武汉→乌鲁木齐（SC4866 经青岛）</td></tr>
+        <tr><td>返程机票</td><td>3,050</td><td>喀什→乌鲁木齐 ¥300 + 乌鲁木齐→武汉 ¥2,750</td></tr>
+        <tr><td>当地交通</td><td>1,000</td><td>全程拼车+区间车</td></tr>
+        <tr><td>住宿（9晚）</td><td>1,170</td><td>均价 ¥130/晚</td></tr>
+        <tr><td>门票</td><td>710</td><td>核心景点门票</td></tr>
+        <tr><td>餐饮</td><td>800</td><td>日均 ¥80</td></tr>
+        <tr style="font-weight:500;background:var(--bg-secondary)">
+          <td>合计</td><td style="color:var(--red);font-size:15px"><strong>~7,270</strong></td><td>10天，当天返程</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 省钱攻略 -->
+  <div class="section" id="money">
+    <h2>省钱攻略（10月专属）</h2>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:12px">
+      <div style="background:var(--green-light);border-radius:var(--radius-sm);padding:16px;border:0.5px solid var(--border)">
+        <div style="font-size:14px;font-weight:500;margin-bottom:6px">去程机票超便宜</div>
+        <div style="font-size:13px;color:var(--text-secondary)">10月15日武汉→乌鲁木齐仅 ¥540，比暑假省 1000+</div>
+      </div>
+      <div style="background:var(--red-light);border-radius:var(--radius-sm);padding:16px;border:0.5px solid var(--border)">
+        <div style="font-size:14px;font-weight:500;margin-bottom:6px">返程机票很贵</div>
+        <div style="font-size:13px;color:var(--text-secondary)">10/25 乌鲁木齐→武汉 ¥2,750，建议火车返程（¥450）</div>
+      </div>
+      <div style="background:var(--blue-light);border-radius:var(--radius-sm);padding:16px;border:0.5px solid var(--border)">
+        <div style="font-size:14px;font-weight:500;margin-bottom:6px">全程拼车</div>
+        <div style="font-size:13px;color:var(--text-secondary)">2-4 人拼车，比包车便宜 50%，灵活度高</div>
+      </div>
+      <div style="background:var(--amber-light);border-radius:var(--radius-sm);padding:16px;border:0.5px solid var(--border)">
+        <div style="font-size:14px;font-weight:500;margin-bottom:6px">住宿已降价</div>
+        <div style="font-size:13px;color:var(--text-secondary)">10月住宿均价 ¥130/晚，比暑假便宜 50%</div>
+      </div>
+      <div style="background:var(--purple-light);border-radius:var(--radius-sm);padding:16px;border:0.5px solid var(--border)">
+        <div style="font-size:14px;font-weight:500;margin-bottom:6px">带学生证</div>
+        <div style="font-size:13px;color:var(--text-secondary)">门票可半价：喀纳斯 115 元、天池 77 元</div>
+      </div>
+      <div style="background:var(--teal-light);border-radius:var(--radius-sm);padding:16px;border:0.5px solid var(--border)">
+        <div style="font-size:14px;font-weight:500;margin-bottom:6px">10月独有景色</div>
+        <div style="font-size:13px;color:var(--text-secondary)">胡杨金黄、喀纳斯秋色、南疆瓜果丰收，值回票价</div>
+      </div>
+    </div>
+
+    <div class="tip-box" style="margin-top:16px">
+      <strong>核心结论：</strong>10月去新疆，去程机票便宜（¥540），住宿便宜（¥130/晚），景色绝美。唯一痛点是返程机票贵（¥2,750）。选火车返程可省 ¥2,300，总预算压到 <strong>~4,670 元/人</strong>，性价比极高！
+    </div>
+  </div>
+
+  <!-- 住宿价格参考 -->
+  <div class="section">
+    <h2>10月住宿价格参考</h2>
+    <table>
+      <thead>
+        <tr><th>城市</th><th>经济型</th><th>中端</th><th>说明</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>乌鲁木齐</td><td>120-200</td><td>250-400</td><td>全年最稳，选择多</td></tr>
+        <tr><td>喀纳斯/禾木</td><td>150-300</td><td>300-600</td><td>10月秋色季，价格仍较高</td></tr>
+        <tr><td>布尔津</td><td>100-180</td><td>200-350</td><td>国庆后明显回落</td></tr>
+        <tr><td>喀什</td><td>100-180</td><td>200-350</td><td>全年平稳，老城民宿有特色</td></tr>
+        <tr><td>库车</td><td>100-150</td><td>180-300</td><td>价格亲民</td></tr>
+        <tr><td>奎屯</td><td>100-160</td><td>180-300</td><td>中转城市，选择多</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="text-align:center;padding:20px 0;font-size:12px;color:var(--text-tertiary)">
+    数据来源：携程问道 API（机票为 2026-10-15 实时价格）&middot; 生成日期：2026-05-13 &middot; 价格仅供参考，以实际查询为准
+  </div>
+
+</div>
+
+</body>
+</html>

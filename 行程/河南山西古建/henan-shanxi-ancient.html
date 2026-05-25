@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>河南山西古建朝圣线 - 武汉自驾 8 天</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-secondary: #f7f7f5;
+    --text: #2c2c2a;
+    --text-secondary: #5f5e5a;
+    --text-tertiary: #888780;
+    --border: rgba(0,0,0,0.12);
+    --blue: #378ADD;
+    --blue-light: #E6F1FB;
+    --pink: #D4537E;
+    --pink-light: #FBEAF0;
+    --amber: #BA7517;
+    --amber-light: #FAEEDA;
+    --green: #3B6D11;
+    --green-light: #EAF3DE;
+    --red: #A32D2D;
+    --red-light: #FCEBEB;
+    --teal: #0F6E56;
+    --teal-light: #E1F5EE;
+    --purple: #534AB7;
+    --purple-light: #EEEDFE;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; color: var(--text); background: var(--bg-secondary); line-height: 1.6; padding: 2rem 1rem; }
+  .container { max-width: 960px; margin: 0 auto; }
+  .page-header { text-align: center; margin-bottom: 2rem; }
+  .page-header h1 { font-size: 26px; font-weight: 500; margin-bottom: 6px; }
+  .page-header p { font-size: 14px; color: var(--text-secondary); }
+  .page-header .meta { display: inline-flex; gap: 12px; margin-top: 8px; font-size: 12px; color: var(--text-tertiary); flex-wrap: wrap; justify-content: center; }
+  .page-header .meta span { background: var(--bg); padding: 3px 10px; border-radius: 20px; border: 0.5px solid var(--border); }
+  .page-header .highlight { background: var(--green-light); color: var(--green); border-color: transparent; font-weight: 500; }
+
+  .toc { background: var(--bg); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 16px 24px; margin-bottom: 2rem; }
+  .toc h3 { font-size: 14px; font-weight: 500; margin-bottom: 10px; }
+  .toc ul { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 6px; }
+  .toc a { color: var(--blue); text-decoration: none; font-size: 13px; padding: 4px 0; display: block; }
+  .toc a:hover { color: var(--text); }
+
+  .section { background: var(--bg); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 24px 28px; margin-bottom: 1.5rem; }
+  .section h2 { font-size: 18px; font-weight: 500; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 0.5px solid var(--border); }
+  .section h3 { font-size: 15px; font-weight: 500; margin: 20px 0 10px; }
+  .section h4 { font-size: 14px; font-weight: 500; margin: 16px 0 8px; color: var(--text-secondary); }
+  .section p { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 12px; }
+  thead th { background: var(--bg-secondary); font-weight: 500; text-align: left; padding: 10px 12px; border-bottom: 0.5px solid var(--border); font-size: 12px; color: var(--text-secondary); }
+  tbody td { padding: 10px 12px; border-bottom: 0.5px solid rgba(0,0,0,0.06); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  .right { text-align: center; }
+  .mono { font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: 12px; }
+
+  .badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 500; white-space: nowrap; }
+  .badge-green { background: var(--green-light); color: var(--green); }
+  .badge-amber { background: var(--amber-light); color: var(--amber); }
+  .badge-red { background: var(--red-light); color: var(--red); }
+  .badge-blue { background: var(--blue-light); color: var(--blue); }
+  .badge-purple { background: var(--purple-light); color: var(--purple); }
+  .badge-teal { background: var(--teal-light); color: var(--teal); }
+  .badge-pink { background: var(--pink-light); color: var(--pink); }
+
+  .spot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+  .spot-card { background: var(--bg-secondary); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 16px 18px; }
+  .spot-card.s-tier { border: 2px solid var(--purple); }
+  .spot-card .spot-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+  .spot-card .spot-name { font-size: 15px; font-weight: 500; }
+  .spot-card .spot-loc { font-size: 11px; color: var(--text-tertiary); }
+  .spot-card .spot-tagline { font-size: 12px; color: var(--purple); font-weight: 500; margin-bottom: 8px; }
+  .spot-card .spot-body { font-size: 12.5px; color: var(--text-secondary); line-height: 1.7; }
+  .spot-card .spot-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .spot-card .spot-meta span { font-size: 11px; background: var(--bg); padding: 2px 8px; border-radius: 8px; border: 0.5px solid var(--border); color: var(--text-secondary); }
+
+  .day-card { background: var(--bg-secondary); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 18px 22px; margin-bottom: 14px; position: relative; }
+  .day-card .day-num { position: absolute; top: -1px; left: 16px; background: var(--blue); color: #fff; font-size: 12px; font-weight: 500; padding: 2px 12px; border-radius: 0 0 8px 8px; }
+  .day-card .day-title { font-size: 15px; font-weight: 500; margin-bottom: 8px; padding-left: 80px; }
+  .day-card .day-sub { font-size: 12px; color: var(--text-tertiary); margin-left: 8px; font-weight: 400; }
+  .day-card .day-body { font-size: 13px; color: var(--text-secondary); line-height: 1.8; }
+  .day-card .day-route { font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: 12px; background: var(--bg); border-radius: 6px; padding: 8px 12px; margin-top: 8px; color: var(--text-secondary); }
+
+  .tip-box { background: var(--blue-light); border-radius: var(--radius-sm); padding: 14px 18px; margin-top: 12px; font-size: 13px; border-left: 3px solid var(--blue); }
+  .tip-box strong { color: var(--blue); }
+  .ok-box { background: var(--green-light); border-radius: var(--radius-sm); padding: 14px 18px; margin-top: 12px; font-size: 13px; border-left: 3px solid var(--green); }
+  .ok-box strong { color: var(--green); }
+  .warn-box { background: var(--amber-light); border-radius: var(--radius-sm); padding: 14px 18px; margin-top: 12px; font-size: 13px; border-left: 3px solid var(--amber); }
+  .warn-box strong { color: var(--amber); }
+
+  ul.bullet { padding-left: 20px; font-size: 13px; color: var(--text-secondary); line-height: 1.9; }
+  ul.bullet strong { color: var(--text); }
+
+  @media (max-width: 600px) {
+    body { padding: 1rem 0.5rem; }
+    .section { padding: 16px; }
+    .spot-grid { grid-template-columns: 1fr; }
+    .day-card .day-title { padding-left: 0; margin-top: 22px; }
+  }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .section, .spot-card, .day-card { break-inside: avoid; border: 1px solid #ddd; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="page-header">
+    <h1>河南山西古建朝圣线</h1>
+    <p>武汉自驾 8 天 · S 级世界文化遗产密集 · 老车友好</p>
+    <div class="meta">
+      <span>数据来源：携程问道 + 高德 MCP 实测</span>
+      <span>总里程约 2,170 km</span>
+      <span class="highlight">全程高速 / 最高 1400m / 老车无压力</span>
+    </div>
+  </div>
+
+  <div class="toc">
+    <h3>目录</h3>
+    <ul>
+      <li><a href="#intro">一、为什么是这条线</a></li>
+      <li><a href="#spots">二、S 级景点详情</a></li>
+      <li><a href="#routes">三、逐段精确驾车路线</a></li>
+      <li><a href="#days">四、8 天行程编排</a></li>
+      <li><a href="#season">五、季节 + 老车评估</a></li>
+    </ul>
+  </div>
+
+  <!-- 一、引言 -->
+  <div class="section" id="intro">
+    <h2>一、为什么是这条线</h2>
+    <p style="font-size:13px;color:var(--text-secondary)">
+      山西是中国地上文物最多的省份，<strong>全国 70% 的元代以前木构建筑都在山西</strong>。河南是中华文明发源地，但视觉冲击有限，作为"路过插入"。这条线打包了 6 个 S 级（世界唯一 / 不可替代）+ 多个 A 级遗产，是中国独此一家的古建朝圣线。
+    </p>
+    <ul class="bullet" style="margin-top:10px">
+      <li><strong>世界遗产</strong>：龙门石窟 / 云冈石窟 / 平遥古城（含双林寺、镇国寺）/ 殷墟 / 嵩岳寺塔 / 应县木塔候选</li>
+      <li><strong>世界唯一</strong>：应县木塔（现存最高最古老纯木塔）+ 悬空寺（挂壁 1500 年）</li>
+      <li><strong>中国独有</strong>：佛光寺（现存最早唐代木构之一）+ 南禅寺（中国最早木构 782 年）+ 双林寺彩塑（东方彩塑艺术宝库）</li>
+      <li><strong>对老车</strong>：全程 G4 / G55 / G18 / G5 高速 100% 铺装，最高海拔 五台山外围 1400m，<strong>零高反风险</strong></li>
+    </ul>
+  </div>
+
+  <!-- 二、景点详情 -->
+  <div class="section" id="spots">
+    <h2>二、S 级景点详情</h2>
+
+    <div class="spot-grid">
+
+      <div class="spot-card s-tier">
+        <div class="spot-head"><div class="spot-name">应县木塔</div><div class="spot-loc">山西朔州·应县</div></div>
+        <div class="spot-tagline">⭐ 世界三大奇塔之一 · 现存最高最古老木塔</div>
+        <div class="spot-body">
+          辽代 1056 年建，60 余米高，全木榫卯无一颗铁钉。扛过 40+ 次地震、多次炮火。塔内有 11m 高释迦摩尼像及历代名人匾额。<strong>仅开放一层游览</strong>。位置偏远反而游客少。
+        </div>
+        <div class="spot-meta">
+          <span>门票 60 元</span><span>开放 8:00-18:00</span><span>游览 1.5-2h</span><span>海拔 1100m</span>
+        </div>
+      </div>
+
+      <div class="spot-card s-tier">
+        <div class="spot-head"><div class="spot-name">悬空寺</div><div class="spot-loc">山西大同·浑源</div></div>
+        <div class="spot-tagline">⭐ Time 评世界十大奇险建筑</div>
+        <div class="spot-body">
+          北魏建造，挂在恒山悬崖 1500 年。全木结构嵌入峭壁，仅靠横梁支撑，李白题"壮观"二字（多了一点）。<strong>登临体验比远观更震撼</strong>，但旺季有限流。
+        </div>
+        <div class="spot-meta">
+          <span>门票 17+100 元（登临）</span><span>开放 8:30-17:30</span><span>游览 1-1.5h</span>
+        </div>
+      </div>
+
+      <div class="spot-card s-tier">
+        <div class="spot-head"><div class="spot-name">云冈石窟</div><div class="spot-loc">山西大同·云冈区</div></div>
+        <div class="spot-tagline">⭐ 中国四大石窟 · 北魏皇家工程</div>
+        <div class="spot-body">
+          北魏开凿，比龙门早 50 年，融合中西艺术风格。<strong>第 20 窟露天大佛</strong>高 13.75m 保存完好，是中国佛教艺术的封面照。现存 40 余个开放洞窟，以第 5、6 窟和昙曜五窟最著名。
+        </div>
+        <div class="spot-meta">
+          <span>门票 120 元</span><span>开放 8:30-17:20</span><span>游览 3-4h</span>
+        </div>
+      </div>
+
+      <div class="spot-card s-tier">
+        <div class="spot-head"><div class="spot-name">佛光寺</div><div class="spot-loc">山西忻州·五台县豆村镇</div></div>
+        <div class="spot-tagline">⭐ 中国现存最早唐代木构之一</div>
+        <div class="spot-body">
+          857 年唐代建。1937 年梁思成、林徽因发现东大殿，证明中国还有唐代木构（此前学界认为只能去日本看）。东大殿、彩塑、唐代壁画、经幢"四绝"齐全。<strong>几乎没有游客</strong>。
+        </div>
+        <div class="spot-meta">
+          <span>门票 15 元</span><span>开放 8:30-17:30（周一闭）</span><span>游览 1.5h</span>
+        </div>
+      </div>
+
+      <div class="spot-card s-tier">
+        <div class="spot-head"><div class="spot-name">南禅寺</div><div class="spot-loc">山西忻州·五台县阳白乡</div></div>
+        <div class="spot-tagline">⭐ 中国现存最早木构建筑（782 年）</div>
+        <div class="spot-body">
+          建于唐建中三年（782），躲过会昌灭佛保留至今。大佛殿与殿内 17 尊唐代彩塑是镇山之宝。比佛光寺还早 75 年。<strong>更冷门</strong>，几乎独享。
+        </div>
+        <div class="spot-meta">
+          <span>门票 15 元</span><span>开放 8:30-17:00</span><span>游览 30-45m</span>
+        </div>
+      </div>
+
+      <div class="spot-card s-tier">
+        <div class="spot-head"><div class="spot-name">平遥古城</div><div class="spot-loc">山西晋中·平遥县</div></div>
+        <div class="spot-tagline">⭐ 世界文化遗产 · 明清古城活样本</div>
+        <div class="spot-body">
+          现存最完整的明清汉族县级古城。南大街为古代金融中心（日昇昌票号），县衙升堂表演、古城墙俯瞰全景。<strong>建议住客栈一晚</strong>，夜游古城无游客最佳。
+        </div>
+        <div class="spot-meta">
+          <span>套票 125 元</span><span>开放 8:00-18:30</span><span>游览 1-2 天</span>
+        </div>
+      </div>
+
+      <div class="spot-card s-tier">
+        <div class="spot-head"><div class="spot-name">双林寺</div><div class="spot-loc">山西晋中·平遥县桥头村</div></div>
+        <div class="spot-tagline">⭐ 东方彩塑艺术宝库</div>
+        <div class="spot-body">
+          北齐始建，明清重修。<strong>2052 尊宋元明清彩塑</strong>是镇山之宝，韦驮像被誉为"全国韦驮之冠"。距平遥古城仅 7km，多数游客只去了古城没来这里，亏大了。
+        </div>
+        <div class="spot-meta">
+          <span>门票 35 元</span><span>开放 8:00-18:30</span><span>游览 1.5-2h</span>
+        </div>
+      </div>
+
+      <div class="spot-card s-tier">
+        <div class="spot-head"><div class="spot-name">镇国寺</div><div class="spot-loc">山西晋中·平遥县郝洞村</div></div>
+        <div class="spot-tagline">⭐ 五代木构 · 中国第三早</div>
+        <div class="spot-body">
+          北汉天会七年（963）建，万佛殿内 11 尊五代彩塑尤为珍贵。距平遥古城 12km，平遥三宝一票（古城+双林寺+镇国寺）。
+        </div>
+        <div class="spot-meta">
+          <span>门票 25 元</span><span>开放 8:00-18:30</span><span>游览 1h</span>
+        </div>
+      </div>
+
+      <div class="spot-card s-tier">
+        <div class="spot-head"><div class="spot-name">龙门石窟</div><div class="spot-loc">河南洛阳·洛龙区</div></div>
+        <div class="spot-tagline">⭐ 中国四大石窟 · 唐代巅峰</div>
+        <div class="spot-body">
+          北魏至唐代营造，现存 2100+ 窟、10 万尊佛像。<strong>奉先寺卢舍那大佛</strong>是唐代雕塑巅峰，传为武则天容貌。游客多，建议早 8 点到。
+        </div>
+        <div class="spot-meta">
+          <span>门票 90 元</span><span>开放 8:00-17:30</span><span>游览 3-4h</span>
+        </div>
+      </div>
+
+      <div class="spot-card">
+        <div class="spot-head"><div class="spot-name">嵩岳寺塔</div><div class="spot-loc">河南郑州·登封</div></div>
+        <div class="spot-tagline">A 级 · 现存最古老砖塔（北魏 523）</div>
+        <div class="spot-body">
+          中国现存最古老砖塔，世界遗产"天地之中"组成部分。12 边形密檐式结构独一无二，被誉为"华夏第一塔"。距少林寺仅 1km，可顺道。
+        </div>
+        <div class="spot-meta">
+          <span>门票免（含嵩山套票）</span><span>游览 30m</span>
+        </div>
+      </div>
+
+      <div class="spot-card">
+        <div class="spot-head"><div class="spot-name">晋祠</div><div class="spot-loc">山西太原·晋源区</div></div>
+        <div class="spot-tagline">A 级 · 千年祭祀园林</div>
+        <div class="spot-body">
+          祭祀晋国唐叔虞，宋代圣母殿+鱼沼飞梁+难老泉为"三绝"，圣母殿宋代彩塑尤为精美。鲁迅说"晋祠不游，太原不算来"。距太原市区 25km。
+        </div>
+        <div class="spot-meta">
+          <span>门票 80 元</span><span>开放 8:00-18:00</span><span>游览 2-3h</span>
+        </div>
+      </div>
+
+      <div class="spot-card">
+        <div class="spot-head"><div class="spot-name">王家大院</div><div class="spot-loc">山西晋中·灵石县静升镇</div></div>
+        <div class="spot-tagline">A 级 · 晋商豪宅顶配</div>
+        <div class="spot-body">
+          清代王氏家族建，占地 25 万㎡，"王家归来不看院"。比乔家大院大 4 倍。<strong>红门堡 + 高家崖 + 王氏宗祠</strong>三大院群。距平遥 53km。
+        </div>
+        <div class="spot-meta">
+          <span>门票 55 元</span><span>开放 8:00-19:30</span><span>游览 2-3h</span>
+        </div>
+      </div>
+
+      <div class="spot-card">
+        <div class="spot-head"><div class="spot-name">永乐宫</div><div class="spot-loc">山西运城·芮城</div></div>
+        <div class="spot-tagline">A+ · 元代道教壁画最高峰（可选延伸）</div>
+        <div class="spot-body">
+          元代道教宫观，三清殿《朝元图》壁画与敦煌壁画并列封神。位置在山西最南端，要专门绕道。可顺道去壶口瀑布。
+        </div>
+        <div class="spot-meta">
+          <span>门票 80 元</span><span>开放 8:30-17:30</span><span>游览 2h</span><span>距平遥 350km</span>
+        </div>
+      </div>
+
+      <div class="spot-card">
+        <div class="spot-head"><div class="spot-name">安阳殷墟</div><div class="spot-loc">河南安阳·殷都区</div></div>
+        <div class="spot-tagline">A · 商朝晚期都城（可选返程绕道）</div>
+        <div class="spot-body">
+          世界文化遗产，甲骨文发现地。司母戊鼎、车马坑、新建殷墟博物馆。<strong>视觉一般但文化深度无敌</strong>。返程可走 G4 京港澳顺道。
+        </div>
+        <div class="spot-meta">
+          <span>门票 70 元</span><span>开放 8:00-18:00</span><span>游览 2-3h</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 三、逐段路线 -->
+  <div class="section" id="routes">
+    <h2>三、逐段精确驾车路线（高德 MCP 实测）</h2>
+    <p>所有距离 / 时间来自高德实时路径规划。实际驾驶时间需加 10-20% buffer（休息 / 拥堵 / 进出景区）。</p>
+
+    <table>
+      <thead>
+        <tr><th style="width:46px">段</th><th>路段</th><th class="right" style="width:70px">距离</th><th class="right" style="width:80px">耗时</th><th>主路 / 备注</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>武汉 → 郑州</td><td class="right mono">512 km</td><td class="right mono">5h32m</td><td>S2 汉孝 → G70 福银 → G4 京港澳 → S1 机场高速</td></tr>
+        <tr><td>2</td><td>郑州 → 嵩岳寺塔（登封）</td><td class="right mono">80 km</td><td class="right mono">1h16m</td><td>S85 郑少高速；嵩岳寺塔距少林寺仅 1km</td></tr>
+        <tr><td>3</td><td>嵩岳寺塔 → 龙门石窟</td><td class="right mono">74 km</td><td class="right mono">1h19m</td><td>G1516 盐洛 → G55 二广高速</td></tr>
+        <tr><td>4</td><td>洛阳 → 太原</td><td class="right mono">420 km</td><td class="right mono">5h00m</td><td>G55 二广高速；<strong>穿太行山 16+ 条隧道</strong>，景色不错</td></tr>
+        <tr><td>5</td><td>太原 → 佛光寺</td><td class="right mono">163 km</td><td class="right mono">2h11m</td><td>G55 → S5502 忻州绕城 → G1812 沧榆 → 豆东线</td></tr>
+        <tr><td>6</td><td>佛光寺 → 南禅寺</td><td class="right mono">46 km</td><td class="right mono">55m</td><td>豆东线 → 海天线（县乡道，路况良好）</td></tr>
+        <tr><td>7</td><td>南禅寺 → 应县木塔</td><td class="right mono">167 km</td><td class="right mono">2h10m</td><td>G55 经<strong>雁门关隧道</strong> → 大运枢纽 → G18 荣乌</td></tr>
+        <tr><td>8</td><td>应县木塔 → 悬空寺</td><td class="right mono">52 km</td><td class="right mono">1h04m</td><td>天神线 → 恒宗大道（县乡道，约 40km 沿浑河）</td></tr>
+        <tr><td>9</td><td>悬空寺 → 云冈石窟</td><td class="right mono">84 km</td><td class="right mono">1h47m</td><td>大灵线 → 339 省道；途经大同市西郊</td></tr>
+        <tr><td>10</td><td>云冈 → 大同市区</td><td class="right mono">~18 km</td><td class="right mono">25m</td><td>市区道路；可住大同老城</td></tr>
+        <tr><td>11</td><td>大同 → 平遥古城</td><td class="right mono">383 km</td><td class="right mono">4h13m</td><td>G55 二广（再穿雁门关）→ G5 京昆 → 平遥出口</td></tr>
+        <tr><td>12</td><td>平遥古城 → 双林寺</td><td class="right mono">7 km</td><td class="right mono">18m</td><td>中都西街 → 双林寺路</td></tr>
+        <tr><td>13</td><td>平遥古城 → 王家大院</td><td class="right mono">53 km</td><td class="right mono">52m</td><td>G5 京昆高速 → 灵石出口</td></tr>
+        <tr><td>14</td><td>王家大院 → 晋祠</td><td class="right mono">128 km</td><td class="right mono">1h25m</td><td>G5 京昆高速 → 晋阳大道</td></tr>
+        <tr style="font-weight:500;background:var(--bg-secondary)"><td colspan="2">合计（单程含游览段）</td><td class="right mono"><strong>~2,170 km</strong></td><td class="right mono"><strong>~25h 净开</strong></td><td>不含返程</td></tr>
+      </tbody>
+    </table>
+
+    <div class="tip-box">
+      <strong>关键路段提示</strong>：洛阳→太原（G55 二广）和 大同→平遥（G55 经雁门关）是两段长隧道密集路段，注意保持车距、开大灯。雁门关隧道总长 8.7km，是华北最长公路隧道之一。
+    </div>
+  </div>
+
+  <!-- 四、8 天行程 -->
+  <div class="section" id="days">
+    <h2>四、8 天行程编排</h2>
+
+    <div class="day-card">
+      <div class="day-num">DAY 1</div>
+      <div class="day-title">武汉 → 郑州 <span class="day-sub">长途转场日</span></div>
+      <div class="day-body">早 7:00 出发，G4 京港澳全程高速。中午信阳服务区午餐（信阳热干面 / 老母鸡汤）。下午 13-14 点抵达郑州，住二七广场或郑东新区。晚上可逛大卫城 / 紫荆山公园夜景。</div>
+      <div class="day-route">武汉 ━━━ 512 km / 5h32m ━━━ 郑州</div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-num">DAY 2</div>
+      <div class="day-title">郑州 → 嵩岳寺塔 + 少林寺 → 龙门石窟 → 洛阳 <span class="day-sub">文化双轰炸</span></div>
+      <div class="day-body">早 8:00 出发，S85 郑少高速 → 登封。10 点游嵩岳寺塔（30 分钟）+ 少林寺（2h）。13 点午餐后 G1516 → 龙门石窟（14-17 点）。傍晚抵洛阳住老城，<strong>夜游洛邑古城</strong>看汉服秀。</div>
+      <div class="day-route">郑州 ━ 80 km ━ 嵩岳寺塔/少林寺 ━ 74 km ━ 龙门石窟 ━ 14 km ━ 洛阳</div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-num">DAY 3</div>
+      <div class="day-title">洛阳 → 太原 <span class="day-sub">长途转场日</span></div>
+      <div class="day-body">早 8:00 出发，G55 二广高速穿太行山。沿途隧道密集，注意休息（晋城服务区皇城相府可短停 1-2h）。傍晚 17 点抵太原，住柳巷或长风街。晚上必吃<strong>清和元头脑、过油肉、刀削面</strong>。</div>
+      <div class="day-route">洛阳 ━━━ 420 km / 5h00m（穿太行 16 隧道）━━━ 太原</div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-num">DAY 4</div>
+      <div class="day-title">太原 → 佛光寺 → 南禅寺 → 应县 <span class="day-sub">唐木朝圣日 ⭐</span></div>
+      <div class="day-body">早 7:30 出发，G55 + G1812 沧榆。10:30 到<strong>佛光寺</strong>（1.5h）。13 点午餐后 46 km 到<strong>南禅寺</strong>（45m）。下午 15 点出发，167 km 经雁门关隧道到应县，住应县县城，<strong>傍晚先看一眼木塔夜景</strong>。</div>
+      <div class="day-route">太原 ━ 163 km ━ 佛光寺 ━ 46 km ━ 南禅寺 ━ 167 km ━ 应县</div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-num">DAY 5</div>
+      <div class="day-title">应县木塔 → 悬空寺 → 云冈石窟 → 大同 <span class="day-sub">世界级浓缩日 ⭐⭐</span></div>
+      <div class="day-body">早 8:00 游<strong>应县木塔</strong>（2h）。10:30 出发 52 km 到<strong>悬空寺</strong>（1.5h，需登临门票）。下午 14:30 出发 84 km 到<strong>云冈石窟</strong>（3-4h）。傍晚 18 点抵大同市区，住大同古城内（一晚不到 200 元）。晚上吃刀削面、羊肉。</div>
+      <div class="day-route">应县 ━ 52 km ━ 悬空寺 ━ 84 km ━ 云冈 ━ 18 km ━ 大同古城</div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-num">DAY 6</div>
+      <div class="day-title">大同 → 平遥古城 <span class="day-sub">长途转场日 + 古城夜游</span></div>
+      <div class="day-body">早 8:00 出发，G55 → G5 京昆。可在忻州停 1h（雁门关眺望）。傍晚 14-15 点抵平遥，停车在古城外（古城内禁机动车），步行入城。<strong>下午先逛一圈不买票部分</strong>（南大街、城墙夜景），住客栈一晚。</div>
+      <div class="day-route">大同 ━━━ 383 km / 4h13m ━━━ 平遥古城</div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-num">DAY 7</div>
+      <div class="day-title">平遥古城 + 双林寺 + 镇国寺 + 王家大院 <span class="day-sub">晋商遗产日 ⭐</span></div>
+      <div class="day-body">早 8:00 游<strong>平遥古城</strong>（日昇昌、县衙、城墙，4h，套票包含双林 / 镇国）。中午 12:30 出发到<strong>双林寺</strong>（1.5h 看 2052 尊彩塑）→ <strong>镇国寺</strong>（1h）。下午 16 点出发到<strong>王家大院</strong>住静升镇（或返回平遥）。</div>
+      <div class="day-route">平遥古城 ━ 7 km ━ 双林寺 ━ 12 km ━ 镇国寺 ━ 53 km ━ 王家大院</div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-num">DAY 8</div>
+      <div class="day-title">王家大院 → 晋祠 → 返程 <span class="day-sub">收官日</span></div>
+      <div class="day-body">早 8:00 游<strong>王家大院</strong>（2-3h）。中午出发 128 km 到<strong>晋祠</strong>（2h）。下午 16 点决定：<br>- <strong>方案 A 自驾返回</strong>：太原 → G55 → 武汉，1100 km / 12h，需中转郑州过夜<br>- <strong>方案 B 高铁返</strong>：太原南站 → 武汉（约 6h），车留太原托运（800-1500 元）</div>
+      <div class="day-route">王家大院 ━ 128 km ━ 晋祠 ━ 25 km ━ 太原</div>
+    </div>
+
+    <div class="tip-box">
+      <strong>可选延伸（+ 2-3 天）</strong>：返程绕道<strong>永乐宫 + 壶口瀑布</strong>。平遥/王家大院 → G5 京昆南下 → 芮城永乐宫（350 km）→ 壶口瀑布 → G22 青兰 → 西安转 G4W2 → 武汉。能看元代壁画顶峰 + 黄河第一瀑。
+    </div>
+  </div>
+
+  <!-- 五、季节 + 老车 -->
+  <div class="section" id="season">
+    <h2>五、季节 + 老车评估</h2>
+
+    <h3>季节建议</h3>
+    <table>
+      <thead><tr><th>季节</th><th>评级</th><th>亮点 / 注意</th></tr></thead>
+      <tbody>
+        <tr><td>4-5 月</td><td><span class="badge badge-green">⭐⭐⭐ 极佳</span></td><td>洛阳牡丹季（4 月中-5 月初）+ 山西春色 + 大同舒适</td></tr>
+        <tr><td>9-10 月</td><td><span class="badge badge-green">⭐⭐⭐ 极佳</span></td><td>秋色 + 平遥古城最有韵味 + 大同凉爽，<strong>最推荐</strong></td></tr>
+        <tr><td>6-8 月</td><td><span class="badge badge-amber">⭐⭐ 可行</span></td><td>平原闷热，大同尚可，景区人多；雨季偶有雷阵雨</td></tr>
+        <tr><td>11-3 月</td><td><span class="badge badge-red">⭐ 慎选</span></td><td>大同 -10° 以下，老车冷启动困难；平遥雪景一绝但路面易结冰</td></tr>
+      </tbody>
+    </table>
+
+    <h3>老车评估（基于 8000 元中华）</h3>
+    <table>
+      <thead><tr><th>维度</th><th class="right">状况</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>海拔</td><td class="right"><span class="badge badge-green">✔ 零压力</span></td><td>全程最高 1400m（五台外围），无高反 / 无动力衰减</td></tr>
+        <tr><td>路况</td><td class="right"><span class="badge badge-green">✔ 零压力</span></td><td>97% 高速 + 3% 优质县乡道，无碎石 / 无险路</td></tr>
+        <tr><td>气候</td><td class="right"><span class="badge badge-green">✔ 友好</span></td><td>无高温 / 无极寒（避开冬季）</td></tr>
+        <tr><td>救援</td><td class="right"><span class="badge badge-green">✔ 全覆盖</span></td><td>沿途郑州 / 太原 / 大同都有 4S 残留点；高速救援密集</td></tr>
+        <tr><td>配件</td><td class="right"><span class="badge badge-amber">~ 中等</span></td><td>华晨破产但中原城市还有民间存货；建议出发前换机油 / 刹车油</td></tr>
+        <tr><td>总评</td><td class="right"><span class="badge badge-green">⭐ 完美匹配</span></td><td>这就是给老车量身定做的线，没有任何冒险因素</td></tr>
+      </tbody>
+    </table>
+
+    <div class="ok-box">
+      <strong>与横断山脉对比</strong>：这条线对老车的"维修预算"基本归零——只需要常规保养（约 ¥500-800）。无需换胎 / 换电瓶 / 换防冻液 / 买救援保险。<strong>总预算约横断山脉的 1/4</strong>。
+    </div>
+
+    <h3>住宿 + 餐饮亮点</h3>
+    <ul class="bullet">
+      <li><strong>郑州</strong>：二七广场如家 / 汉庭，¥150-250；晚上推荐烩面 + 胡辣汤</li>
+      <li><strong>洛阳</strong>：老城丽景门附近民宿，¥200-400；必吃<strong>洛阳水席</strong>（真不同饭店）</li>
+      <li><strong>太原</strong>：柳巷食品街旁，¥200-300；<strong>清和元头脑、过油肉、刀削面</strong>三连</li>
+      <li><strong>应县 / 大同</strong>：县城连锁酒店 ¥150-200；大同古城内民宿 ¥200-400；<strong>大同刀削面 + 火锅羊肉</strong></li>
+      <li><strong>平遥</strong>：古城内客栈 ¥250-500（住一晚体验晋商大院），<strong>平遥牛肉 + 莜面栲栳栳</strong></li>
+      <li><strong>王家大院</strong>：静升镇民宿 ¥150-250</li>
+    </ul>
+
+    <div class="warn-box">
+      <strong>注意</strong>：平遥古城内禁机动车（除客栈接送车），需停在城外指定停车场（¥10-20/日）。提前订客栈让老板派接送车进城。
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

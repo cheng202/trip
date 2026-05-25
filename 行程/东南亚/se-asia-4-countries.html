@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>东南亚 4 国串联 - 越泰马新 20 天</title>
+
+
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-secondary: #f7f7f5;
+    --text: #2c2c2a;
+    --text-secondary: #5f5e5a;
+    --text-tertiary: #888780;
+    --border: rgba(0,0,0,0.12);
+    --blue: #378ADD;
+    --blue-light: #E6F1FB;
+    --amber: #BA7517;
+    --amber-light: #FAEEDA;
+    --green: #3B6D11;
+    --green-light: #EAF3DE;
+    --red: #A32D2D;
+    --red-light: #FCEBEB;
+    --teal: #0F6E56;
+    --teal-light: #E1F5EE;
+    --purple: #534AB7;
+    --purple-light: #EEEDFE;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; color: var(--text); background: var(--bg-secondary); line-height: 1.6; padding: 2rem 1rem; }
+  .container { max-width: 980px; margin: 0 auto; }
+  .page-header { text-align: center; margin-bottom: 2rem; }
+  .page-header h1 { font-size: 26px; font-weight: 500; margin-bottom: 6px; }
+  .page-header p { font-size: 14px; color: var(--text-secondary); }
+  .page-header .meta { display: inline-flex; gap: 12px; margin-top: 8px; font-size: 12px; color: var(--text-tertiary); flex-wrap: wrap; justify-content: center; }
+  .page-header .meta span { background: var(--bg); padding: 3px 10px; border-radius: 20px; border: 0.5px solid var(--border); }
+  .page-header .highlight { background: var(--green-light); color: var(--green); border-color: transparent; font-weight: 500; }
+
+  .toc { background: var(--bg); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 16px 24px; margin-bottom: 2rem; }
+  .toc h3 { font-size: 14px; font-weight: 500; margin-bottom: 10px; }
+  .toc ul { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 6px; }
+  .toc a { color: var(--blue); text-decoration: none; font-size: 13px; padding: 4px 0; display: block; }
+  .toc a:hover { color: var(--text); }
+
+  .section { background: var(--bg); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 24px 28px; margin-bottom: 1.5rem; }
+  .section h2 { font-size: 18px; font-weight: 500; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 0.5px solid var(--border); }
+  .section h3 { font-size: 15px; font-weight: 500; margin: 20px 0 10px; }
+  .section h4 { font-size: 14px; font-weight: 500; margin: 16px 0 8px; color: var(--text-secondary); }
+  .section p { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 12px; }
+  thead th { background: var(--bg-secondary); font-weight: 500; text-align: left; padding: 10px 12px; border-bottom: 0.5px solid var(--border); font-size: 12px; color: var(--text-secondary); }
+  tbody td { padding: 10px 12px; border-bottom: 0.5px solid rgba(0,0,0,0.06); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  .right { text-align: center; }
+  .mono { font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: 12px; }
+
+  .badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 500; white-space: nowrap; }
+  .badge-green { background: var(--green-light); color: var(--green); }
+  .badge-amber { background: var(--amber-light); color: var(--amber); }
+  .badge-red { background: var(--red-light); color: var(--red); }
+  .badge-blue { background: var(--blue-light); color: var(--blue); }
+  .badge-purple { background: var(--purple-light); color: var(--purple); }
+  .badge-teal { background: var(--teal-light); color: var(--teal); }
+
+  .map-wrap { border-radius: var(--radius); margin-top: 12px; overflow: hidden; border: 0.5px solid var(--border); }
+  #real-map { height: 640px; width: 100%; background: #f0f0f0; }
+  .city-marker-box { background: var(--purple); color: #fff; border: 2px solid #fff; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; box-shadow: 0 1px 4px rgba(0,0,0,0.4); }
+  .city-marker-box.start { background: var(--green); }
+  .city-marker-box.end { background: var(--red); }
+  .city-marker-box.vn { background: #DA251D; }
+  .city-marker-box.th { background: #ED1C24; }
+  .city-marker-box.my { background: #CC0001; }
+  .city-marker-box.sg { background: #EF3340; }
+  .city-tip { background: rgba(255,255,255,0.95) !important; border: 0.5px solid var(--border) !important; border-radius: 4px !important; padding: 2px 6px !important; font-size: 11.5px !important; font-weight: 500 !important; box-shadow: 0 1px 3px rgba(0,0,0,0.15) !important; color: var(--text) !important; }
+  .city-tip::before { display: none !important; }
+  .map-legend { display: flex; gap: 14px; font-size: 12px; color: var(--text-secondary); margin-top: 10px; flex-wrap: wrap; padding: 10px 4px 0; }
+  .map-legend span { display: inline-flex; align-items: center; gap: 4px; }
+  .map-legend .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+
+  .spot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+  .spot-card { background: var(--bg-secondary); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 16px 18px; }
+  .spot-card.s-tier { border: 2px solid var(--purple); }
+  .spot-card .spot-img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; display: block; background: linear-gradient(135deg,#dee5d8 0%,#c5d1be 100%); }
+  .spot-card .spot-img-placeholder { width: 100%; height: 60px; border-radius: 8px; margin-bottom: 10px; background: linear-gradient(135deg,#eef3eb 0%,#dde4d6 100%); display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--text-tertiary); }
+  .spot-card .spot-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+  .spot-card .spot-name { font-size: 15px; font-weight: 500; }
+  .spot-card .spot-loc { font-size: 11px; color: var(--text-tertiary); }
+  .spot-card .spot-tagline { font-size: 12px; color: var(--purple); font-weight: 500; margin-bottom: 8px; }
+  .spot-card .spot-body { font-size: 12.5px; color: var(--text-secondary); line-height: 1.7; }
+  .spot-card .spot-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .spot-card .spot-meta span { font-size: 11px; background: var(--bg); padding: 2px 8px; border-radius: 8px; border: 0.5px solid var(--border); color: var(--text-secondary); }
+
+  .day-card { background: var(--bg-secondary); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 18px 22px; margin-bottom: 14px; position: relative; }
+  .day-card .day-num { position: absolute; top: -1px; left: 16px; background: var(--blue); color: #fff; font-size: 12px; font-weight: 500; padding: 2px 12px; border-radius: 0 0 8px 8px; }
+  .day-card.fly .day-num { background: var(--amber); }
+  .day-card.highlight .day-num { background: var(--purple); }
+  .day-card .day-title { font-size: 15px; font-weight: 500; margin-bottom: 8px; padding-left: 80px; }
+  .day-card .day-sub { font-size: 12px; color: var(--text-tertiary); margin-left: 8px; font-weight: 400; }
+  .day-card .day-body { font-size: 13px; color: var(--text-secondary); line-height: 1.8; }
+  .day-card .day-route { font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: 12px; background: var(--bg); border-radius: 6px; padding: 8px 12px; margin-top: 8px; color: var(--text-secondary); }
+
+  .hostel-card { background: var(--bg-secondary); border-radius: var(--radius-sm); border: 0.5px solid var(--border); padding: 12px 14px; margin-bottom: 8px; }
+  .hostel-card .name { font-size: 13.5px; font-weight: 500; margin-bottom: 4px; }
+  .hostel-card .price { color: var(--red); font-size: 12px; margin-bottom: 4px; }
+  .hostel-card .addr { font-size: 11.5px; color: var(--text-tertiary); margin-bottom: 4px; }
+  .hostel-card .feat { font-size: 12px; color: var(--text-secondary); }
+
+  .cost-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 14px; }
+  .cost-col { background: var(--bg-secondary); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 16px; }
+  .cost-col h4 { font-size: 13px; margin-bottom: 10px; text-align: center; }
+  .cost-col .total { font-size: 22px; font-weight: 500; text-align: center; margin: 8px 0; }
+  .cost-col table { font-size: 12px; }
+  .cost-col table td { padding: 4px 6px; border-bottom: 0.5px dashed rgba(0,0,0,0.06); }
+  .cost-col.frugal { border: 2px solid var(--green); }
+  .cost-col.frugal .total { color: var(--green); }
+  .cost-col.std { border: 2px solid var(--amber); }
+  .cost-col.std .total { color: var(--amber); }
+  .cost-col.lux { border: 2px solid var(--red); }
+  .cost-col.lux .total { color: var(--red); }
+
+  .tip-box { background: var(--blue-light); border-radius: var(--radius-sm); padding: 14px 18px; margin-top: 12px; font-size: 13px; border-left: 3px solid var(--blue); }
+  .tip-box strong { color: var(--blue); }
+  .ok-box { background: var(--green-light); border-radius: var(--radius-sm); padding: 14px 18px; margin-top: 12px; font-size: 13px; border-left: 3px solid var(--green); }
+  .ok-box strong { color: var(--green); }
+  .warn-box { background: var(--amber-light); border-radius: var(--radius-sm); padding: 14px 18px; margin-top: 12px; font-size: 13px; border-left: 3px solid var(--amber); }
+  .warn-box strong { color: var(--amber); }
+
+  .country-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 16px 0; }
+  .country-bar > div { padding: 12px 14px; border-radius: 10px; text-align: center; color: #fff; font-size: 12.5px; font-weight: 500; }
+  .country-bar .flag { font-size: 18px; margin-bottom: 4px; display: block; }
+  .country-bar .days { font-size: 18px; font-weight: 600; }
+  .country-bar .vn { background: #DA251D; }
+  .country-bar .th { background: #ED1C24; }
+  .country-bar .my { background: #CC0001; }
+  .country-bar .sg { background: #EF3340; }
+
+  ul.bullet { padding-left: 20px; font-size: 13px; color: var(--text-secondary); line-height: 1.9; }
+  ul.bullet strong { color: var(--text); }
+
+  @media (max-width: 600px) {
+    body { padding: 1rem 0.5rem; }
+    .section { padding: 16px; }
+    .spot-grid { grid-template-columns: 1fr; }
+    .cost-grid { grid-template-columns: 1fr; }
+    .country-bar { grid-template-columns: repeat(2, 1fr); }
+    .day-card .day-title { padding-left: 0; margin-top: 22px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+<div class="page-header">
+<h1>东南亚 4 国串联</h1>
+<p>越南 → 泰国 → 马来西亚 → 新加坡 · 20 天 · 昆明进出（串联模式）/ 武汉进出（独立模式）</p>
+<div class="meta">
+<span>数据来源：携程问道 4 国调研</span>
+<span>免签 3 国 + 越南电子签</span>
+<span class="highlight">人均 ¥14,000-25,000</span>
+</div>
+</div>
+<div class="country-bar">
+<div class="vn"><span class="flag">🇻🇳</span>越南<br/><span class="days">8 天</span></div>
+<div class="th"><span class="flag">🇹🇭</span>泰国<br/><span class="days">6 天</span></div>
+<div class="my"><span class="flag">🇲🇾</span>马来<br/><span class="days">3 天</span></div>
+<div class="sg"><span class="flag">🇸🇬</span>新加坡<br/><span class="days">3 天</span></div>
+</div>
+<div class="toc">
+<h3>目录</h3>
+<ul>
+<li><a href="#intro">一、为什么这条线</a></li>
+<li><a href="#visa">二、签证 + 准备</a></li>
+<li><a href="#map">三、路线地图</a></li>
+<li><a href="#spots">四、核心景点</a></li>
+<li><a href="#transport">五、段间交通</a></li>
+<li><a href="#days">六、20 天行程（含住宿推荐）</a></li>
+
+<li><a href="#cost">七、费用估算</a></li>
+<li><a href="#tips">八、季节 + 食物 + 实用</a></li>
+</ul>
+</div>
+<div class="section" id="intro">
+<h2>一、为什么这条线</h2>
+<p style="font-size:13px;color:var(--text-secondary)">
+      东南亚 4 国串联是<strong>"性价比+体验密度"</strong>极高的一条线：纵跨北回归线到赤道 3,000+ km，文化从儒佛混合（越南）→ 上座部佛教（泰国）→ 多元伊斯兰（马来）→ 现代华人都市（新加坡）。
+    </p>
+<ul class="bullet" style="margin-top:10px">
+<li><strong>4 国签证仅 1 国需办</strong>：越南电子签（¥250，3 天出）；泰国/马来/新加坡免签</li>
+<li><strong>5 个世界文化遗产</strong>：下龙湾、长安、会安、大城遗址（备选）、马六甲</li>
+<li><strong>预算友好</strong>：东南亚普遍是国内 50-70% 物价，整体出境游里最便宜</li>
+<li><strong>不能自驾原车</strong>：驾照不通用 → 全程飞机/火车/巴士串联。串联模式 <strong>昆明✈河内 → 新加坡✈昆明</strong>（车寄存长水机场，详见 <a href="../全程串联/yunnan-bridge.html" style="color:var(--blue)">云南衔接段</a>）；独立模式 <strong>武汉✈河内 → 新加坡✈武汉</strong></li>
+<li><strong>无高反 + 无极寒</strong>：全程海拔 0-200m，气候舒适</li>
+</ul>
+</div>
+<div class="section" id="visa">
+<h2>二、签证 + 准备</h2>
+<table>
+<thead><tr><th>国家</th><th>签证</th><th>说明</th><th class="right">费用</th></tr></thead>
+<tbody>
+<tr><td>🇻🇳 越南</td><td>电子签 e-Visa</td><td>官网 evisa.gov.vn 申请，3 天出签，停留 30 天，<strong>需上传白底照片 + 护照首页</strong></td><td class="right">$25 / ¥180</td></tr>
+<tr><td>🇹🇭 泰国</td><td><span class="badge badge-green">免签</span></td><td>2024 年 7 月起对中国免签 60 天</td><td class="right">¥0</td></tr>
+<tr><td>🇲🇾 马来</td><td><span class="badge badge-green">免签</span></td><td>30 天，电子入境卡 MDAC 提前 3 天填</td><td class="right">¥0</td></tr>
+<tr><td>🇸🇬 新加坡</td><td><span class="badge badge-green">免签</span></td><td>30 天，电子入境卡 SG Arrival Card 提前 3 天填</td><td class="right">¥0</td></tr>
+</tbody>
+</table>
+<h3>必备物品</h3>
+<ul class="bullet">
+<li><strong>护照</strong>：有效期 6 个月以上 + 至少 3 页空白页</li>
+<li><strong>电源转换</strong>：东南亚通用 220V，但<strong>插头是三脚扁平（英标）或两脚圆头</strong>不一</li>
+<li><strong>SIM 卡</strong>：买<strong>东南亚多国通用 eSIM</strong>（5-10 GB，4 国漫游 ¥80-150，淘宝/支付宝小程序）</li>
+<li><strong>支付</strong>：越南 / 泰国大量现金 → 备 USD + 当地货币；马来 / 新加坡可大量刷卡 + 支付宝/微信跨境</li>
+<li><strong>换汇</strong>：越南盾（VND）+ 泰铢（THB）+ 马币（RM）+ 新币（SGD）。建议武汉换 USD 后到当地换；银联卡 ATM 取现亦可</li>
+</ul>
+</div>
+<div class="section" id="map">
+<h2>三、路线地图</h2>
+<div class="map-wrap"><img alt="东南亚4国路线地图" src="data:image/png;base64,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" style="width:100%;display:block;border-radius:12px;"/></div>
+<div class="map-legend">
+<span><span class="dot" style="background:var(--green)"></span>起点 武汉</span>
+<span><span class="dot" style="background:#DA251D"></span>🇻🇳 越南</span>
+<span><span class="dot" style="background:#ED1C24"></span>🇹🇭 泰国</span>
+<span><span class="dot" style="background:#CC0001"></span>🇲🇾 马来西亚</span>
+<span><span class="dot" style="background:var(--red)"></span>终点 新加坡</span>
+<span>📍 飞机段虚线 / 陆路段实线</span>
+</div>
+
+</div>
+<div class="section" id="spots">
+<h2>四、核心景点</h2>
+<p style="color:var(--text-tertiary);font-size:12px">图片可后续单独跑 subagent 补（高德 MCP 不支持国外景点照片，需换 Wikimedia/Unsplash 数据源）。</p>
+<h3>🇻🇳 越南（南北 1700 km）</h3>
+<div class="spot-grid">
+<div class="spot-card s-tier">
+<img alt="还剑湖" class="spot-img" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Ho_Hoan_Kiem_%2813574475044%29.jpg/330px-Ho_Hoan_Kiem_%2813574475044%29.jpg" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;background:#eee;"/>
+<div class="spot-head"><div class="spot-name">① 河内 + 还剑湖 + 36 古街</div><div class="spot-loc">越南首都</div></div>
+<div class="spot-tagline">⭐ 法殖民古都 · 文庙 · 水上木偶</div>
+<div class="spot-body">还剑湖中玉山寺+龟塔，36 古街每条以行业命名（丝行、银行）。<strong>升龙水上木偶剧院</strong>看越南国粹。河粉、鸡粉、扎肉、椰子咖啡。</div>
+<div class="spot-meta"><span>多免费</span><span>游 1-2 天</span></div>
+</div>
+<div class="spot-card s-tier">
+<img alt="下龙湾" class="spot-img" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Limestone_Cliffs-Halong_Bay_Vietnam-Andres_Larin.jpg/330px-Limestone_Cliffs-Halong_Bay_Vietnam-Andres_Larin.jpg" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;background:#eee;"/>
+<div class="spot-head"><div class="spot-name">② 下龙湾</div><div class="spot-loc">广宁省</div></div>
+<div class="spot-tagline">⭐ 世界自然遗产 · 海上桂林</div>
+<div class="spot-body">2000+ 石灰岩岛屿，乘船游览必须的 1-3 天<strong>船宿（一晚两天最经典）</strong>，包含天宫洞 + 莺歌岛 + 钛石村 + 早晨打太极。</div>
+<div class="spot-meta"><span>船宿 ¥600-2000 / 人</span><span>1-2 天</span></div>
+</div>
+<div class="spot-card s-tier">
+<img alt="宁平长安" class="spot-img" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/TrangAn04_sau_DenTrinh.JPG/330px-TrangAn04_sau_DenTrinh.JPG" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;background:#eee;"/>
+<div class="spot-head"><div class="spot-name">③ 宁平 / 长安</div><div class="spot-loc">宁平省华闾县</div></div>
+<div class="spot-tagline">⭐ 世界自然+文化双遗产 · 陆上下龙湾</div>
+<div class="spot-body">乘竹筏穿越喀斯特<strong>9 个山洞 + 3 座古寺</strong>，划船人脚划桨手不动。可去三谷（Tam Coc）或长安（Trang An），后者更精华。</div>
+<div class="spot-meta"><span>船票 250k 越南盾≈¥75</span><span>游 半天-1 天</span></div>
+</div>
+<div class="spot-card">
+<img alt="顺化皇城" class="spot-img" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Hu%E1%BA%BF_%282024%29_-_Meridian_Gate_-_Ng%E1%BB%8D_M%C3%B4n_%28Ho%C3%A0ng_th%C3%A0nh_Hu%E1%BA%BF%29_-_img_02.jpg/330px-Hu%E1%BA%BF_%282024%29_-_Meridian_Gate_-_Ng%E1%BB%8D_M%C3%B4n_%28Ho%C3%A0ng_th%C3%A0nh_Hu%E1%BA%BF%29_-_img_02.jpg" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;background:#eee;"/>
+<div class="spot-head"><div class="spot-name">④ 顺化皇城</div><div class="spot-loc">承天-顺化省</div></div>
+<div class="spot-tagline">A · 阮朝皇宫 · 仿紫禁城</div>
+<div class="spot-body">越南最后一个王朝阮朝（1802-1945）皇宫，<strong>缩小版紫禁城</strong>。可加皇陵：嗣德帝陵、明命帝陵、启定帝陵。</div>
+<div class="spot-meta"><span>门票 200k≈¥60</span><span>游 1 天</span></div>
+</div>
+<div class="spot-card s-tier">
+<img alt="会安古城" class="spot-img" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/H%E1%BB%99i_An%2C_Ancient_Town%2C_2020-01_CN-06.jpg/330px-H%E1%BB%99i_An%2C_Ancient_Town%2C_2020-01_CN-06.jpg" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;background:#eee;"/>
+<div class="spot-head"><div class="spot-name">⑤ 会安古城</div><div class="spot-loc">广南省</div></div>
+<div class="spot-tagline">⭐ 世界文化遗产 · 五彩灯笼之城</div>
+<div class="spot-body">夜晚灯笼亮起<strong>放河灯</strong>许愿，<strong>来远桥（日本桥）</strong>。可去周边美山圣地（占婆王国遗址）。</div>
+<div class="spot-meta"><span>门票 120k≈¥36</span><span>游 1-2 天</span></div>
+</div>
+<div class="spot-card">
+<img alt="巴拿山佛手桥" class="spot-img" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Golden_Bridge_at_Ba_Na_Hills_20250718.jpg/330px-Golden_Bridge_at_Ba_Na_Hills_20250718.jpg" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;background:#eee;"/>
+<div class="spot-head"><div class="spot-name">⑥ 岘港 + 巴拿山佛手桥</div><div class="spot-loc">岘港市</div></div>
+<div class="spot-tagline">A · 美溪海滩 · 法式山顶村</div>
+<div class="spot-body"><strong>巴拿山</strong>世界最长单缆车上山，山顶有<strong>佛手桥（金桥）</strong>+ 法式村庄。美溪海滩 + 龙桥喷火秀（周末）。</div>
+<div class="spot-meta"><span>巴拿山套票 900k≈¥270</span><span>游 1 天</span></div>
+</div>
+<div class="spot-card">
+<img alt="胡志明市" class="spot-img" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/DJI_0550-HDR-Pano.jpg/330px-DJI_0550-HDR-Pano.jpg" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;background:#eee;"/>
+<div class="spot-head"><div class="spot-name">⑦ 胡志明市</div><div class="spot-loc">越南南部都市</div></div>
+<div class="spot-tagline">A · 越南最大都市 · 战争博物馆</div>
+<div class="spot-body">原西贡，<strong>战争证迹博物馆 + 红教堂 + 中央邮局 + 81 塔观景</strong>。可一日往返古芝地道（越战时期游击隧道）。</div>
+<div class="spot-meta"><span>多免费 / 81 塔观景 ¥80</span><span>游 1-2 天</span></div>
+</div>
+</div>
+<h3>🇹🇭 泰国（6 天精华）</h3>
+<div class="spot-grid">
+<div class="spot-card s-tier">
+<img alt="曼谷大皇宫" class="spot-img" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/0005574_-_Wat_Phra_Kaew_006.jpg/330px-0005574_-_Wat_Phra_Kaew_006.jpg" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;background:#eee;"/>
+<div class="spot-head"><div class="spot-name">⑧ 曼谷大皇宫 + 卧佛寺</div><div class="spot-loc">曼谷老城</div></div>
+<div class="spot-tagline">⭐ 泰国最重要历史建筑群</div>
+<div class="spot-body">大皇宫 + 玉佛寺一票通，<strong>注意着装</strong>（长裤+遮肩）。旁边卧佛寺看 46m 大卧佛、按摩学校。</div>
+<div class="spot-meta"><span>500 泰铢≈¥100</span><span>游 半天</span></div>
+</div>
+<div class="spot-card">
+<img alt="大城" class="spot-img" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Ayutthaya_World_Heritage_sign.jpg/330px-Ayutthaya_World_Heritage_sign.jpg" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;background:#eee;"/>
+<div class="spot-head"><div class="spot-name">⑨ 大城（Ayutthaya）</div><div class="spot-loc">曼谷北 80 km</div></div>
+<div class="spot-tagline">A · 世界文化遗产 · 古都遗址</div>
+<div class="spot-body">14-18 世纪暹罗古都，<strong>玛哈泰寺的树包佛头</strong>是地标。可曼谷一日往返，火车 90 分钟。</div>
+<div class="spot-meta"><span>套票 220 铢≈¥45</span><span>游 半-1 天</span></div>
+</div>
+<div class="spot-card s-tier">
+<img alt="清迈古城" class="spot-img" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Chiangmai_view.jpg/330px-Chiangmai_view.jpg" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;background:#eee;"/>
+<div class="spot-head"><div class="spot-name">⑩ 清迈古城 + 双龙寺</div><div class="spot-loc">清迈</div></div>
+<div class="spot-tagline">⭐ 北方玫瑰 · 兰纳文化</div>
+<div class="spot-body">古城内 30+ 寺庙，<strong>素帖山双龙寺</strong>看金顶+俯瞰清迈。周日步行街、宁曼路咖啡馆、丛林飞跃。</div>
+<div class="spot-meta"><span>多免费 / 双龙寺 50 铢</span><span>游 2 天</span></div>
+</div>
+<div class="spot-card">
+<img alt="清莱白庙" class="spot-img" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Wat_Rong_Khun_-_Chiang_Rai.jpg/330px-Wat_Rong_Khun_-_Chiang_Rai.jpg" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;background:#eee;"/>
+<div class="spot-head"><div class="spot-name">⑪ 清莱白庙 + 黑庙</div><div class="spot-loc">清莱（清迈北 180 km）</div></div>
+<div class="spot-tagline">A · 当代艺术寺庙 · 天堂地狱</div>
+<div class="spot-body">白庙（灵光寺）纯白雕塑 + 死亡桥 + 镶嵌镜面；黑庙（黑屋博物馆）骨头标本+暗黑艺术。<strong>一日游 from 清迈</strong>。</div>
+<div class="spot-meta"><span>白庙 100 铢 / 黑庙 80 铢</span><span>游 1 天</span></div>
+</div>
+<div class="spot-card s-tier">
+<img alt="甲米皮皮岛" class="spot-img" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/KohPhiPhi.JPG/330px-KohPhiPhi.JPG" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;background:#eee;"/>
+<div class="spot-head"><div class="spot-name">⑫ 甲米 / 普吉跳岛</div><div class="spot-loc">安达曼海</div></div>
+<div class="spot-tagline">⭐ 海岛跳岛 · 攀牙湾 · 皮皮岛</div>
+<div class="spot-body">甲米（比普吉安静）一日跳岛<strong>4 岛 / 7 岛</strong>，皮皮岛、玛雅湾、蛋岛。可单加普吉夜市/巴东海滩。</div>
+<div class="spot-meta"><span>跳岛 1000-1500 铢</span><span>游 1-2 天</span></div>
+</div>
+</div>
+<h3>🇲🇾 马来西亚（3 天精华）</h3>
+<div class="spot-grid">
+<div class="spot-card s-tier">
+<img alt="双子塔" class="spot-img" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Petronas_Towers_Logo.svg/330px-Petronas_Towers_Logo.svg.png" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;background:#eee;"/>
+<div class="spot-head"><div class="spot-name">⑬ 吉隆坡双子塔 + KL 塔</div><div class="spot-loc">吉隆坡市中心</div></div>
+<div class="spot-tagline">⭐ 451m 摩天楼 · 41 楼空中走廊</div>
+<div class="spot-body">国油双峰塔，41-42 楼空中走廊免费但需提前预约；旁边阳光广场夜景。可加<strong>独立广场 + 茨厂街 + 黑风洞</strong>。</div>
+<div class="spot-meta"><span>空中走廊免费 / 观景 80 RM</span><span>游 1 天</span></div>
+</div>
+<div class="spot-card s-tier">
+<img alt="马六甲古城" class="spot-img" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Melaka_View.jpg/330px-Melaka_View.jpg" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;background:#eee;"/>
+<div class="spot-head"><div class="spot-name">⑭ 马六甲古城</div><div class="spot-loc">马六甲海峡</div></div>
+<div class="spot-tagline">⭐ 世界文化遗产 · 三国殖民印记</div>
+<div class="spot-body">荷兰红屋广场 + 圣保罗教堂遗址 + 马六甲河游船。<strong>娘惹文化</strong>—鸡场街夜市吃叻沙 + 海南鸡饭粒。</div>
+<div class="spot-meta"><span>多免费</span><span>游 1 天</span></div>
+</div>
+<div class="spot-card">
+<img alt="槟城乔治市" class="spot-img" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Skyline_of_George_Town%2C_Penang_at_night_Nov2024-29-17.jpg/330px-Skyline_of_George_Town%2C_Penang_at_night_Nov2024-29-17.jpg" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;background:#eee;"/>
+<div class="spot-head"><div class="spot-name">槟城乔治市（可选）</div><div class="spot-loc">槟城州 · 北部岛屿</div></div>
+<div class="spot-tagline">A · 世界文化遗产 · 壁画街头艺术</div>
+<div class="spot-body"><strong>Zacharevic 壁画</strong>系列，娘惹建筑+南洋华埠。距吉隆坡 350 km 飞 1h，加 2 天可绕。</div>
+<div class="spot-meta"><span>多免费</span><span>游 1-2 天</span></div>
+</div>
+</div>
+<h3>🇸🇬 新加坡（3 天精华）</h3>
+<div class="spot-grid">
+<div class="spot-card s-tier">
+<img alt="滨海湾金沙" class="spot-img" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Marina_Bay_Sands_%28I%29.jpg/330px-Marina_Bay_Sands_%28I%29.jpg" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;background:#eee;"/>
+<div class="spot-head"><div class="spot-name">⑮ 滨海湾金沙 + 鱼尾狮</div><div class="spot-loc">新加坡市中心</div></div>
+<div class="spot-tagline">⭐ 城市名片 · 1m 高鱼尾狮喷水</div>
+<div class="spot-body">滨海湾步道一圈：<strong>鱼尾狮 + 金沙酒店 + 螺旋桥 + 艺术科学博物馆</strong>。金沙顶层观景台 / SkyPark（需消费或买票）。</div>
+<div class="spot-meta"><span>外景免费 / SkyPark 26 SGD</span><span>游 1 天</span></div>
+</div>
+<div class="spot-card s-tier">
+<img alt="滨海湾花园超级树" class="spot-img" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Supertree_Grove%2C_Gardens_by_the_Bay%2C_Singapore_-_20120712-02.jpg/330px-Supertree_Grove%2C_Gardens_by_the_Bay%2C_Singapore_-_20120712-02.jpg" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;background:#eee;"/>
+<div class="spot-head"><div class="spot-name">⑮ 滨海湾花园</div><div class="spot-loc">滨海湾</div></div>
+<div class="spot-tagline">⭐ 未来感植物园 · 阿凡达超级树</div>
+<div class="spot-body"><strong>花穹（Flower Dome）+ 云雾林（Cloud Forest）</strong>两座巨型温室，超级树（Supertree）夜晚灯光秀 19:45 / 20:45。</div>
+<div class="spot-meta"><span>双穹 53 SGD</span><span>游 1 天</span></div>
+</div>
+<div class="spot-card s-tier">
+<img alt="环球影城" class="spot-img" loading="lazy" src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Universal_Studios_Singapore_logo.png/330px-Universal_Studios_Singapore_logo.png" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;background:#eee;"/>
+<div class="spot-head"><div class="spot-name">⑯ 圣淘沙环球影城</div><div class="spot-loc">圣淘沙岛</div></div>
+<div class="spot-tagline">⭐ 东南亚最大 · 七大主题区</div>
+<div class="spot-body">小黄人乐园 + 变形金刚 3D + 木乃伊复仇 + 侏罗纪河流。配套 <strong>S.E.A. 水族馆 + 天际线斜坡滑车</strong>。</div>
+<div class="spot-meta"><span>83 SGD</span><span>游 1 天</span></div>
+</div>
+<div class="spot-card">
+<img alt="樟宜星耀" class="spot-img" loading="lazy" src="https://upload.wikimedia.org/wikipedia/en/7/76/Jewel_Changi_Airport_logo.png" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;background:#eee;"/>
+<div class="spot-head"><div class="spot-name">⑯ 樟宜机场星耀（Jewel）</div><div class="spot-loc">樟宜机场</div></div>
+<div class="spot-tagline">A · 室内 40m 瀑布 · 离境必看</div>
+<div class="spot-body">回武汉离境前可在<strong>樟宜机场过境游 6h+</strong>看 Jewel 室内瀑布 + 星空园 + 镜面迷宫。免费，超震撼。</div>
+<div class="spot-meta"><span>免费</span><span>游 2-3h</span></div>
+</div>
+<div class="spot-card">
+<img alt="牛车水" class="spot-img" loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Aerial_perspective_of_Singapore%27s_Chinatown.jpg/330px-Aerial_perspective_of_Singapore%27s_Chinatown.jpg" style="width:100%;height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:block;background:#eee;"/>
+<div class="spot-head"><div class="spot-name">牛车水 + 小印度 + 阿拉伯街</div><div class="spot-loc">市中心</div></div>
+<div class="spot-tagline">A · 三个民族街区一日游</div>
+<div class="spot-body">华人（牛车水）→ 印度（小印度）→ 马来阿拉伯（甘榜格南）三种文化连游。<strong>地铁 1 小时打卡 3 种风情</strong>。</div>
+<div class="spot-meta"><span>免费</span><span>游 半-1 天</span></div>
+</div>
+</div>
+</div>
+<div class="section" id="transport">
+<h2>五、段间交通（飞机 / 火车 / 巴士）</h2>
+<p>不能开自驾车（驾照不通用），全程公共交通。建议先<strong>组合订票 KLOOK / 12Go Asia</strong> 比单订便宜。</p>
+<table>
+<thead><tr><th>段</th><th>路段</th><th>方式</th><th class="right">耗时</th><th class="right">单人价</th></tr></thead>
+<tbody>
+<tr><td>①</td><td>武汉 → 河内</td><td>南方/越捷航空直飞</td><td class="right">2.5h</td><td class="right mono">¥1,200-1,800</td></tr>
+<tr><td>②</td><td>河内 → 下龙湾</td><td>巴士（含船宿一晚）</td><td class="right">3.5h</td><td class="right mono">¥80（车）</td></tr>
+<tr><td>③</td><td>河内 → 宁平</td><td>火车 / 巴士（也可河内一日往返）</td><td class="right">2h</td><td class="right mono">¥40-80</td></tr>
+<tr><td>④</td><td>河内 → 顺化</td><td>越捷 / Bamboo 国内航班</td><td class="right">1.5h</td><td class="right mono">¥400-800</td></tr>
+<tr><td>⑤</td><td>顺化 → 会安/岘港</td><td>火车（海云岭风景）/ 巴士</td><td class="right">3h</td><td class="right mono">¥40-100</td></tr>
+<tr><td>⑥</td><td>岘港 → 胡志明</td><td>国内航班</td><td class="right">1.5h</td><td class="right mono">¥500-1,000</td></tr>
+<tr><td>⑦</td><td>胡志明 → 曼谷</td><td>越捷 / 亚航 / 越南航空</td><td class="right">2h</td><td class="right mono">¥800-1,500</td></tr>
+<tr><td>⑧</td><td>曼谷 → 大城（往返）</td><td>火车（Hua Lamphong 站）</td><td class="right">1.5h×2</td><td class="right mono">¥30 × 2</td></tr>
+<tr><td>⑨</td><td>曼谷 → 清迈</td><td>夜火车（最经典 / 性价比）/ 飞机</td><td class="right">12h / 1.5h</td><td class="right mono">¥150 / ¥400</td></tr>
+<tr><td>⑩</td><td>清迈 → 甲米/普吉</td><td>飞机（无直飞火车）</td><td class="right">2h</td><td class="right mono">¥400-700</td></tr>
+<tr><td>⑪</td><td>普吉 → 吉隆坡</td><td>亚航</td><td class="right">1.5h</td><td class="right mono">¥400-700</td></tr>
+<tr><td>⑫</td><td>吉隆坡 → 马六甲</td><td>巴士（TBS 长途车站）</td><td class="right">2.5h</td><td class="right mono">¥40-60</td></tr>
+<tr><td>⑬</td><td>马六甲 → 新加坡</td><td>巴士（过境约 1h）</td><td class="right">4h</td><td class="right mono">¥60-100</td></tr>
+<tr><td>⑭</td><td>新加坡 → 武汉</td><td>新加坡航空 / 厦门航空</td><td class="right">5h</td><td class="right mono">¥2,000-3,500</td></tr>
+<tr style="font-weight:500;background:var(--bg-secondary)">
+<td colspan="3">交通合计（节俭组合）</td><td class="right" colspan="2"><strong>¥7,000-12,000 / 人</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="tip-box">
+<strong>订票渠道</strong>：
+      <ul style="padding-left:18px;margin-top:6px;line-height:1.8">
+<li><strong>东南亚廉航</strong>：<strong>越捷 VietJet</strong> / <strong>亚航 AirAsia</strong> / <strong>狮航 Lion Air</strong> 提前 1-2 月订便宜（行李分开买）</li>
+<li><strong>火车</strong>：<strong>12Go Asia</strong> 一站买齐越泰马新所有铁路票（佣金 ¥10-20）</li>
+<li><strong>巴士</strong>：吉隆坡 → 马六甲 → 新加坡 用 <strong>Easybook</strong> 或 <strong>Bus Online Ticket</strong></li>
+<li><strong>越南火车</strong>：北南统一铁路（河内→顺化→胡志明）单段订没问题，硬卧舒服</li>
+</ul>
+</div>
+</div>
+<div class="section" id="days">
+<h2>六、20 天行程（含住宿推荐）</h2>
+<div class="day-card fly"><div class="day-num">DAY 1</div>
+<div class="day-title">昆明 → 河内 <span class="day-sub">入境日 · 车寄存在长水机场</span></div>
+<div class="day-body">前一晚住长水机场酒店（湘渝贵滇 D24 已将车送达 P4 长期车位）。早班 <strong>昆明长水 ✈ 河内</strong>（南方航空/越捷，每日 2-3 班，2h，¥800-1,500/人）。下午抵河内办 SIM / 换钱（机场或老城）。傍晚<strong>还剑湖夜逛 + 36 古街</strong>，吃河粉 + 越南咖啡。<br/><span style="color:var(--blue);font-size:12px">⚠ 全程串联模式：本行程不从武汉出发，而是接 <a href="../全程串联/yunnan-bridge.html" style="color:var(--blue)">云南衔接段</a> 之后由昆明出境；如单独跑此行程，把昆明换成武汉飞河内即可（同 2.5h 直飞，价位相近）。</span></div>
+<div class="day-route">✈ 昆明 → 河内 (2h)</div>
+<div style="margin-top:14px;border-top:0.5px dashed rgba(0,0,0,0.1);padding-top:10px;"><div style="font-size:12px;color:var(--text-tertiary);font-weight:500;margin-bottom:8px;">🏠 今晚住宿</div><div class="hostel-card">
+<div class="name">河内 - Vietnam Backpacker Hostel（Downtown 店）<span class="badge badge-green">推荐</span></div>
+<div class="price">床位 ¥80-110 · 双人间 ¥200-300</div>
+<div class="addr">老城区 Hang Bac 街（还剑湖步行 5 分钟）</div>
+<div class="feat">东南亚最有名的连锁青旅之一，下龙湾 / 宁平团从这里发</div>
+</div></div></div>
+<div class="day-card highlight"><div class="day-num">DAY 2-3</div>
+<div class="day-title">河内 + 下龙湾船宿 <span class="day-sub">⭐ 海上桂林</span></div>
+<div class="day-body">D2 早从河内坐 KLOOK 跟团巴士到下龙湾（3.5h），<strong>船宿一晚两天</strong>：游天宫洞、莺歌岛、钛石村，早晨甲板太极。D3 中午返河内。</div>
+<div class="day-route">河内 ⇄ 下龙湾（车 3.5h + 船宿）</div>
+<div style="margin-top:14px;border-top:0.5px dashed rgba(0,0,0,0.1);padding-top:10px;"><div style="font-size:12px;color:var(--text-tertiary);font-weight:500;margin-bottom:8px;">🏠 今晚住宿</div><div class="hostel-card">
+<div class="name">河内 - Vietnam Backpacker Hostel（Downtown 店）<span class="badge badge-green">推荐</span></div>
+<div class="price">床位 ¥80-110 · 双人间 ¥200-300</div>
+<div class="addr">老城区 Hang Bac 街（还剑湖步行 5 分钟）</div>
+<div class="feat">东南亚最有名的连锁青旅之一，下龙湾 / 宁平团从这里发</div>
+</div></div></div>
+<div class="day-card"><div class="day-num">DAY 4</div>
+<div class="day-title">河内 → 宁平长安一日 <span class="day-sub">陆上下龙湾</span></div>
+<div class="day-body">早 7:00 出发 2h 到宁平，<strong>长安乘竹筏</strong>穿 9 个山洞 + 3 寺（3h）。下午回河内或直接去机场住附近。</div>
+<div class="day-route">河内 → 宁平 (2h) → 河内</div>
+<div style="margin-top:14px;border-top:0.5px dashed rgba(0,0,0,0.1);padding-top:10px;"><div style="font-size:12px;color:var(--text-tertiary);font-weight:500;margin-bottom:8px;">🏠 今晚住宿</div><div class="hostel-card">
+<div class="name">河内 - Vietnam Backpacker Hostel（Downtown 店）<span class="badge badge-green">推荐</span></div>
+<div class="price">床位 ¥80-110 · 双人间 ¥200-300</div>
+<div class="addr">老城区 Hang Bac 街（还剑湖步行 5 分钟）</div>
+<div class="feat">东南亚最有名的连锁青旅之一，下龙湾 / 宁平团从这里发</div>
+</div></div></div>
+<div class="day-card fly"><div class="day-num">DAY 5</div>
+<div class="day-title">河内 → 顺化 <span class="day-sub">中部日</span></div>
+<div class="day-body">早机 1.5h 到顺化。下午<strong>顺化皇城 + 启定陵</strong>（仿巴洛克风），香水河船游。</div>
+<div class="day-route">✈ 河内 → 顺化 (1.5h)</div>
+</div>
+<div class="day-card highlight"><div class="day-num">DAY 6</div>
+<div class="day-title">顺化 → 会安古城 <span class="day-sub">⭐ 灯笼之城</span></div>
+<div class="day-body">早火车<strong>海云岭线</strong>（3h，沿海风景超美）到会安。下午会安老城，<strong>傍晚放河灯 + 灯笼夜景</strong>。</div>
+<div class="day-route">🚂 顺化 → 会安 (3h)</div>
+<div style="margin-top:14px;border-top:0.5px dashed rgba(0,0,0,0.1);padding-top:10px;"><div style="font-size:12px;color:var(--text-tertiary);font-weight:500;margin-bottom:8px;">🏠 今晚住宿</div><div class="hostel-card">
+<div class="name">会安 - Tribee Cham Hostel</div>
+<div class="price">床位 ¥70-100 · 标间 ¥180-280</div>
+<div class="addr">会安古城步行 10 分钟</div>
+<div class="feat">免费自行车 + 免费啤酒时段</div>
+</div></div></div>
+<div class="day-card"><div class="day-num">DAY 7</div>
+<div class="day-title">岘港 + 巴拿山 <span class="day-sub">佛手桥日</span></div>
+<div class="day-body">早从会安到岘港（30 km），全天<strong>巴拿山缆车 + 佛手桥</strong>（金桥）+ 法式村庄。傍晚回岘港住，看龙桥喷火（周六周日 21:00）。</div>
+<div class="day-route">会安 → 岘港 → 巴拿山</div>
+</div>
+<div class="day-card fly"><div class="day-num">DAY 8</div>
+<div class="day-title">岘港 → 胡志明市 <span class="day-sub">南部都市</span></div>
+<div class="day-body">早机 1.5h 到胡志明。<strong>红教堂 + 中央邮局 + 战争证迹博物馆 + 81 塔观景</strong>。晚上夜市吃米线/春卷。</div>
+<div class="day-route">✈ 岘港 → 胡志明 (1.5h)</div>
+<div style="margin-top:14px;border-top:0.5px dashed rgba(0,0,0,0.1);padding-top:10px;"><div style="font-size:12px;color:var(--text-tertiary);font-weight:500;margin-bottom:8px;">🏠 今晚住宿</div><div class="hostel-card">
+<div class="name">胡志明 - The Common Room Project</div>
+<div class="price">床位 ¥90-130 · 双人间 ¥250-400</div>
+<div class="addr">第一郡范五老背包客街附近</div>
+<div class="feat">楼下咖啡馆，氛围文艺</div>
+</div></div></div>
+<div class="day-card fly"><div class="day-num">DAY 9</div>
+<div class="day-title">胡志明 → 曼谷 <span class="day-sub">入泰国</span></div>
+<div class="day-body">早机 2h 到曼谷。下午<strong>大皇宫 + 玉佛寺 + 卧佛寺</strong>组合，<strong>湄南河夜游</strong>看郑王庙倒影 / 摩天轮夜市。</div>
+<div class="day-route">✈ 胡志明 → 曼谷 (2h)</div>
+<div style="margin-top:14px;border-top:0.5px dashed rgba(0,0,0,0.1);padding-top:10px;"><div style="font-size:12px;color:var(--text-tertiary);font-weight:500;margin-bottom:8px;">🏠 今晚住宿</div><div class="hostel-card">
+<div class="name">曼谷 - Mad Monkey Hostel <span class="badge badge-green">推荐</span></div>
+<div class="price">床位 ¥80-130 · 双人间 ¥250-400</div>
+<div class="addr">考山路（Khao San Rd）附近</div>
+<div class="feat">背包客文化中心，每晚 happy hour + 主题之夜</div>
+</div></div></div>
+<div class="day-card highlight"><div class="day-num">DAY 10</div>
+<div class="day-title">大城一日 + 曼谷夜市 <span class="day-sub">⭐ 古都遗址</span></div>
+<div class="day-body">早火车 1.5h 到大城，租自行车游<strong>玛哈泰寺（树包佛头）+ 帕席桑碧寺 + 帕南清寺</strong>。傍晚回曼谷，<strong>恰图恰周末市场（仅周末）/ 拉差达火车夜市</strong>。</div>
+<div class="day-route">🚂 曼谷 ⇄ 大城</div>
+<div style="margin-top:14px;border-top:0.5px dashed rgba(0,0,0,0.1);padding-top:10px;"><div style="font-size:12px;color:var(--text-tertiary);font-weight:500;margin-bottom:8px;">🏠 今晚住宿</div><div class="hostel-card">
+<div class="name">曼谷 - Mad Monkey Hostel <span class="badge badge-green">推荐</span></div>
+<div class="price">床位 ¥80-130 · 双人间 ¥250-400</div>
+<div class="addr">考山路（Khao San Rd）附近</div>
+<div class="feat">背包客文化中心，每晚 happy hour + 主题之夜</div>
+</div></div></div>
+<div class="day-card fly"><div class="day-num">DAY 11</div>
+<div class="day-title">曼谷 → 清迈 <span class="day-sub">北上</span></div>
+<div class="day-body">推荐<strong>夜火车</strong>（前夜上车，早 7 点到清迈，省一晚住宿）。古城内 30+ 寺庙慢逛，<strong>素帖山双龙寺看金顶日落</strong>。</div>
+<div class="day-route">🚂 曼谷 → 清迈（夜车 12h）</div>
+<div style="margin-top:14px;border-top:0.5px dashed rgba(0,0,0,0.1);padding-top:10px;"><div style="font-size:12px;color:var(--text-tertiary);font-weight:500;margin-bottom:8px;">🏠 今晚住宿</div><div class="hostel-card">
+<div class="name">清迈 - Stamps Backpackers</div>
+<div class="price">床位 ¥70-100 · 双人间 ¥200-300</div>
+<div class="addr">古城内塔佩门附近</div>
+<div class="feat">老板拼餐 / 摩托车出租 / 周日夜市步行可达</div>
+</div></div></div>
+<div class="day-card highlight"><div class="day-num">DAY 12</div>
+<div class="day-title">清迈深度 <span class="day-sub">兰纳文化</span></div>
+<div class="day-body">早上<strong>丛林飞跃</strong>（半天，900m 长滑索）。下午宁曼路咖啡馆 + Maya 商场。<strong>晚上周日夜市</strong>（仅周日，午门→塔佩门）或周六夜市。</div>
+<div style="margin-top:14px;border-top:0.5px dashed rgba(0,0,0,0.1);padding-top:10px;"><div style="font-size:12px;color:var(--text-tertiary);font-weight:500;margin-bottom:8px;">🏠 今晚住宿</div><div class="hostel-card">
+<div class="name">清迈 - Stamps Backpackers</div>
+<div class="price">床位 ¥70-100 · 双人间 ¥200-300</div>
+<div class="addr">古城内塔佩门附近</div>
+<div class="feat">老板拼餐 / 摩托车出租 / 周日夜市步行可达</div>
+</div></div></div>
+<div class="day-card"><div class="day-num">DAY 13</div>
+<div class="day-title">清莱白庙黑庙一日 <span class="day-sub">当代艺术日</span></div>
+<div class="day-body">参加清迈→清莱<strong>一日游</strong>（200 km 单程，4h）。<strong>白庙</strong>纯白雕塑+死亡桥，<strong>黑庙</strong>暗黑标本。傍晚返清迈。</div>
+<div class="day-route">🚐 清迈 ⇄ 清莱 (一日游)</div>
+<div style="margin-top:14px;border-top:0.5px dashed rgba(0,0,0,0.1);padding-top:10px;"><div style="font-size:12px;color:var(--text-tertiary);font-weight:500;margin-bottom:8px;">🏠 今晚住宿</div><div class="hostel-card">
+<div class="name">清迈 - Stamps Backpackers</div>
+<div class="price">床位 ¥70-100 · 双人间 ¥200-300</div>
+<div class="addr">古城内塔佩门附近</div>
+<div class="feat">老板拼餐 / 摩托车出租 / 周日夜市步行可达</div>
+</div></div></div>
+<div class="day-card fly highlight"><div class="day-num">DAY 14</div>
+<div class="day-title">清迈 → 甲米 <span class="day-sub">⭐ 海岛日</span></div>
+<div class="day-body">早机 2h 到甲米。下午奥南海滩或莱利半岛攀岩看夕阳。<strong>晚上奥南夜市</strong>吃海鲜。</div>
+<div class="day-route">✈ 清迈 → 甲米 (2h)</div>
+<div style="margin-top:14px;border-top:0.5px dashed rgba(0,0,0,0.1);padding-top:10px;"><div style="font-size:12px;color:var(--text-tertiary);font-weight:500;margin-bottom:8px;">🏠 今晚住宿</div><div class="hostel-card">
+<div class="name">甲米奥南 - Pak-Up Hostel</div>
+<div class="price">床位 ¥80-120 · 双人间 ¥220-350</div>
+<div class="addr">奥南海滩 100m</div>
+<div class="feat">海景房，跳岛团组队方便</div>
+</div></div></div>
+<div class="day-card highlight"><div class="day-num">DAY 15</div>
+<div class="day-title">甲米跳岛一日 <span class="day-sub">⭐ 安达曼海</span></div>
+<div class="day-body">参加 <strong>4 岛跳岛</strong> 或 <strong>7 岛日落跳岛</strong>。皮皮岛、玛雅湾、蛋岛、鸡岛。船上午餐，浮潜看珊瑚鱼。</div>
+<div style="margin-top:14px;border-top:0.5px dashed rgba(0,0,0,0.1);padding-top:10px;"><div style="font-size:12px;color:var(--text-tertiary);font-weight:500;margin-bottom:8px;">🏠 今晚住宿</div><div class="hostel-card">
+<div class="name">甲米奥南 - Pak-Up Hostel</div>
+<div class="price">床位 ¥80-120 · 双人间 ¥220-350</div>
+<div class="addr">奥南海滩 100m</div>
+<div class="feat">海景房，跳岛团组队方便</div>
+</div></div></div>
+<div class="day-card fly"><div class="day-num">DAY 16</div>
+<div class="day-title">甲米 → 吉隆坡 <span class="day-sub">入马来</span></div>
+<div class="day-body">早机经普吉 / 直飞到吉隆坡 1.5h（亚航）。下午<strong>双子塔空中走廊 + 阳光广场夜景</strong>。茨厂街吃肉骨茶 + 海南鸡饭。</div>
+<div class="day-route">✈ 甲米 → 吉隆坡 (1.5h)</div>
+<div style="margin-top:14px;border-top:0.5px dashed rgba(0,0,0,0.1);padding-top:10px;"><div style="font-size:12px;color:var(--text-tertiary);font-weight:500;margin-bottom:8px;">🏠 今晚住宿</div><div class="hostel-card">
+<div class="name">吉隆坡 - Mingle Hostel KL Sentral <span class="badge badge-green">推荐</span></div>
+<div class="price">床位 ¥90-130 · 双人间 ¥280-450</div>
+<div class="addr">KL Sentral 站旁（机场快线终点 + 长途巴士）</div>
+<div class="feat">交通枢纽，去马六甲方便</div>
+</div></div></div>
+<div class="day-card highlight"><div class="day-num">DAY 17</div>
+<div class="day-title">吉隆坡 + 马六甲 <span class="day-sub">⭐ 殖民古城</span></div>
+<div class="day-body">早 9:00 巴士 2.5h 到<strong>马六甲古城</strong>：荷兰红屋 + 圣保罗教堂 + 鸡场街夜市。傍晚巴士回吉隆坡或直接住马六甲。</div>
+<div class="day-route">🚌 吉隆坡 ⇄ 马六甲</div>
+<div style="margin-top:14px;border-top:0.5px dashed rgba(0,0,0,0.1);padding-top:10px;"><div style="font-size:12px;color:var(--text-tertiary);font-weight:500;margin-bottom:8px;">🏠 今晚住宿</div><div class="hostel-card">
+<div class="name">马六甲 - The Stable Hostel</div>
+<div class="price">床位 ¥80-110 · 双人间 ¥200-320</div>
+<div class="addr">鸡场街附近</div>
+<div class="feat">娘惹风装修，免费早餐</div>
+</div></div></div>
+<div class="day-card"><div class="day-num">DAY 18</div>
+<div class="day-title">马六甲 → 新加坡 <span class="day-sub">入新加坡</span></div>
+<div class="day-body">早 8:00 巴士直达新加坡（4h 含过境），下午抵滨海湾。<strong>夜游鱼尾狮 + 滨海湾步道 + 螺旋桥</strong>，看 20:00 / 21:00 金沙水秀。</div>
+<div class="day-route">🚌 马六甲 → 新加坡 (4h)</div>
+<div style="margin-top:14px;border-top:0.5px dashed rgba(0,0,0,0.1);padding-top:10px;"><div style="font-size:12px;color:var(--text-tertiary);font-weight:500;margin-bottom:8px;">🏠 今晚住宿</div><div class="hostel-card">
+<div class="name">新加坡 - The Pod @ Beach Road <span class="badge badge-green">推荐</span></div>
+<div class="price">床位胶囊房 ¥180-280 · 双人间 ¥400-700</div>
+<div class="addr">武吉士 Bugis（地铁 1 站到滨海湾）</div>
+<div class="feat">胶囊酒店式青旅，私密+经济</div>
+</div></div></div>
+<div class="day-card highlight"><div class="day-num">DAY 19</div>
+<div class="day-title">新加坡日—滨海湾花园 + 圣淘沙 <span class="day-sub">⭐</span></div>
+<div class="day-body">早上<strong>花穹 + 云雾林</strong>（2.5h）。下午<strong>圣淘沙环球影城</strong>（5h）或 S.E.A. 水族馆。晚上回滨海湾看<strong>超级树灯光秀</strong>。</div>
+<div style="margin-top:14px;border-top:0.5px dashed rgba(0,0,0,0.1);padding-top:10px;"><div style="font-size:12px;color:var(--text-tertiary);font-weight:500;margin-bottom:8px;">🏠 今晚住宿</div><div class="hostel-card">
+<div class="name">新加坡 - Adler Hostel（牛车水）</div>
+<div class="price">床位 ¥200-300</div>
+<div class="addr">牛车水中心</div>
+<div class="feat">精品青旅，胶囊+共享空间</div>
+</div></div></div>
+<div class="day-card fly"><div class="day-num">DAY 20</div>
+<div class="day-title">新加坡 → 昆明 <span class="day-sub">收官 · 去长水取车</span></div>
+<div class="day-body">早上牛车水 / 小印度民族区半日。下午到机场，<strong>樟宜机场星耀 Jewel</strong> 看 40m 室内瀑布 + 星空园（2-3h），晚上 <strong>新加坡 ✈ 昆明长水</strong>（SQ/南方航空，每日 1-2 班，5h，¥1,200-2,000/人）。落地直接到 P4 取车，过夜机场酒店或开 1h 进市区。<br/><span style="color:var(--blue);font-size:12px">⚠ 全程串联模式：取车后即进入 <a href="../全程串联/yunnan-bridge.html" style="color:var(--blue)">云南衔接段 D46</a> 建水古城；如单独跑此行程，新加坡 ✈ 武汉同样 5h 直飞，价位相近。</span></div>
+<div class="day-route">✈ 新加坡 → 昆明 (5h)</div>
+</div>
+<div class="tip-box">
+<strong>缓冲建议</strong>：行程紧凑，可加 1-2 天给海岛或槟城。常见拉长方案：
+      <ul style="padding-left:18px;margin-top:6px;line-height:1.8">
+<li>+1 天：清莱后插一晚住，或甲米+普吉拆 2 天</li>
+<li>+2 天：吉隆坡 → 槟城（飞 1h），看世界遗产壁画街</li>
+<li>+2 天：新加坡多 1 天，主题乐园 + 民族街区分两天</li>
+</ul>
+</div>
+</div>
+
+<div class="section" id="cost">
+<h2>七、费用估算（人均 · 单人 · 20 天）</h2>
+<p>东南亚物价：越南 30-50% 国内，泰国 50-70%，马来 70-90%，新加坡 100-150%（贵）。</p>
+<h3>大项明细</h3>
+<table>
+<thead><tr><th>项目</th><th>说明</th><th class="right">合计</th></tr></thead>
+<tbody>
+<tr><td>国际+国内机票</td><td>武汉↔河内 + 越南内陆 2 段 + 跨国 3 段 + 新加坡→武汉</td><td class="right mono">¥7,000-9,000</td></tr>
+<tr><td>火车+巴士</td><td>大城 / 曼清夜车 / 马六甲 / 新加坡过境</td><td class="right mono">¥500-700</td></tr>
+<tr><td>住宿（青旅床位）</td><td>19 晚 × 平均 ¥100</td><td class="right mono">¥1,900</td></tr>
+<tr><td>住宿（双人间分摊）</td><td>19 晚 × ¥260 / 2</td><td class="right mono">¥2,470</td></tr>
+<tr><td>景点门票 + 跳岛</td><td>下龙湾船宿 ¥800 + 各景点平均 ¥80×15</td><td class="right mono">¥2,000-2,500</td></tr>
+<tr><td>餐饮</td><td>20 天 × ¥150-300 / 天</td><td class="right mono">¥3,000-6,000</td></tr>
+<tr><td>签证</td><td>越南电子签</td><td class="right mono">¥250</td></tr>
+<tr><td>SIM + 杂费</td><td>多国 eSIM + 城内交通 + 应急</td><td class="right mono">¥500-1,000</td></tr>
+</tbody>
+</table>
+<h3>三种风格总价对比（人均）</h3>
+<div class="cost-grid">
+<div class="cost-col frugal">
+<h4>节俭型</h4>
+<div class="total">¥14,000</div>
+<table>
+<tbody>
+<tr><td>机票</td><td class="right">7,000</td></tr>
+<tr><td>火车巴士</td><td class="right">500</td></tr>
+<tr><td>青旅床位</td><td class="right">1,900</td></tr>
+<tr><td>门票</td><td class="right">1,900</td></tr>
+<tr><td>餐 ¥150/天</td><td class="right">3,000</td></tr>
+<tr><td>签证</td><td class="right">250</td></tr>
+<tr><td>杂费 + SIM</td><td class="right">500</td></tr>
+<tr style="font-weight:500"><td>合计</td><td class="right">¥15,050</td></tr>
+</tbody>
+</table>
+</div>
+<div class="cost-col std">
+<h4>标准型 ⭐</h4>
+<div class="total">¥20,000</div>
+<table>
+<tbody>
+<tr><td>机票</td><td class="right">8,000</td></tr>
+<tr><td>火车巴士</td><td class="right">600</td></tr>
+<tr><td>住宿混搭</td><td class="right">2,200</td></tr>
+<tr><td>门票</td><td class="right">2,200</td></tr>
+<tr><td>餐 ¥220/天</td><td class="right">4,400</td></tr>
+<tr><td>签证</td><td class="right">250</td></tr>
+<tr><td>杂费 + SIM</td><td class="right">800</td></tr>
+<tr><td>主题乐园+船宿</td><td class="right">1,500</td></tr>
+<tr style="font-weight:500"><td>合计</td><td class="right">¥19,950</td></tr>
+</tbody>
+</table>
+</div>
+<div class="cost-col lux">
+<h4>舒适型</h4>
+<div class="total">¥28,000</div>
+<table>
+<tbody>
+<tr><td>机票（含 1-2 段商务）</td><td class="right">12,000</td></tr>
+<tr><td>火车巴士</td><td class="right">800</td></tr>
+<tr><td>住宿（中档酒店）</td><td class="right">5,000</td></tr>
+<tr><td>门票</td><td class="right">2,500</td></tr>
+<tr><td>餐 ¥350/天</td><td class="right">7,000</td></tr>
+<tr><td>签证</td><td class="right">250</td></tr>
+<tr><td>杂费 + 司机/打车</td><td class="right">1,500</td></tr>
+<tr style="font-weight:500"><td>合计</td><td class="right">¥29,050</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="ok-box">
+<strong>结论</strong>：人均 <strong>¥15,000-29,000</strong>。标准型 ¥20,000 是 sweet spot——青旅+中档混搭、当地美食、跳岛/船宿不省。<br/>
+<strong>极致省钱方案</strong>：纯青旅床位 + 街边小吃 + 不上巴拿山/环球影城 → 可压到 ¥12,000-13,000。
+    </div>
+</div>
+<div class="section" id="tips">
+<h2>八、季节 + 食物 + 实用</h2>
+<h3>季节</h3>
+<table>
+<thead><tr><th>季节</th><th>评级</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>11-2 月</td><td><span class="badge badge-green">⭐⭐⭐ 极佳</span></td><td>全程旱季 + 干燥凉爽，下龙湾 / 海岛最佳，<strong>但是旺季机票贵 30%</strong></td></tr>
+<tr><td>3-4 月</td><td><span class="badge badge-amber">⭐⭐ 可行</span></td><td>泰国宋干节（4 月 13-15）泼水狂欢，但<strong>东南亚最热月份</strong>，30-40℃</td></tr>
+<tr><td>5-6 月</td><td><span class="badge badge-amber">⭐⭐ 可行</span></td><td>雨季初，下午雷阵雨，机票便宜 30%。下龙湾偶尔停航</td></tr>
+<tr><td>7-9 月</td><td><span class="badge badge-red">⭐ 慎选</span></td><td>雨季高峰，台风可能影响海岛 + 北越</td></tr>
+</tbody>
+</table>
+<h3>必吃榜（每国挑 3 个）</h3>
+<ul class="bullet">
+<li><strong>🇻🇳 越南</strong>：河粉（Pho） / 鸡粉（Pho Ga） / 越南法棍（Banh Mi） / 越南咖啡 / 春卷</li>
+<li><strong>🇹🇭 泰国</strong>：冬阴功汤 / 芒果糯米饭 / 泰式炒河粉（Pad Thai） / 绿咖喱 / 菠萝炒饭</li>
+<li><strong>🇲🇾 马来</strong>：肉骨茶 / 椰浆饭（Nasi Lemak） / 海南鸡饭 / 马六甲鸡饭粒 / 叻沙</li>
+<li><strong>🇸🇬 新加坡</strong>：辣椒螃蟹 / 海南鸡饭 / 肉骨茶 / 咖椰吐司 / 福建虾面</li>
+</ul>
+<h3>实用 App / 工具</h3>
+<ul class="bullet">
+<li><strong>Grab</strong>：东南亚版 Uber，4 国通用，可打车 / 外卖 / 包车</li>
+<li><strong>Klook / 12Go Asia</strong>：景点门票 + 一日游 + 火车巴士机票一站式</li>
+<li><strong>Maps.me</strong>：离线地图，可下载东南亚所有国家</li>
+<li><strong>Google Translate</strong>：拍照翻译菜单（越南 / 泰国菜单常无英文）</li>
+<li><strong>Booking / Hostelworld / Agoda</strong>：订青旅 / 酒店</li>
+<li><strong>XE Currency</strong>：4 国汇率换算</li>
+</ul>
+<h3>避坑指南</h3>
+<ul class="bullet">
+<li><strong>河内 / 胡志明的"出租车骗局"</strong>：只坐 Mai Linh（红色）/ Vinasun（绿色），其他打表慢/绕路；优先用 Grab</li>
+<li><strong>曼谷大皇宫门口"今日关门"骗局</strong>：穿着工作服的人会拦你说大皇宫关门带你去寺庙参观再去珠宝店，<strong>无视任何"关门"消息直接走进去</strong></li>
+<li><strong>越南货币</strong>：1 RMB ≈ 3500 越南盾，5 位数 6 位数账单看着吓人；分清楚 0 的数量</li>
+<li><strong>新加坡禁带食物</strong>：榴莲、口香糖、电子烟入境时会被查，没收+罚款</li>
+<li><strong>泰国海岛防晒</strong>：紫外线极强，<strong>买 50+ SPF 防水防晒霜</strong>，跳岛全天暴晒</li>
+</ul>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新疆旅游攻略 - 武汉出发</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-secondary: #f7f7f5;
+    --text: #2c2c2a;
+    --text-secondary: #5f5e5a;
+    --text-tertiary: #888780;
+    --border: rgba(0,0,0,0.12);
+    --blue: #378ADD;
+    --blue-light: #E6F1FB;
+    --pink: #D4537E;
+    --pink-light: #FBEAF0;
+    --amber: #BA7517;
+    --amber-light: #FAEEDA;
+    --green: #3B6D11;
+    --green-light: #EAF3DE;
+    --red: #A32D2D;
+    --red-light: #FCEBEB;
+    --teal: #0F6E56;
+    --teal-light: #E1F5EE;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: var(--text);
+    background: var(--bg-secondary);
+    line-height: 1.6;
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 900px; margin: 0 auto; }
+
+  /* header */
+  .page-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .page-header h1 {
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .page-header p {
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+  .page-header .meta {
+    display: inline-flex;
+    gap: 12px;
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--text-tertiary);
+  }
+  .page-header .meta span {
+    background: var(--bg);
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 0.5px solid var(--border);
+  }
+
+  /* nav */
+  .toc {
+    background: var(--bg);
+    border-radius: var(--radius);
+    border: 0.5px solid var(--border);
+    padding: 16px 24px;
+    margin-bottom: 2rem;
+  }
+  .toc h3 { font-size: 14px; font-weight: 500; margin-bottom: 10px; }
+  .toc ul { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 6px; }
+  .toc a {
+    color: var(--blue);
+    text-decoration: none;
+    font-size: 13px;
+    padding: 4px 0;
+    display: block;
+    transition: color .15s;
+  }
+  .toc a:hover { color: var(--text); }
+
+  /* section */
+  .section {
+    background: var(--bg);
+    border-radius: var(--radius);
+    border: 0.5px solid var(--border);
+    padding: 24px 28px;
+    margin-bottom: 1.5rem;
+  }
+  .section h2 {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 0.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section h3 {
+    font-size: 15px;
+    font-weight: 500;
+    margin: 20px 0 10px;
+    color: var(--text);
+  }
+
+  /* spot cards */
+  .spot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .spot-card {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    border: 0.5px solid var(--border);
+  }
+  .spot-card .name {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .spot-card .loc {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-bottom: 8px;
+  }
+  .spot-card .desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  /* experience list */
+  .exp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .exp-item {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    border: 0.5px solid var(--border);
+  }
+  .exp-item .title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .exp-item .detail {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  /* food tags */
+  .food-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .food-tag {
+    background: var(--amber-light);
+    color: var(--amber);
+    font-size: 13px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  /* metric cards */
+  .metric-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .metric-card {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    text-align: center;
+  }
+  .metric-card .label {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-bottom: 6px;
+  }
+  .metric-card .value {
+    font-size: 20px;
+    font-weight: 500;
+  }
+  .metric-card .sub {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+  .metric-card.cheap .value { color: var(--green); }
+  .metric-card.expensive .value { color: var(--red); }
+  .metric-card.best .value { color: var(--amber); }
+
+  /* chart */
+  .chart-wrap {
+    position: relative;
+    width: 100%;
+    height: 360px;
+    margin-top: 16px;
+  }
+  .chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+  .chart-legend span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .chart-legend .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    display: inline-block;
+  }
+  .chart-legend .line {
+    width: 16px;
+    height: 3px;
+    border-radius: 1px;
+    display: inline-block;
+  }
+
+  /* price table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 12px;
+  }
+  thead th {
+    background: var(--bg-secondary);
+    font-weight: 500;
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+  tbody td {
+    padding: 10px 12px;
+    border-bottom: 0.5px solid rgba(0,0,0,0.06);
+    vertical-align: top;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+  }
+  .badge-green { background: var(--green-light); color: var(--green); }
+  .badge-amber { background: var(--amber-light); color: var(--amber); }
+  .badge-red { background: var(--red-light); color: var(--red); }
+  .badge-blue { background: var(--blue-light); color: var(--blue); }
+
+  /* tips */
+  .tip-box {
+    background: var(--blue-light);
+    border-radius: var(--radius-sm);
+    padding: 14px 18px;
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--text);
+    border-left: 3px solid var(--blue);
+  }
+  .tip-box strong { color: var(--blue); }
+
+  /* responsive */
+  @media (max-width: 600px) {
+    body { padding: 1rem 0.5rem; }
+    .section { padding: 16px; }
+    .metric-row { grid-template-columns: 1fr; }
+    .spot-grid, .exp-grid { grid-template-columns: 1fr; }
+  }
+
+  /* print */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .section { break-inside: avoid; border: 1px solid #ddd; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="page-header">
+    <h1>新疆旅游攻略</h1>
+    <p>武汉出发 | 机票 &middot; 火车票 &middot; 酒店 &middot; 景点 &middot; 美食 &middot; 省钱指南</p>
+    <div class="meta">
+      <span>数据来源：携程问道</span>
+      <span>更新日期：2026-05-13</span>
+    </div>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <h3>目录</h3>
+    <ul>
+      <li><a href="#features">一、新疆旅游特色</a></li>
+      <li><a href="#price">二、年度价格曲线</a></li>
+      <li><a href="#strategy">三、省钱策略一览</a></li>
+      <li><a href="#flights">四、武汉出发机票</a></li>
+      <li><a href="#trains">五、武汉出发火车票</a></li>
+      <li><a href="#tips">六、实用小贴士</a></li>
+    </ul>
+  </div>
+
+  <!-- Section 1: 特色 -->
+  <div class="section" id="features">
+    <h2>一、新疆旅游特色</h2>
+
+    <h3>1. 自然景观</h3>
+    <div class="spot-grid">
+      <div class="spot-card">
+        <div class="name">赛里木湖</div>
+        <div class="loc">博乐</div>
+        <div class="desc">夏季野花环绕的高山湖泊，冬季蓝冰奇观。</div>
+      </div>
+      <div class="spot-card">
+        <div class="name">喀纳斯湖</div>
+        <div class="loc">布尔津</div>
+        <div class="desc">湖水随季节变色，可登观鱼台俯瞰全景。</div>
+      </div>
+      <div class="spot-card">
+        <div class="name">那拉提草原</div>
+        <div class="loc">新源</div>
+        <div class="desc">世界四大草原之一，6-9月碧草如茵，哈萨克风情浓郁。</div>
+      </div>
+      <div class="spot-card">
+        <div class="name">天山天池</div>
+        <div class="loc">阜康</div>
+        <div class="desc">雪山倒映的"瑶池"，可徒步探秘东、西小天池。</div>
+      </div>
+      <div class="spot-card">
+        <div class="name">世界魔鬼城</div>
+        <div class="loc">克拉玛依</div>
+        <div class="desc">雅丹地貌奇观，风声如鬼啸。</div>
+      </div>
+    </div>
+
+    <h3>2. 特色体验</h3>
+    <div class="exp-grid">
+      <div class="exp-item">
+        <div class="title">伊犁骑马</div>
+        <div class="detail">草原驰骋或雪原踏马，感受哈萨克骑手文化。</div>
+      </div>
+      <div class="exp-item">
+        <div class="title">布尔津日出</div>
+        <div class="detail">五彩滩或大桥观赏金色河光。</div>
+      </div>
+      <div class="exp-item">
+        <div class="title">喀什旅拍</div>
+        <div class="detail">穿维吾尔服饰定格古城风情。</div>
+      </div>
+      <div class="exp-item">
+        <div class="title">吐鲁番观星</div>
+        <div class="detail">沙漠夜空银河清晰可见（6-9月最佳）。</div>
+      </div>
+    </div>
+
+    <h3>3. 必尝美食</h3>
+    <div class="food-tags">
+      <span class="food-tag">烤羊肉串</span>
+      <span class="food-tag">大盘鸡</span>
+      <span class="food-tag">手抓饭</span>
+      <span class="food-tag">椒麻鸡</span>
+      <span class="food-tag">酸奶疙瘩</span>
+      <span class="food-tag">冷水鱼</span>
+      <span class="food-tag">咸奶茶</span>
+    </div>
+  </div>
+
+  <!-- Section 2: 价格曲线 -->
+  <div class="section" id="price">
+    <h2>二、年度价格曲线</h2>
+
+    <div class="metric-row">
+      <div class="metric-card cheap">
+        <div class="label">最便宜月份</div>
+        <div class="value">11月</div>
+        <div class="sub">机票 ¥600 起 / 酒店 ¥120 起</div>
+      </div>
+      <div class="metric-card expensive">
+        <div class="label">最贵月份</div>
+        <div class="value">7-8月</div>
+        <div class="sub">机票 ¥1500+ / 酒店 ¥600+</div>
+      </div>
+      <div class="metric-card best">
+        <div class="label">性价比最高</div>
+        <div class="value">5月 / 10月</div>
+        <div class="sub">景色好 / 价格适中</div>
+      </div>
+    </div>
+
+    <div class="chart-legend">
+      <span><span class="dot" style="background:#378ADD"></span>机票参考价（元）</span>
+      <span><span class="dot" style="background:#D4537E"></span>酒店均价（元/晚）</span>
+      <span><span class="dot" style="background:#0F6E56"></span>火车硬卧（元）</span>
+      <span><span class="line" style="background:#BA7517"></span>旅游热度</span>
+    </div>
+
+    <div class="chart-wrap">
+      <canvas id="priceChart" role="img" aria-label="武汉到新疆机票和酒店年度价格曲线图">年度价格曲线</canvas>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>月份</th>
+          <th>机票参考价</th>
+          <th>火车硬卧</th>
+          <th>酒店均价/晚</th>
+          <th>旅游热度</th>
+          <th>综合评价</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1-2月</td>
+          <td>¥700-750</td>
+          <td>¥450</td>
+          <td>¥200-220</td>
+          <td><span class="badge badge-green">淡季</span></td>
+          <td>冰雪季，游客少</td>
+        </tr>
+        <tr>
+          <td>3月</td>
+          <td>¥800</td>
+          <td>¥450</td>
+          <td>¥250</td>
+          <td><span class="badge badge-green">淡季</span></td>
+          <td>春暖花开，价格回升中</td>
+        </tr>
+        <tr>
+          <td>4月</td>
+          <td>¥950</td>
+          <td>¥450</td>
+          <td>¥280</td>
+          <td><span class="badge badge-amber">平季</span></td>
+          <td>冰雪消融，性价比高</td>
+        </tr>
+        <tr>
+          <td>5月</td>
+          <td>¥1050</td>
+          <td>¥450</td>
+          <td>¥350</td>
+          <td><span class="badge badge-amber">平季</span></td>
+          <td>花海季，性价比之王</td>
+        </tr>
+        <tr>
+          <td>6月</td>
+          <td>¥1300</td>
+          <td>¥450</td>
+          <td>¥500</td>
+          <td><span class="badge badge-red">旺季</span></td>
+          <td>草原全绿，旺季开始</td>
+        </tr>
+        <tr>
+          <td>7-8月</td>
+          <td>¥1500-1600</td>
+          <td>¥450</td>
+          <td>¥600-650</td>
+          <td><span class="badge badge-red">旺季顶峰</span></td>
+          <td>最佳季节，一房难求</td>
+        </tr>
+        <tr>
+          <td>9月</td>
+          <td>¥1400</td>
+          <td>¥450</td>
+          <td>¥500</td>
+          <td><span class="badge badge-red">旺季</span></td>
+          <td>金秋景色，价格仍高</td>
+        </tr>
+        <tr>
+          <td>10月</td>
+          <td>¥1000</td>
+          <td>¥450</td>
+          <td>¥350</td>
+          <td><span class="badge badge-amber">平季</span></td>
+          <td>国庆后回落，胡杨季</td>
+        </tr>
+        <tr>
+          <td>11月</td>
+          <td>¥650</td>
+          <td>¥450</td>
+          <td>¥180</td>
+          <td><span class="badge badge-green">淡季底</span></td>
+          <td>全年最低，游客锐减</td>
+        </tr>
+        <tr>
+          <td>12月</td>
+          <td>¥700</td>
+          <td>¥450</td>
+          <td>¥200</td>
+          <td><span class="badge badge-green">淡季</span></td>
+          <td>中旬后略涨，临近元旦</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="tip-box">
+      <strong>价格差异要点：</strong>机票淡旺季差 2-3 倍，酒店景区民宿可达 3-4 倍。<strong>火车票全年价格稳定</strong>，是最经济的出行方式。北疆（喀纳斯、禾木）波动最大；南疆（喀什、库车）更平稳；乌鲁木齐全年最稳。
+    </div>
+  </div>
+
+  <!-- Section 3: 省钱策略 -->
+  <div class="section" id="strategy">
+    <h2>三、省钱策略一览</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>月份</th>
+          <th>机票</th>
+          <th>火车硬卧</th>
+          <th>酒店</th>
+          <th>景色</th>
+          <th>综合评价</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>11月</strong></td>
+          <td>¥600-800</td>
+          <td>¥450</td>
+          <td>¥120-250</td>
+          <td>秋末萧瑟</td>
+          <td><span class="badge badge-green">最便宜</span> 适合纯体验</td>
+        </tr>
+        <tr>
+          <td><strong>4月</strong></td>
+          <td>¥800-1000</td>
+          <td>¥450</td>
+          <td>¥180-350</td>
+          <td>冰雪消融</td>
+          <td><span class="badge badge-amber">春暖花开</span></td>
+        </tr>
+        <tr>
+          <td><strong>5月</strong></td>
+          <td>¥900-1100</td>
+          <td>¥450</td>
+          <td>¥200-400</td>
+          <td>花海季</td>
+          <td><span class="badge badge-green">性价比之王</span></td>
+        </tr>
+        <tr>
+          <td>6月</td>
+          <td>¥1100-1400</td>
+          <td>¥450</td>
+          <td>¥300-600</td>
+          <td>草原全绿</td>
+          <td>旺季开始</td>
+        </tr>
+        <tr>
+          <td>7-8月</td>
+          <td>¥1400-1800</td>
+          <td>¥450</td>
+          <td>¥400-800</td>
+          <td>最佳季节</td>
+          <td><span class="badge badge-red">最贵!</span></td>
+        </tr>
+        <tr>
+          <td><strong>10月中下旬</strong></td>
+          <td>¥900-1100</td>
+          <td>¥450</td>
+          <td>¥200-400</td>
+          <td>胡杨金黄</td>
+          <td><span class="badge badge-green">国庆后回落</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>核心省钱建议</h3>
+    <div style="margin-top:10px">
+      <div class="tip-box" style="margin-bottom:10px; border-left-color: var(--teal);">
+        <strong>0. 首选火车</strong> — 火车票全年稳定（硬卧 ¥450），比机票便宜 50-70%，是预算有限的最佳选择。
+      </div>
+      <div class="tip-box" style="margin-bottom:10px; border-left-color: var(--green);">
+        <strong>1. 现在（5月中旬）出发就很合适</strong> — 当前武汉到乌鲁木齐机票 ¥1040-1080，酒店 ¥300-350/晚，景色正好。
+      </div>
+      <div class="tip-box" style="margin-bottom:10px; border-left-color: var(--red);">
+        <strong>2. 避开 7-8 月</strong> — 旺季机票 + 酒店是淡季的 2-3 倍，景区民宿可达 3-4 倍。
+      </div>
+      <div class="tip-box" style="margin-bottom:10px; border-left-color: var(--amber);">
+        <strong>3. 选 10 月中下旬</strong> — 国庆后价格骤降，胡杨林金黄，景色不输盛夏。
+      </div>
+      <div class="tip-box" style="border-left-color: var(--blue);">
+        <strong>4. 提前 2-3 周订票</strong> — 临时买贵 30-50%。
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: 机票 -->
+  <div class="section" id="flights">
+    <h2>四、武汉出发机票参考（6月10日）</h2>
+
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px">武汉无直飞新疆航班，以下为中转航班，按价格排列。</p>
+
+    <h3>当天可到达</h3>
+    <table>
+      <thead>
+        <tr><th>目的地</th><th>航班</th><th>中转</th><th>起飞</th><th>到达</th><th>耗时</th><th>价格</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>图木舒克</td><td>EU2763+G54089</td><td>阿克苏</td><td>10:55</td><td>18:20（当日）</td><td>7h25m</td><td><strong>¥1,220</strong></td></tr>
+        <tr><td>石河子</td><td>CZ6617+9C7747</td><td>兰州</td><td>08:30</td><td>15:20（当日）</td><td>6h50m</td><td><strong>¥1,247</strong></td></tr>
+        <tr><td>图木舒克</td><td>GJ8101+G54089</td><td>阿克苏</td><td>11:05</td><td>18:20（当日）</td><td>7h15m</td><td><strong>¥1,270</strong></td></tr>
+        <tr><td>乌鲁木齐</td><td>CZ3117+CZ6902</td><td>北京大兴</td><td>08:00</td><td>19:15（当日）</td><td>11h15m</td><td><strong>¥1,300</strong></td></tr>
+        <tr><td>乌鲁木齐</td><td>CZ3117+CZ6910</td><td>北京大兴</td><td>08:00</td><td>23:35（当日）</td><td>15h35m</td><td><strong>¥1,300</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h3>次日到达（隔夜中转）</h3>
+    <table>
+      <thead>
+        <tr><th>目的地</th><th>航班</th><th>中转</th><th>起飞</th><th>到达</th><th>耗时</th><th>价格</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>阿勒泰</td><td>MU2587+9C6677</td><td>兰州</td><td>21:15</td><td>6/11 17:10</td><td>19h55m</td><td><strong>¥1,147</strong></td></tr>
+        <tr><td>阿勒泰</td><td>MU2474+9C6677</td><td>兰州</td><td>18:25</td><td>6/11 17:10</td><td>22h45m</td><td><strong>¥1,207</strong></td></tr>
+        <tr><td>塔城</td><td>3U6754+EU1815</td><td>成都</td><td>17:25</td><td>6/11 13:20</td><td>19h55m</td><td><strong>¥1,250</strong></td></tr>
+        <tr><td>塔城</td><td>3U6752+EU1815</td><td>成都</td><td>10:55</td><td>6/11 13:20</td><td>26h25m</td><td><strong>¥1,250</strong></td></tr>
+        <tr><td>阿拉尔</td><td>GJ8101+G52709</td><td>阿克苏</td><td>11:05</td><td>6/11 16:30</td><td>29h25m</td><td><strong>¥1,305</strong></td></tr>
+        <tr><td>吐鲁番</td><td>3U8156+PN6467</td><td>重庆</td><td>16:25</td><td>6/11 13:10</td><td>20h45m</td><td><strong>¥1,350</strong></td></tr>
+        <tr><td>吐鲁番</td><td>MF8251+EU1980</td><td>兰州</td><td>15:45</td><td>6/11 19:15</td><td>27h30m</td><td><strong>¥1,400</strong></td></tr>
+        <tr><td>伊宁</td><td>GJ8101+G54325</td><td>阿克苏</td><td>11:05</td><td>6/11 09:00</td><td>21h55m</td><td><strong>¥1,430</strong></td></tr>
+        <tr><td>伊宁</td><td>EU2763+G54325</td><td>阿克苏</td><td>10:55</td><td>6/11 09:00</td><td>22h5m</td><td><strong>¥1,530</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="tip-box">
+      <strong>推荐：</strong>武汉到乌鲁木齐 ¥1,300（经北京大兴，11h15m 当天到），到乌鲁木齐后可灵活安排新疆行程。
+    </div>
+  </div>
+
+  <!-- Section 5: 火车票 -->
+  <div class="section" id="trains">
+    <h2>五、武汉出发火车票</h2>
+
+    <div class="metric-row">
+      <div class="metric-card cheap">
+        <div class="label">最低票价</div>
+        <div class="value">¥328</div>
+        <div class="sub">硬座 / Z36 直达</div>
+      </div>
+      <div class="metric-card best">
+        <div class="label">最快到达</div>
+        <div class="value">26h34m</div>
+        <div class="sub">高铁+动车中转</div>
+      </div>
+      <div class="metric-card" style="background:var(--teal-light)">
+        <div class="label">车次数量</div>
+        <div class="value" style="color:var(--teal)">40+</div>
+        <div class="sub">直达 & 中转可选</div>
+      </div>
+    </div>
+
+    <h3>直达列车（最经济）</h3>
+    <p style="font-size:13px;color:var(--text-secondary);margin-bottom:8px">火车票价格全年固定，不受淡旺季影响。直达列车从武昌站出发，约 35 小时到达乌鲁木齐。</p>
+    <table>
+      <thead>
+        <tr><th>车次</th><th>类型</th><th>出发</th><th>到达</th><th>耗时</th><th>硬座</th><th>硬卧</th><th>软卧</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Z36</strong></td>
+          <td><span class="badge badge-blue">直达特快</span></td>
+          <td>武昌 19:01</td>
+          <td>次日 06:54 乌鲁木齐</td>
+          <td>35h53m</td>
+          <td>¥328</td>
+          <td>~¥450</td>
+          <td>~¥720</td>
+        </tr>
+        <tr>
+          <td><strong>Z138</strong></td>
+          <td><span class="badge badge-blue">直达特快</span></td>
+          <td>武昌 20:17</td>
+          <td>次日 07:43 乌鲁木齐</td>
+          <td>35h26m</td>
+          <td>¥341</td>
+          <td>~¥460</td>
+          <td>~¥740</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>中转方案（更快到达）</h3>
+    <table>
+      <thead>
+        <tr><th>方案</th><th>类型</th><th>出发</th><th>到达</th><th>耗时</th><th>票价</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>G410 + D2701</strong></td>
+          <td><span class="badge badge-amber">高铁+动车</span> 经西安北</td>
+          <td>武汉 18:42</td>
+          <td>次日 21:16 乌鲁木齐</td>
+          <td><strong>26h34m</strong></td>
+          <td>¥1,209</td>
+        </tr>
+        <tr>
+          <td><strong>G830 + D2701</strong></td>
+          <td><span class="badge badge-amber">高铁+动车</span> 经西安北</td>
+          <td>武汉 17:48</td>
+          <td>次日 21:16 乌鲁木齐</td>
+          <td><strong>27h28m</strong></td>
+          <td>¥1,254</td>
+        </tr>
+        <tr>
+          <td><strong>Z326 + Z41</strong></td>
+          <td><span class="badge badge-blue">直达特快</span> 经郑州</td>
+          <td>武昌 21:17</td>
+          <td>次日 08:20 乌鲁木齐</td>
+          <td>35h03m</td>
+          <td>¥378</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>各席别价格参考（武汉 → 乌鲁木齐）</h3>
+    <table>
+      <thead>
+        <tr><th>席别</th><th>价格区间</th><th>说明</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>硬座</strong></td>
+          <td>¥328 - 341</td>
+          <td>最经济，但 35 小时硬座较辛苦</td>
+        </tr>
+        <tr>
+          <td><strong>硬卧</strong></td>
+          <td>~¥450 - 460</td>
+          <td><span class="badge badge-green">推荐</span> 性价比最高，可躺卧休息</td>
+        </tr>
+        <tr>
+          <td><strong>软卧</strong></td>
+          <td>~¥720 - 740</td>
+          <td>四人包厢，更舒适安静</td>
+        </tr>
+        <tr>
+          <td><strong>高铁+动车二等座</strong></td>
+          <td>~¥1,210 - 1,254</td>
+          <td>最快 26.5 小时，但票价接近机票</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="tip-box">
+      <strong>火车 vs 机票对比：</strong>火车硬卧 ¥450 全年不变，比机票（¥600-1800）便宜 50-70%。缺点是耗时 35 小时。如果时间充裕、预算有限，火车是最佳选择；如果时间紧张，建议选机票。
+    </div>
+  </div>
+
+  <!-- Section 6: Tips -->
+  <div class="section" id="tips">
+    <h2>六、实用小贴士</h2>
+
+    <div class="exp-grid">
+      <div class="exp-item">
+        <div class="title">最佳季节</div>
+        <div class="detail">6-8月（草原花海）/ 冬季（雪景/滑雪）</div>
+      </div>
+      <div class="exp-item">
+        <div class="title">注意事项</div>
+        <div class="detail">注意防晒防寒，尊重少数民族习俗</div>
+      </div>
+      <div class="exp-item">
+        <div class="title">边境通行</div>
+        <div class="detail">部分边境地区需提前办理通行证</div>
+      </div>
+      <div class="exp-item">
+        <div class="title">时差提醒</div>
+        <div class="detail">新疆使用北京时间，但实际日照晚 2 小时左右</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="text-align:center;padding:20px 0;font-size:12px;color:var(--text-tertiary)">
+    数据来源：携程问道 API &middot; 生成日期：2026-05-13 &middot; 价格仅供参考，以实际查询为准
+  </div>
+
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const months = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+const flightPrices = [700, 750, 800, 950, 1050, 1300, 1600, 1500, 1400, 1000, 650, 700];
+const hotelPrices = [200, 220, 250, 280, 350, 500, 650, 600, 500, 350, 180, 200];
+const trainPrices = [450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450, 450];
+const heatIndex = [10, 10, 15, 25, 55, 80, 95, 90, 75, 50, 15, 10];
+
+new Chart(document.getElementById('priceChart'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [
+      {
+        label: '机票参考价（元）',
+        data: flightPrices,
+        borderColor: '#378ADD',
+        backgroundColor: 'rgba(55,138,221,0.08)',
+        fill: true,
+        tension: 0.35,
+        pointRadius: 5,
+        pointBackgroundColor: '#378ADD',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2,
+        borderWidth: 2.5,
+        yAxisID: 'y'
+      },
+      {
+        label: '酒店均价（元/晚）',
+        data: hotelPrices,
+        borderColor: '#D4537E',
+        backgroundColor: 'rgba(212,83,126,0.06)',
+        fill: true,
+        tension: 0.35,
+        pointRadius: 5,
+        pointBackgroundColor: '#D4537E',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2,
+        borderWidth: 2.5,
+        yAxisID: 'y1'
+      },
+      {
+        label: '火车硬卧（元）',
+        data: trainPrices,
+        borderColor: '#0F6E56',
+        backgroundColor: 'rgba(15,110,86,0.04)',
+        fill: true,
+        tension: 0,
+        pointRadius: 4,
+        pointBackgroundColor: '#0F6E56',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2,
+        borderWidth: 2,
+        borderDash: [],
+        yAxisID: 'y'
+      },
+      {
+        label: '旅游热度',
+        data: heatIndex,
+        borderColor: '#BA7517',
+        borderDash: [6, 3],
+        tension: 0.35,
+        pointRadius: 0,
+        borderWidth: 1.5,
+        yAxisID: 'y2',
+        fill: false
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: 'rgba(44,44,42,0.9)',
+        titleFont: { size: 13 },
+        bodyFont: { size: 12 },
+        padding: 12,
+        cornerRadius: 8,
+        callbacks: {
+          label: function(ctx) {
+            if (ctx.datasetIndex === 3) return '旅游热度: ' + ctx.parsed.y + '%';
+            return ctx.dataset.label + ': ¥' + ctx.parsed.y;
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { display: false },
+        ticks: { font: { size: 12 }, color: '#888780' }
+      },
+      y: {
+        position: 'left',
+        title: { display: true, text: '机票/火车（元）', font: { size: 11 }, color: '#378ADD' },
+        ticks: { font: { size: 11 }, color: '#378ADD', callback: v => '¥' + v },
+        grid: { color: 'rgba(0,0,0,0.04)' },
+        min: 200,
+        max: 2000
+      },
+      y1: {
+        position: 'right',
+        title: { display: true, text: '酒店（元/晚）', font: { size: 11 }, color: '#D4537E' },
+        ticks: { font: { size: 11 }, color: '#D4537E', callback: v => '¥' + v },
+        grid: { drawOnChartArea: false },
+        min: 100,
+        max: 800
+      },
+      y2: { display: false, min: 0, max: 100 }
+    }
+  }
+});
+</script>
+
+</body>
+</html>

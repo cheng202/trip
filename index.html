@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>资料门面</title>
+<style>
+:root { color-scheme: light dark; }
+* { box-sizing: border-box; }
+body { font-family: -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+       margin: 0; line-height: 1.6; }
+#list-view { max-width: 920px; margin: 32px auto; padding: 0 20px; }
+header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; }
+h1 { margin: 0; font-size: 22px; }
+.count { color: #888; font-size: 13px; }
+#q { flex: 1; padding: 8px 12px; font-size: 14px;
+     border: 1px solid #ccc; border-radius: 6px; }
+section { margin-bottom: 28px; }
+h2 { font-size: 15px; color: #555; border-bottom: 1px solid #eee;
+      padding-bottom: 4px; margin-bottom: 8px; }
+h2 em { font-style: normal; color: #aaa; font-size: 12px; }
+ul { list-style: none; padding: 0; margin: 0; }
+li { display: flex; align-items: baseline; gap: 12px;
+      padding: 6px 0; border-bottom: 1px dashed #f0f0f0; }
+li a { color: #1a6fd1; text-decoration: none; font-weight: 500; cursor: pointer; }
+li a:hover { text-decoration: underline; }
+.path { color: #aaa; font-size: 12px; font-family: ui-monospace, Consolas, monospace; }
+.time { margin-left: auto; color: #aaa; font-size: 12px; white-space: nowrap; }
+li.hidden { display: none; }
+
+#frame-view { position: fixed; inset: 0; flex-direction: column;
+              background: #fff; }
+#frame-view:not([hidden]) { display: flex; }
+#frame-bar { flex: 0 0 auto; display: flex; align-items: center; gap: 16px;
+             padding: 8px 16px; border-bottom: 1px solid #ddd; background: #f8f8f8;
+             font-size: 13px; }
+#frame-bar a { color: #1a6fd1; text-decoration: none; }
+#frame-bar a:hover { text-decoration: underline; }
+#prev-btn, #home-btn { font-weight: 500; padding: 2px 6px; border-radius: 4px; }
+#prev-btn:hover, #home-btn:hover { background: #eef4ff; text-decoration: none; }
+#prev-btn.disabled { color: #bbb; cursor: not-allowed; pointer-events: none; }
+#frame-title { flex: 1; color: #555; font-weight: 500;
+               overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#frame { flex: 1; width: 100%; border: 0; background: #fff; }
+
+@media (prefers-color-scheme: dark) {
+  body { background: #1a1a1a; color: #ddd; }
+  h2 { color: #aaa; border-color: #333; }
+  li { border-color: #2a2a2a; }
+  li a { color: #6cb6ff; }
+  #q { background: #2a2a2a; color: #ddd; border-color: #444; }
+  #frame-view { background: #1a1a1a; }
+  #frame-bar { background: #222; border-color: #333; }
+  #frame-title { color: #bbb; }
+  #frame-bar a { color: #6cb6ff; }
+}
+</style>
+</head>
+<body>
+<div id="list-view">
+  <header>
+    <h1>资料门面</h1>
+    <span class="count">共 9 篇</span>
+    <input id="q" type="search" placeholder="搜索标题或路径…" autofocus>
+  </header>
+  <section><h2>行程/东南亚 <em>(1)</em></h2><ul><li data-key="东南亚 4 国串联 - 越泰马新 20 天 行程/东南亚/se-asia-4-countries.html"><a href="行程/东南亚/se-asia-4-countries.html" data-file="行程/东南亚/se-asia-4-countries.html">东南亚 4 国串联 - 越泰马新 20 天</a><span class="path">行程/东南亚/se-asia-4-countries.html</span><span class="time">2026-05-25 14:58</span></li></ul></section>
+<section><h2>行程/全程串联 <em>(2)</em></h2><ul><li data-key="云南衔接段 - 泸沽湖收车 + 昆明寄存 + 南下广西 6 天 行程/全程串联/yunnan-bridge.html"><a href="行程/全程串联/yunnan-bridge.html" data-file="行程/全程串联/yunnan-bridge.html">云南衔接段 - 泸沽湖收车 + 昆明寄存 + 南下广西 6 天</a><span class="path">行程/全程串联/yunnan-bridge.html</span><span class="time">2026-05-25 14:57</span></li>
+<li data-key="武汉大环线 78 天 - 湘渝贵滇 + 东南亚 4 国 + 沿海五省全串联 行程/全程串联/wuhan-grand-loop.html"><a href="行程/全程串联/wuhan-grand-loop.html" data-file="行程/全程串联/wuhan-grand-loop.html">武汉大环线 78 天 - 湘渝贵滇 + 东南亚 4 国 + 沿海五省全串联</a><span class="path">行程/全程串联/wuhan-grand-loop.html</span><span class="time">2026-05-25 15:06</span></li></ul></section>
+<section><h2>行程/新疆 <em>(2)</em></h2><ul><li data-key="新疆10天旅行计划 - 10月15日出发 行程/新疆/xinjiang-10day-plan.html"><a href="行程/新疆/xinjiang-10day-plan.html" data-file="行程/新疆/xinjiang-10day-plan.html">新疆10天旅行计划 - 10月15日出发</a><span class="path">行程/新疆/xinjiang-10day-plan.html</span><span class="time">2026-05-18 09:26</span></li>
+<li data-key="新疆旅游攻略 - 武汉出发 行程/新疆/xinjiang-travel-guide.html"><a href="行程/新疆/xinjiang-travel-guide.html" data-file="行程/新疆/xinjiang-travel-guide.html">新疆旅游攻略 - 武汉出发</a><span class="path">行程/新疆/xinjiang-travel-guide.html</span><span class="time">2026-05-18 09:26</span></li></ul></section>
+<section><h2>行程/横断山脉 <em>(1)</em></h2><ul><li data-key="横断山脉自驾选线 - 景区·路线·车况 行程/横断山脉/hengduan-overview.html"><a href="行程/横断山脉/hengduan-overview.html" data-file="行程/横断山脉/hengduan-overview.html">横断山脉自驾选线 - 景区·路线·车况</a><span class="path">行程/横断山脉/hengduan-overview.html</span><span class="time">2026-05-24 17:52</span></li></ul></section>
+<section><h2>行程/河南山西古建 <em>(1)</em></h2><ul><li data-key="河南山西古建朝圣线 - 武汉自驾 8 天 行程/河南山西古建/henan-shanxi-ancient.html"><a href="行程/河南山西古建/henan-shanxi-ancient.html" data-file="行程/河南山西古建/henan-shanxi-ancient.html">河南山西古建朝圣线 - 武汉自驾 8 天</a><span class="path">行程/河南山西古建/henan-shanxi-ancient.html</span><span class="time">2026-05-24 21:20</span></li></ul></section>
+<section><h2>行程/沿海五省 <em>(1)</em></h2><ul><li data-key="沿海 5 省 + 港澳 + 上海自驾环线 - 桂粤闽浙沪苏港澳 31 天 行程/沿海五省/coastal-5-provinces.html"><a href="行程/沿海五省/coastal-5-provinces.html" data-file="行程/沿海五省/coastal-5-provinces.html">沿海 5 省 + 港澳 + 上海自驾环线 - 桂粤闽浙沪苏港澳 31 天</a><span class="path">行程/沿海五省/coastal-5-provinces.html</span><span class="time">2026-05-25 15:01</span></li></ul></section>
+<section><h2>行程/湘渝贵环线 <em>(1)</em></h2><ul><li data-key="湘渝贵滇环线 - 武汉自驾 22 天 · 终点泸沽湖 行程/湘渝贵环线/hunan-chongqing-guizhou.html"><a href="行程/湘渝贵环线/hunan-chongqing-guizhou.html" data-file="行程/湘渝贵环线/hunan-chongqing-guizhou.html">湘渝贵滇环线 - 武汉自驾 22 天 · 终点泸沽湖</a><span class="path">行程/湘渝贵环线/hunan-chongqing-guizhou.html</span><span class="time">2026-05-25 15:01</span></li></ul></section>
+</div>
+
+<div id="frame-view" hidden>
+  <div id="frame-bar">
+    <a href="#" id="prev-btn" title="浏览器后退，回到上一个看过的文档">← 上一步</a>
+    <a href="#" id="home-btn" title="直接回到列表门面">⌂ 门面</a>
+    <span id="frame-title"></span>
+    <a href="#" id="open-new" target="_blank" rel="noopener">新标签页打开 ↗</a>
+  </div>
+  <iframe id="frame" src="about:blank"></iframe>
+</div>
+
+<script>
+const q = document.getElementById('q');
+q.addEventListener('input', () => {
+  const kw = q.value.trim().toLowerCase();
+  document.querySelectorAll('li').forEach(li => {
+    li.classList.toggle('hidden', kw && !li.dataset.key.includes(kw));
+  });
+  document.querySelectorAll('section').forEach(sec => {
+    const visible = sec.querySelectorAll('li:not(.hidden)').length;
+    sec.style.display = visible ? '' : 'none';
+  });
+});
+
+const listView = document.getElementById('list-view');
+const frameView = document.getElementById('frame-view');
+const frame = document.getElementById('frame');
+const frameTitle = document.getElementById('frame-title');
+const openNew = document.getElementById('open-new');
+
+const prevBtn = document.getElementById('prev-btn');
+
+function updatePrevBtn() {
+  const canGoBack = !!(history.state && history.state.navigated);
+  prevBtn.classList.toggle('disabled', !canGoBack);
+}
+function showFrame(file) {
+  frame.src = file;
+  frameTitle.textContent = decodeURIComponent(file);
+  openNew.href = file;
+  listView.hidden = true;
+  frameView.hidden = false;
+  document.title = decodeURIComponent(file) + ' · 资料门面';
+  updatePrevBtn();
+}
+function showList() {
+  frameView.hidden = true;
+  listView.hidden = false;
+  frame.src = 'about:blank';
+  document.title = '资料门面';
+}
+function sync() {
+  const m = location.hash.match(/^#file=(.+)$/);
+  if (m) showFrame(decodeURI(m[1]));
+  else showList();
+}
+
+// 给当前历史记录打标记，确保"上一步"不会退到 index.html 之前的外部页
+if (!history.state || !('navigated' in history.state)) {
+  history.replaceState({navigated: false}, '');
+}
+window.addEventListener('popstate', sync);
+
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[data-file]');
+  if (!a) return;
+  e.preventDefault();
+  const file = a.dataset.file;
+  history.pushState({navigated: true}, '', '#file=' + encodeURI(file));
+  showFrame(file);
+});
+prevBtn.addEventListener('click', e => {
+  e.preventDefault();
+  if (history.state && history.state.navigated) history.back();
+});
+document.getElementById('home-btn').addEventListener('click', e => {
+  e.preventDefault();
+  history.pushState({navigated: false}, '', location.pathname + location.search);
+  showList();
+});
+
+sync();
+</script>
+</body>
+</html>
