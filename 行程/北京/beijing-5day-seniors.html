@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>北京 5 日舒缓游 - 武汉出发 · 两老 1 中年 · 不自驾</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-secondary: #f7f7f5;
+    --text: #2c2c2a;
+    --text-secondary: #5f5e5a;
+    --text-tertiary: #888780;
+    --border: rgba(0,0,0,0.12);
+    --blue: #378ADD;
+    --blue-light: #E6F1FB;
+    --amber: #BA7517;
+    --amber-light: #FAEEDA;
+    --green: #3B6D11;
+    --green-light: #EAF3DE;
+    --red: #A32D2D;
+    --red-light: #FCEBEB;
+    --teal: #0F6E56;
+    --teal-light: #E1F5EE;
+    --purple: #534AB7;
+    --purple-light: #EEEDFE;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; color: var(--text); background: var(--bg-secondary); line-height: 1.6; padding: 2rem 1rem; }
+  .container { max-width: 980px; margin: 0 auto; }
+  .page-header { text-align: center; margin-bottom: 2rem; }
+  .page-header h1 { font-size: 26px; font-weight: 500; margin-bottom: 6px; }
+  .page-header p { font-size: 14px; color: var(--text-secondary); }
+  .page-header .meta { display: inline-flex; gap: 12px; margin-top: 8px; font-size: 12px; color: var(--text-tertiary); flex-wrap: wrap; justify-content: center; }
+  .page-header .meta span { background: var(--bg); padding: 3px 10px; border-radius: 20px; border: 0.5px solid var(--border); }
+  .page-header .highlight { background: var(--green-light); color: var(--green); border-color: transparent; font-weight: 500; }
+
+  .toc { background: var(--bg); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 16px 24px; margin-bottom: 2rem; }
+  .toc h3 { font-size: 14px; font-weight: 500; margin-bottom: 10px; }
+  .toc ul { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 6px; }
+  .toc a { color: var(--blue); text-decoration: none; font-size: 13px; padding: 4px 0; display: block; }
+  .toc a:hover { color: var(--text); }
+
+  .section { background: var(--bg); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 24px 28px; margin-bottom: 1.5rem; }
+  .section h2 { font-size: 18px; font-weight: 500; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 0.5px solid var(--border); }
+  .section h3 { font-size: 15px; font-weight: 500; margin: 20px 0 10px; }
+  .section p { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 12px; }
+  thead th { background: var(--bg-secondary); font-weight: 500; text-align: left; padding: 10px 12px; border-bottom: 0.5px solid var(--border); font-size: 12px; color: var(--text-secondary); }
+  tbody td { padding: 10px 12px; border-bottom: 0.5px solid rgba(0,0,0,0.06); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  .right { text-align: center; }
+  .mono { font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: 12px; }
+
+  .badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 500; white-space: nowrap; }
+  .badge-green { background: var(--green-light); color: var(--green); }
+  .badge-amber { background: var(--amber-light); color: var(--amber); }
+  .badge-red { background: var(--red-light); color: var(--red); }
+  .badge-blue { background: var(--blue-light); color: var(--blue); }
+  .badge-purple { background: var(--purple-light); color: var(--purple); }
+  .badge-teal { background: var(--teal-light); color: var(--teal); }
+
+  .day-card { background: var(--bg-secondary); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 18px 22px; margin-bottom: 14px; position: relative; }
+  .day-card .day-num { position: absolute; top: -1px; left: 16px; background: var(--blue); color: #fff; font-size: 12px; font-weight: 500; padding: 2px 12px; border-radius: 0 0 8px 8px; }
+  .day-card.highlight .day-num { background: var(--purple); }
+  .day-card .day-title { font-size: 15px; font-weight: 500; margin-bottom: 8px; padding-left: 70px; }
+  .day-card .day-sub { font-size: 12px; color: var(--text-tertiary); margin-left: 8px; font-weight: 400; }
+  .day-card .day-body { font-size: 13px; color: var(--text-secondary); line-height: 1.9; }
+  .day-card .day-body strong { color: var(--text); }
+  .day-card .day-route { font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: 12px; background: var(--bg); border-radius: 6px; padding: 8px 12px; margin-top: 10px; color: var(--text-secondary); }
+
+  .hostel-card { background: var(--bg-secondary); border-radius: var(--radius-sm); border: 0.5px solid var(--border); padding: 12px 14px; margin-bottom: 8px; }
+  .hostel-card .name { font-size: 13.5px; font-weight: 500; margin-bottom: 4px; }
+  .hostel-card .price { color: var(--red); font-size: 12px; margin-bottom: 4px; }
+  .hostel-card .addr { font-size: 11.5px; color: var(--text-tertiary); margin-bottom: 4px; }
+  .hostel-card .feat { font-size: 12px; color: var(--text-secondary); }
+
+  .cost-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 14px; }
+  .cost-col { background: var(--bg-secondary); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 16px; }
+  .cost-col h4 { font-size: 13px; margin-bottom: 4px; text-align: center; }
+  .cost-col .sub { font-size: 11px; color: var(--text-tertiary); text-align: center; }
+  .cost-col .total { font-size: 22px; font-weight: 500; text-align: center; margin: 8px 0; }
+  .cost-col table { font-size: 12px; margin-top: 4px; }
+  .cost-col table td { padding: 4px 6px; border-bottom: 0.5px dashed rgba(0,0,0,0.06); }
+  .cost-col.frugal { border: 2px solid var(--green); }
+  .cost-col.frugal .total { color: var(--green); }
+  .cost-col.std { border: 2px solid var(--amber); }
+  .cost-col.std .total { color: var(--amber); }
+  .cost-col.lux { border: 2px solid var(--red); }
+  .cost-col.lux .total { color: var(--red); }
+
+  .tip-box { background: var(--blue-light); border-radius: var(--radius-sm); padding: 14px 18px; margin-top: 12px; font-size: 13px; border-left: 3px solid var(--blue); }
+  .tip-box strong { color: var(--blue); }
+  .ok-box { background: var(--green-light); border-radius: var(--radius-sm); padding: 14px 18px; margin-top: 12px; font-size: 13px; border-left: 3px solid var(--green); }
+  .ok-box strong { color: var(--green); }
+  .warn-box { background: var(--amber-light); border-radius: var(--radius-sm); padding: 14px 18px; margin-top: 12px; font-size: 13px; border-left: 3px solid var(--amber); }
+  .warn-box strong { color: var(--amber); }
+
+  ul.bullet { padding-left: 20px; font-size: 13px; color: var(--text-secondary); line-height: 1.9; }
+  ul.bullet strong { color: var(--text); }
+
+  @media (max-width: 600px) {
+    body { padding: 1rem 0.5rem; }
+    .section { padding: 16px; }
+    .cost-grid { grid-template-columns: 1fr; }
+    .day-card .day-title { padding-left: 0; margin-top: 22px; }
+  }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .section, .day-card, .hostel-card { break-inside: avoid; border: 1px solid #ddd; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+<div class="page-header">
+<h1>北京 5 日舒缓游</h1>
+<p>武汉出发 · 5.31 → 6.4 · 两位老人 + 1 中年人 · 全程不自驾（地铁 + 短途打车）</p>
+<div class="meta">
+<span>数据来源：携程问道实测</span>
+<span>经典必去 · 零爬山 · 每天 1–2 个核心点</span>
+<span class="highlight">自由行人均约 ¥3,800（3 人 ¥1.15 万）</span>
+</div>
+</div>
+
+<div class="toc">
+<h3>目录</h3>
+<ul>
+<li><a href="#intro">一、设计原则</a></li>
+<li><a href="#transport">二、去返交通（高铁 vs 飞机）</a></li>
+<li><a href="#days">三、5 天逐日行程</a></li>
+<li><a href="#hotel">四、酒店推荐（中心地段）</a></li>
+<li><a href="#cost">五、费用精算</a></li>
+<li><a href="#compare">六、自由行 vs 跟团</a></li>
+<li><a href="#tips">七、老人友好贴士 + 预约</a></li>
+</ul>
+</div>
+
+<div class="section" id="intro">
+<h2>一、设计原则：为两老 1 中年量身放缓</h2>
+<ul class="bullet">
+<li><strong>零爬山、少暴走</strong>：长城坐缆车只走平缓段，颐和园不爬万寿山，景山不登顶；每天只排 1–2 个核心景点，每 40 分钟可歇一次。</li>
+<li><strong>不自驾</strong>：全程地铁优先 + 短途打车，老人少换乘、少走长通道。</li>
+<li><strong>经典一网打尽</strong>：故宫、天安门、天坛、颐和园、八达岭长城、什刹海胡同、南锣鼓巷、前门，五天覆盖北京最经典的线。</li>
+<li><strong>吃得清淡就近</strong>：每个景点就近安排老北京清淡软烂的馆子，不为吃饭折腾。</li>
+<li><strong>省钱关键</strong>：60 岁以上多数景点免门票或半价，是把人均压到 ¥3,800 的主因。</li>
+</ul>
+</div>
+
+<div class="section" id="transport">
+<h2>二、去返交通：高铁 vs 飞机</h2>
+<p>去程 5.31 上午出发、返程 6.4，下面是携程问道查到的实价对比（3 人）。</p>
+<table>
+<thead><tr><th>方式</th><th>班次示例</th><th class="right">时长</th><th class="right">单程/人</th><th class="right">3 人往返</th></tr></thead>
+<tbody>
+<tr>
+  <td><strong>高铁</strong> <span class="badge badge-green">推荐</span></td>
+  <td>去 G344 08:36→12:24；返程同段约 4h<br/><span class="mono">G340 / G316 / G346 等多班可选</span></td>
+  <td class="right">约 4h</td>
+  <td class="right">二等座<br/>¥592–623</td>
+  <td class="right"><strong>约 ¥3,600</strong></td>
+</tr>
+<tr>
+  <td>飞机</td>
+  <td>去 CA8201 08:00→10:00（首都）<br/>MU2601 / CZ3137 到大兴更便宜</td>
+  <td class="right">飞 2h<br/>+候机/进城</td>
+  <td class="right">经济舱特价<br/>¥300–580</td>
+  <td class="right">约 ¥2,400–3,500</td>
+</tr>
+</tbody>
+</table>
+<div class="ok-box">
+<strong>两老出行建议选高铁</strong>：站点在市区、不折腾行李、可随时走动上厕所、准点；飞机只有买到特价才明显省钱，且大兴机场进城较远、候机+安检后实际耗时与高铁接近。
+</div>
+</div>
+
+<div class="section" id="days">
+<h2>三、5 天逐日行程</h2>
+
+<div class="day-card">
+<span class="day-num">Day 1 · 5.31</span>
+<div class="day-title">抵京 → 天安门 → 故宫 → 什刹海<span class="day-sub">中轴线经典，节奏慢</span></div>
+<div class="day-body">
+中午高铁抵北京西，先到酒店放行李、午餐休整。下午 <strong>天安门广场</strong>(1.5h，地铁1号线天安门东站，看升旗台、人民英雄纪念碑，平地慢走)。傍晚 <strong>故宫</strong>只走中轴线(2.5h，午门→太和殿→乾清宫→神武门，避开陡坡与岔路，累了随时歇)。出神武门打车 15 分钟到 <strong>什刹海</strong>沿湖慢逛(1h)，感受老北京烟火气。
+<div class="day-route">午餐：前门 四季民福烤鸭 / 方砖厂69号炸酱面（清淡适口）</div>
+</div>
+</div>
+
+<div class="day-card">
+<span class="day-num">Day 2 · 6.1</span>
+<div class="day-title">天坛 → 南锣鼓巷<span class="day-sub">全程平地，零爬坡</span></div>
+<div class="day-body">
+上午 <strong>天坛公园</strong>(2h，地铁5号线天坛东门，祈年殿→圜丘坛，园区平坦、树荫多，适合慢走休息)。下午 <strong>南锣鼓巷</strong>(1.5h，地铁6号线南锣鼓巷站，只逛主街+平缓胡同，少走分支小巷)，轻松感受胡同文化。
+<div class="day-route">午餐：天坛东门 老磁器口豆汁店（豌豆黄、驴打滚等小吃，清淡不腻）</div>
+</div>
+</div>
+
+<div class="day-card">
+<span class="day-num">Day 3 · 6.2</span>
+<div class="day-title">颐和园（老人友好路线）<span class="day-sub">不爬万寿山 · 游船坐着看</span></div>
+<div class="day-body">
+全天 <strong>颐和园</strong>(地铁4号线北宫门→东宫门入园)。走 <strong>长廊→昆明湖→十七孔桥</strong>(3h，全程平缓，<strong>不爬万寿山</strong>)。下午 <strong>昆明湖电动游船</strong>(1h，省力，坐着赏湖光山色)。
+<div class="day-route">午餐：园内 听鹂馆（简餐/面食）或北宫门附近家常菜，就近用餐少折腾</div>
+</div>
+</div>
+
+<div class="day-card highlight">
+<span class="day-num">Day 4 · 6.3</span>
+<div class="day-title">八达岭长城（缆车省力版）<span class="day-sub">不爬陡坡 · 全程约 1.5h</span></div>
+<div class="day-body">
+上午地铁到 <strong>清河站</strong>→坐 <strong>市郊高铁 19 分钟到八达岭站</strong>。<strong>坐空中缆车往返</strong>直达北 7 楼，慢走到北 8 楼（好汉坡平缓段，1.5h）后原路缆车返回，<strong>不爬陡坡、安全轻松</strong>。下午高铁回市区，打车回酒店休整，不再加景点。
+<div class="day-route">午餐：景区附近 延庆农家菜（炖菜、面食，软烂好消化）</div>
+</div>
+</div>
+
+<div class="day-card">
+<span class="day-num">Day 5 · 6.4</span>
+<div class="day-title">前门大栅栏轻松收尾 → 返程<span class="day-sub">平地慢逛，不赶时间</span></div>
+<div class="day-body">
+上午 <strong>前门大栅栏</strong>老北京商业街平地慢逛(1.5h)，或改 <strong>景山公园</strong>平地散步(不登顶)。午餐后从北京西站坐高铁返武汉，<strong>提前 1.5–2h 到站</strong>，节奏舒缓。
+<div class="day-route">午餐：前门老字号小吃（卤煮、爆肚、炸酱面，口味可选清淡）</div>
+</div>
+</div>
+</div>
+
+<div class="section" id="hotel">
+<h2>四、酒店推荐：中心地段 · 地铁口 · 安静好休息</h2>
+<p>价位均在 ¥580–600/晚一档，3 人建议订 <strong>1 间三人房/家庭房</strong>（订 2 间约 +¥2,000）。携程问道实价：</p>
+
+<div class="hostel-card">
+<div class="name">香柏艺术酒店（北京南锣鼓巷后海店） <span class="badge badge-purple">家庭房多</span></div>
+<div class="price">约 ¥586/晚</div>
+<div class="addr">最近地铁：南锣鼓巷站 · 步行可达后海</div>
+<div class="feat">艺术氛围、智能马桶、亲子主题房；离 Day1 什刹海 / Day2 南锣鼓巷很近。</div>
+</div>
+
+<div class="hostel-card">
+<div class="name">北京 18HOW 前门葡萄院子（天安门广场大栅栏店） <span class="badge badge-green">离景点最近</span></div>
+<div class="price">约 ¥582/晚</div>
+<div class="addr">最近地铁：珠市口站（步行约 430m）</div>
+<div class="feat">胡同里的静谧院落，百年葡萄树庭院；离前门 / 天安门步行可达，Day1、Day5 最顺。</div>
+</div>
+
+<div class="hostel-card">
+<div class="name">北京君来江南酒店（王府井东） <span class="badge badge-blue">隔音好</span></div>
+<div class="price">约 ¥604/晚</div>
+<div class="addr">最近地铁：东四十条站</div>
+<div class="feat">独立院落安静舒适，江南风格，隔音效果好，适合长辈休息。</div>
+</div>
+
+<div class="tip-box">
+<strong>选址建议</strong>：优先 <strong>前门/大栅栏一带</strong>（葡萄院子），Day1 故宫天安门、Day5 前门都能步行解决，地铁也四通八达，对老人最省脚力。
+</div>
+</div>
+
+<div class="section" id="cost">
+<h2>五、费用精算（3 人 · 高铁往返 · 1 间三人房）</h2>
+<table>
+<thead><tr><th>项目</th><th>明细</th><th class="right">合计</th></tr></thead>
+<tbody>
+<tr><td>城际高铁</td><td>二等座 ¥600 × 往返 2 程 × 3 人</td><td class="right">¥3,600</td></tr>
+<tr><td>住宿</td><td>三人间/家庭房 ¥600 × 5 晚（1 间）</td><td class="right">¥3,000</td></tr>
+<tr><td>景点门票</td><td>故宫+珍宝馆、天坛、颐和园联票等；<strong>2 位老人多半免/半价</strong>，主要中年人全票</td><td class="right">约 ¥700</td></tr>
+<tr><td>缆车+游船</td><td>八达岭缆车往返 ¥140×3 + 颐和园电动船</td><td class="right">约 ¥520</td></tr>
+<tr><td>市内交通</td><td>地铁+短途打车 5 天 ≈¥500 + 八达岭市郊高铁往返 ≈¥180</td><td class="right">约 ¥680</td></tr>
+<tr><td>餐饮</td><td>人均 ¥150/天 × 3 人 × 5 天（含一顿烤鸭）</td><td class="right">约 ¥2,500</td></tr>
+<tr><td>缓冲</td><td>杂费 / 小购物</td><td class="right">约 ¥500</td></tr>
+<tr><td><strong>合计</strong></td><td><strong>人均约 ¥3,800</strong></td><td class="right"><strong>≈ ¥11,500</strong></td></tr>
+</tbody>
+</table>
+<div class="warn-box">
+<strong>变量提示</strong>：订 <strong>2 间房</strong>（标间+单间）→ +约 ¥2,000，总价 ≈¥13,500；改 <strong>特价机票</strong> → 交通省 ¥200–1,200，但大兴进城折腾；周末高铁/酒店可能上浮 5–10%。
+</div>
+</div>
+
+<div class="section" id="compare">
+<h2>六、自由行 vs 跟团（携程问道实价）</h2>
+<div class="cost-grid">
+<div class="cost-col frugal">
+<h4>自由行（1 房）</h4>
+<div class="sub">高铁往返 · 自订自走</div>
+<div class="total">¥11,500</div>
+<table><tbody>
+<tr><td>节奏</td><td>✅✅ 完全自定</td></tr>
+<tr><td>省心</td><td>需自订票/预约/导航</td></tr>
+<tr><td>吃住</td><td>自选、可吃好</td></tr>
+<tr><td>5 晚</td><td>住满 5 晚</td></tr>
+</tbody></table>
+</div>
+<div class="cost-col std">
+<h4>5 日纯玩小团</h4>
+<div class="sub">¥3,677/人 · 12 人小团</div>
+<div class="total">¥11,000</div>
+<table><tbody>
+<tr><td>含</td><td>往返火车+4晚2钻+故宫/八达岭/天坛/颐和园门票+部分正餐+游船</td></tr>
+<tr><td>购物</td><td>✅ 0 购物</td></tr>
+<tr><td>节奏</td><td>跟团、需早集合</td></tr>
+<tr><td>住</td><td>4 晚、2 钻偏普通</td></tr>
+</tbody></table>
+</div>
+<div class="cost-col lux">
+<h4>6 日私家团</h4>
+<div class="sub">¥5,622/人 · 独立成团</div>
+<div class="total">¥16,900</div>
+<table><tbody>
+<tr><td>含</td><td>往返机票/火车+5晚3钻+慕田峪长城+珍宝馆+管家</td></tr>
+<tr><td>购物</td><td>✅ 0 购物</td></tr>
+<tr><td>节奏</td><td>✅ 可调、最省心</td></tr>
+<tr><td>住</td><td>5 晚、3 钻较好</td></tr>
+</tbody></table>
+</div>
+</div>
+<div class="ok-box">
+<strong>结论</strong>：自由行(1 房) 与 5 日纯玩团价格几乎打平（约 ¥1.1 万），但自由行<strong>节奏完全可控、能随时让老人休息、吃得自在</strong>，对 2 老 1 中年最舒服 → <strong>首选自由行</strong>。<br/>
+不想操心订票/预约/带路 → 选 <strong>5 日纯玩小团</strong>（同价、有导游）；预算够要最省心又节奏自由 → <strong>6 日私家团</strong>。<br/>
+<span style="color:var(--text-tertiary)">常规 50 人大团约 ¥8,000 更便宜，但含购物店、大团赶场，<strong>不推荐带老人</strong>。</span>
+</div>
+</div>
+
+<div class="section" id="tips">
+<h2>七、老人友好贴士 + 预约</h2>
+<ul class="bullet">
+<li><strong>提前 7 天预约</strong>：故宫、八达岭长城均需实名预约（故宫官网/公众号、八达岭公众号）；旺季门票紧张，定好行程立刻约。</li>
+<li><strong>带好证件</strong>：60 岁以上老人凭身份证多数景点免门票或半价，务必随身带身份证。</li>
+<li><strong>错峰</strong>：故宫上午人多，安排在下午进；长城选工作日（Day4 为 6.3 周三）人相对少。</li>
+<li><strong>交通</strong>：地铁优先 + 短途打车，避开长距离步行与多次换乘；老人走地铁长通道慢，预留时间。</li>
+<li><strong>随身</strong>：常备药、保温杯、薄外套（早晚温差）、舒适软底鞋、折叠小凳/拐杖可选。</li>
+<li><strong>天气</strong>：5 月底 6 月初北京晴热为主，白天 28–32℃，注意防晒补水、避开正午暴晒。</li>
+<li><strong>退路</strong>：每天只排 1–2 个核心点，体力不支可随时砍掉次要项（Day5 最灵活）。</li>
+</ul>
+</div>
+
+</div>
+</body>
+</html>
