@@ -251,6 +251,7 @@
 <div class="section" id="spots">
 <h2>四、核心景点</h2>
 <p style="color:var(--text-tertiary);font-size:12px">图片可后续单独跑 subagent 补（高德 MCP 不支持国外景点照片，需换 Wikimedia/Unsplash 数据源）。</p>
+<div style="margin:10px 0 16px"><label style="font-size:13px;color:var(--text-tertiary);margin-right:8px">按国家查看</label><select id="provSelect" style="font-size:14px;padding:7px 12px;border-radius:8px;border:1px solid var(--blue,#3b82f6);background:var(--bg-secondary,#f5f5f7);color:inherit;cursor:pointer;font-weight:600"></select></div>
 <h3>🇻🇳 越南（南北 1700 km）</h3>
 <div class="spot-grid">
 <div class="spot-card s-tier">
@@ -454,6 +455,7 @@
 <div class="section" id="days">
 <h2>六、20 天行程（逐日：人文历史地理 + 景点收获玩法 + 时间轴带花费 + 住宿过差评 + 美食落到店）</h2>
 <div class="ok-box">由 <strong>携程问道（海外酒店价/差评/人均/景点）+ WebSearch（签证/跨国交通/门票最新信息）</strong> 实查生成（海外美团/高德不可用）。<strong>单人计价</strong>、段间交通为飞机/火车/巴士；签证已逐日标注：越南 evisa / 中泰永久互免+TDAC / 中马互免+MDAC / 新加坡免签+SGAC。</div>
+<div style="position:sticky;top:0;z-index:20;background:var(--bg,#fff);padding:10px 0;margin-bottom:8px;border-bottom:1px solid var(--border,#e5e5e5)"><label style="font-size:13px;color:var(--text-tertiary);margin-right:8px">选择段落</label><select id="daySelect" style="font-size:14px;padding:7px 12px;border-radius:8px;border:1px solid var(--blue,#3b82f6);background:var(--bg-secondary,#f5f5f7);color:inherit;cursor:pointer;font-weight:600;max-width:88%"></select></div>
 <div class="day-card long"><div class="day-num">DAY 1</div>
 <div class="day-title">昆明 → 河内(入越·首住河内老城) <span class="day-sub">越南·河内</span></div>
 <div class="day-route">✈ 昆明长水机场(KMG)直飞河内内排机场(HAN)约2小时,落地后打Grab/出租车进老城(还剑湖区)安顿。下午绕还剑湖+玉山祠、钻进三十六行街老城,傍晚河内大教堂,晚上夜市+蛋咖啡收尾。⚠️签证:中国公民赴越南需提前办电子签(evisa.gov.vn官网,单次入境25美元约180元,3-7工作日出签,90天有效),不要临行才办;务必打印电子签纸质件备查。机票淡季(6月)可低至约800-1100元单程,提前订更稳。</div>
@@ -1209,5 +1211,39 @@
 </ul>
 </div>
 </div>
+<script>
+(function(){
+  var spots=document.getElementById('spots');
+  if(spots){
+    var h3s=Array.prototype.slice.call(spots.querySelectorAll('h3'));
+    var grids=Array.prototype.slice.call(spots.querySelectorAll('.spot-grid'));
+    var ps=document.getElementById('provSelect');
+    if(ps&&h3s.length&&h3s.length===grids.length){
+      var all=document.createElement('option');all.value='-1';all.textContent='🗺 全部';ps.appendChild(all);
+      h3s.forEach(function(h,i){var o=document.createElement('option');o.value=i;o.textContent=h.textContent.trim();ps.appendChild(o);});
+      var showP=function(i){h3s.forEach(function(h,j){h.style.display=(i<0||j==i)?'':'none';});grids.forEach(function(g,j){g.style.display=(i<0||j==i)?'':'none';});};
+      ps.addEventListener('change',function(){showP(parseInt(this.value,10));});
+      ps.value='0';showP(0);
+    }
+  }
+  var days=document.getElementById('days');
+  if(days){
+    var cards=Array.prototype.slice.call(days.querySelectorAll('.day-card'));
+    var ds=document.getElementById('daySelect');
+    if(ds&&cards.length){
+      var allD=document.createElement('option');allD.value='-1';allD.textContent='📋 全部 '+cards.length+' 段（长页）';ds.appendChild(allD);
+      cards.forEach(function(c,i){
+        var num=c.querySelector('.day-num'), title=c.querySelector('.day-title');
+        var label=num?num.textContent.trim():('DAY '+(i+1));
+        if(title){var tc=title.cloneNode(true);var sub=tc.querySelector('.day-sub');if(sub)sub.parentNode.removeChild(sub);var t=tc.textContent.trim();if(t)label+=' · '+t;}
+        var o=document.createElement('option');o.value=i;o.textContent=label;ds.appendChild(o);
+      });
+      var showD=function(i){cards.forEach(function(c,j){c.style.display=(i<0||j==i)?'':'none';});};
+      ds.addEventListener('change',function(){showD(parseInt(this.value,10));});
+      ds.value='0';showD(0);
+    }
+  }
+})();
+</script>
 </body>
 </html>

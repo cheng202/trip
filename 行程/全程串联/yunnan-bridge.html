@@ -200,6 +200,7 @@
 <div class="section" id="days">
 <h2>四、6 天逐日（逐日四块：人文历史地理 + 景点收获玩法 + 时间轴带花费 + 住宿过差评 + 美食落到店）</h2>
 <div class="ok-box">由 <strong>美团（真实门店/评分）+ 携程问道（差评/人均/门票）+ 高德 MCP（实测里程）</strong> 实查生成。日号沿用武汉大环线编排（D24-25 收车寄存段、D47-50 取车南下段，非连续）。2 人自驾,住宿双床并列三档过差评。</div>
+<div style="position:sticky;top:0;z-index:20;background:var(--bg,#fff);padding:10px 0;margin-bottom:8px;border-bottom:1px solid var(--border,#e5e5e5)"><label style="font-size:13px;color:var(--text-tertiary);margin-right:8px">选择日期</label><select id="daySelect" style="font-size:14px;padding:7px 12px;border-radius:8px;border:1px solid var(--blue,#3b82f6);background:var(--bg-secondary,#f5f5f7);color:inherit;cursor:pointer;font-weight:600;max-width:88%"></select></div>
 <div class="day-card long"><div class="day-num">DAY 24</div>
 <div class="day-title">泸沽湖 → 丽江 → 大理(收车返程·首住大理) <span class="day-sub">云南·泸沽湖→大理</span></div>
 <div class="day-route">🚗 转场为主日。泸沽湖镇→丽江古城 190km/约3h19m(走宁泸公路+泸南高速接丽宁公路盘山段,老车下坡多用低挡、忌长时间踩刹车,西川丫口隧道一段连续68km山路);丽江古城→大理古城 169.6km/约2h19m(全程G5611大丽高速,路况好)。全天约360km、含连续盘山,建议早7:30出发,丽江午餐+短歇,傍晚抵大理首住,放下车后逛大理古城收尾。本段终点收车——东南亚回程后在昆明取车再南下建水/元阳。</div>
@@ -429,5 +430,39 @@
 <div class="ok-box"><strong>对比原方案</strong>：丽江✈武汉¥3,000 + 武汉→桂林油费¥660 + 多1晚住宿 ≈ ¥3,910；本衔接段把"收车寄存+取车南下"串起来，多花的主要是建水/元阳/百色/南宁 4 天住宿餐饮，但拿下元阳哈尼梯田世遗+建水古城+百色起义+南宁等边境精华，并无缝接上沿海五省（次日 D1 南宁→桂林）。</div>
 </div>
 </div>
+<script>
+(function(){
+  var spots=document.getElementById('spots');
+  if(spots){
+    var h3s=Array.prototype.slice.call(spots.querySelectorAll('h3'));
+    var grids=Array.prototype.slice.call(spots.querySelectorAll('.spot-grid'));
+    var ps=document.getElementById('provSelect');
+    if(ps&&h3s.length&&h3s.length===grids.length){
+      var all=document.createElement('option');all.value='-1';all.textContent='🗺 全部';ps.appendChild(all);
+      h3s.forEach(function(h,i){var o=document.createElement('option');o.value=i;o.textContent=h.textContent.trim();ps.appendChild(o);});
+      var showP=function(i){h3s.forEach(function(h,j){h.style.display=(i<0||j==i)?'':'none';});grids.forEach(function(g,j){g.style.display=(i<0||j==i)?'':'none';});};
+      ps.addEventListener('change',function(){showP(parseInt(this.value,10));});
+      ps.value='0';showP(0);
+    }
+  }
+  var days=document.getElementById('days');
+  if(days){
+    var cards=Array.prototype.slice.call(days.querySelectorAll('.day-card'));
+    var ds=document.getElementById('daySelect');
+    if(ds&&cards.length){
+      var allD=document.createElement('option');allD.value='-1';allD.textContent='📋 全部 '+cards.length+' 天（长页）';ds.appendChild(allD);
+      cards.forEach(function(c,i){
+        var num=c.querySelector('.day-num'), title=c.querySelector('.day-title');
+        var label=num?num.textContent.trim():('DAY '+(i+1));
+        if(title){var tc=title.cloneNode(true);var sub=tc.querySelector('.day-sub');if(sub)sub.parentNode.removeChild(sub);var t=tc.textContent.trim();if(t)label+=' · '+t;}
+        var o=document.createElement('option');o.value=i;o.textContent=label;ds.appendChild(o);
+      });
+      var showD=function(i){cards.forEach(function(c,j){c.style.display=(i<0||j==i)?'':'none';});};
+      ds.addEventListener('change',function(){showD(parseInt(this.value,10));});
+      ds.value='0';showD(0);
+    }
+  }
+})();
+</script>
 </body>
 </html>
