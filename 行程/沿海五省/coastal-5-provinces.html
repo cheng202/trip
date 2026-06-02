@@ -1671,7 +1671,7 @@
         var o=document.createElement('option');o.value=i;o.textContent=label;ds.appendChild(o);
       });
       var showD=function(i){cards.forEach(function(c,j){c.style.display=(i<0||j==i)?'':'none';});};
-      ds.addEventListener('change',function(){showD(parseInt(this.value,10));});
+      ds.addEventListener('change',function(){var i=parseInt(this.value,10);showD(i);var hdr=(ds.parentNode.offsetHeight||56)+8;var tgt;if(i<0){var y=0,el=ds.parentNode;while(el){y+=el.offsetTop;el=el.offsetParent;}tgt=y;}else{tgt=cards[i].getBoundingClientRect().top+window.pageYOffset-hdr;}window.scrollTo({top:Math.max(0,tgt),behavior:'smooth'});});
       ds.value='0';showD(0);
     }
   }
