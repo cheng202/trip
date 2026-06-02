@@ -194,6 +194,7 @@
 </div>
 <div class="section" id="spots">
 <h2>三、核心景点详情（按行进顺序）</h2>
+<div style="margin:10px 0 16px"><label style="font-size:13px;color:var(--text-tertiary);margin-right:8px">按省份查看</label><select id="provSelect" style="font-size:14px;padding:7px 12px;border-radius:8px;border:1px solid var(--blue,#3b82f6);background:var(--bg-secondary,#f5f5f7);color:inherit;cursor:pointer;font-weight:600"></select></div>
 <h3>湖南</h3>
 <div class="spot-grid">
 <div class="spot-card s-tier">
@@ -364,6 +365,7 @@
 <div class="section" id="days">
 <h2>五、22 天行程编排（逐日：人文历史地理 + 景点收获玩法 + 时间轴带花费 + 住宿青旅酒店并列过差评 + 美食落到店）</h2>
 <div class="ok-box">本编排由 <strong>美团（真实门店/评分）+ 携程问道（差评辨别/人均）+ 高德 MCP（实测里程/动线）</strong> 实查生成；住宿一律按 <strong>2 人双床</strong> 并列“青旅床位×2 / 经济整间双床 / 标间”三档，默认推荐位用“酒店价≤青旅×2×1.5 即选酒店”规则；已 <strong>砍天门山</strong>、<strong>D13 拆 2 天</strong>。</div>
+<div style="position:sticky;top:0;z-index:20;background:var(--bg,#fff);padding:10px 0;margin-bottom:8px;border-bottom:1px solid var(--border,#e5e5e5)"><label style="font-size:13px;color:var(--text-tertiary);margin-right:8px">选择日期</label><select id="daySelect" style="font-size:14px;padding:7px 12px;border-radius:8px;border:1px solid var(--blue,#3b82f6);background:var(--bg-secondary,#f5f5f7);color:inherit;cursor:pointer;font-weight:600;max-width:88%"></select></div>
 <div class="day-card long"><div class="day-num">DAY 1</div>
 <div class="day-title">武汉 → 荆州古城(下午2点抵达) <span class="day-sub">湖北 荆州</span></div>
 <div class="day-route">🚗 武汉→荆州古城东门 224km/纯开2h40m(高德实测,G4京港澳→G50沪渝→G55二广,跨荆州长江大桥)</div>
@@ -1219,5 +1221,41 @@
     </div>
 </div>
 </div>
+<script>
+(function(){
+  // —— 核心景点：按省份下拉切换 ——
+  var spots=document.getElementById('spots');
+  if(spots){
+    var h3s=Array.prototype.slice.call(spots.querySelectorAll('h3'));
+    var grids=Array.prototype.slice.call(spots.querySelectorAll('.spot-grid'));
+    var ps=document.getElementById('provSelect');
+    if(ps&&h3s.length){
+      var all=document.createElement('option');all.value='-1';all.textContent='🗺 全部省份';ps.appendChild(all);
+      h3s.forEach(function(h,i){var o=document.createElement('option');o.value=i;o.textContent=h.textContent.trim();ps.appendChild(o);});
+      var showP=function(i){h3s.forEach(function(h,j){h.style.display=(i<0||j==i)?'':'none';});grids.forEach(function(g,j){g.style.display=(i<0||j==i)?'':'none';});};
+      ps.addEventListener('change',function(){showP(parseInt(this.value,10));});
+      ps.value='0';showP(0);
+    }
+  }
+  // —— 22 天行程：按日下拉切换 ——
+  var days=document.getElementById('days');
+  if(days){
+    var cards=Array.prototype.slice.call(days.querySelectorAll('.day-card'));
+    var ds=document.getElementById('daySelect');
+    if(ds&&cards.length){
+      var allD=document.createElement('option');allD.value='-1';allD.textContent='📋 全部 '+cards.length+' 天（长页）';ds.appendChild(allD);
+      cards.forEach(function(c,i){
+        var num=c.querySelector('.day-num'), title=c.querySelector('.day-title');
+        var label=num?num.textContent.trim():('DAY '+(i+1));
+        if(title){var tc=title.cloneNode(true);var sub=tc.querySelector('.day-sub');if(sub)sub.parentNode.removeChild(sub);var t=tc.textContent.trim();if(t)label+=' · '+t;}
+        var o=document.createElement('option');o.value=i;o.textContent=label;ds.appendChild(o);
+      });
+      var showD=function(i){cards.forEach(function(c,j){c.style.display=(i<0||j==i)?'':'none';});};
+      ds.addEventListener('change',function(){showD(parseInt(this.value,10));});
+      ds.value='0';showD(0);
+    }
+  }
+})();
+</script>
 </body>
 </html>
